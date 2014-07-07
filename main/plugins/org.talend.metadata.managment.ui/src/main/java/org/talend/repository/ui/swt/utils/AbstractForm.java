@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EventListener;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +51,7 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.repository.IDBMetadataProvider;
+import org.talend.core.ui.context.model.table.ConectionAdaptContextVariableModel;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -398,8 +400,8 @@ public abstract class AbstractForm extends Composite {
             group.setLayoutData(gridData);
 
             Composite exportComposite = Form.startNewGridLayout(group, 2, true, SWT.CENTER, SWT.CENTER);
-
             GC gc = new GC(exportComposite);
+
             String displayStr = Messages.getString("AbstractForm.ExportAsContext"); //$NON-NLS-1$
             Point buttonSize = gc.stringExtent(displayStr);
             exportContextBtn = new UtilsButton(exportComposite, displayStr, buttonSize.x + 12, HEIGHT_BUTTON_PIXEL);
@@ -474,13 +476,25 @@ public abstract class AbstractForm extends Composite {
             if (isContextMode()) {
                 ConnectionContextHelper.openInConetxtModeDialog();
             } else {
-                ContextItem contextItem = ConnectionContextHelper.exportAsContext(connectionItem, getConetxtParams());
+                Map<ContextItem, List<ConectionAdaptContextVariableModel>> variableModels = ConnectionContextHelper
+                        .exportAsContext(connectionItem, getConetxtParams());
                 contextManager = ConnectionContextHelper.contextManager;
-                if (contextItem != null) { // create
-                    if (contextManager instanceof JobContextManager) {
-                        Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
-                        // set properties for context mode
-                        ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem, getConetxtParams(), map);
+
+                Iterator<ContextItem> contextItor = variableModels.keySet().iterator();
+                while (contextItor.hasNext()) {
+                    ContextItem contextItem = contextItor.next();
+                    List<ConectionAdaptContextVariableModel> apaptModels = variableModels.get(contextItem);
+                    if (contextItem != null && apaptModels.size() == 0) { // create
+                        if (contextManager instanceof JobContextManager) {
+                            Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
+                            // set properties for context mode
+                            ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem, getConetxtParams(),
+                                    map);
+                        }
+                    } else {
+                        // set properties for exist context
+                        ConnectionContextHelper.setPropertiesForExistContextMode(connectionItem, getConetxtParams(),
+                                variableModels);
                     }
                     // refresh current UI.
                     initialize();
@@ -489,6 +503,25 @@ public abstract class AbstractForm extends Composite {
             }
         }
     }
+
+    // protected void reuseExistContext() {
+    // if (hasContextBtn() && connectionItem != null) {
+    // if (isContextMode()) {
+    // ConnectionContextHelper.openInConetxtModeDialog();
+    // } else {
+    // contextManager = ConnectionContextHelper.contextManager;
+    // Map<ContextItem, List<ConectionAdaptContextVariableModel>> variableModels = ConnectionContextHelper
+    // .resueExistContext(contextManager, connectionItem, getConetxtParams());
+    // // set properties for context mode
+    // if (variableModels.size() > 0) {
+    // ConnectionContextHelper.setPropertiesForExistContextMode(connectionItem, getConetxtParams(), variableModels);
+    // }
+    // // refresh current UI.
+    // initialize();
+    // adaptFormToEditable();
+    // }
+    // }
+    // }
 
     protected void revertContext() {
         if (hasContextBtn() && connectionItem != null) {
