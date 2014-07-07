@@ -663,36 +663,6 @@ public final class ConnectionContextHelper {
         return isAddContext;
     }
 
-    public static Map<ContextItem, List<ConectionAdaptContextVariableModel>> resueExistContext(IContextManager contextManager,
-            ConnectionItem connectionItem, Set<IConnParamName> conParameters) {
-        ContextItem selectItem = null;
-        Map<ContextItem, List<ConectionAdaptContextVariableModel>> variableContextMap = new HashMap();
-        List<ConectionAdaptContextVariableModel> models = new ArrayList();
-        Set<String> connectionVaribles = getConnVariables(connectionItem, conParameters);
-
-        String contextName = convertContextLabel(connectionItem.getProperty().getLabel());
-
-        ISelection selection = getRepositoryContext(contextName, false);
-
-        if (selection == null) {
-            return null;
-        }
-
-        org.talend.core.ui.context.ReuseRepositoryConextsWizard contextWizard = new org.talend.core.ui.context.ReuseRepositoryConextsWizard(
-                getContextItems(), connectionVaribles);
-        // ReuseRepositoryConextsWizard contextWizard = new ReuseRepositoryConextsWizard(getContextItems(),
-        // connectionVaribles);
-        WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), contextWizard);
-        if (dlg.open() == Window.OK) {
-            models = contextWizard.getAdaptModels();
-            selectItem = contextWizard.getSelectItem();
-            if (selectItem != null && models != null) {
-                variableContextMap.put(selectItem, models);
-            }
-        }
-        return variableContextMap;
-    }
-
     /**
      * 
      * ggu Comment method "checkNodesPropertiesForAddedContextMode".

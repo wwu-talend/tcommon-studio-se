@@ -504,25 +504,6 @@ public abstract class AbstractForm extends Composite {
         }
     }
 
-    // protected void reuseExistContext() {
-    // if (hasContextBtn() && connectionItem != null) {
-    // if (isContextMode()) {
-    // ConnectionContextHelper.openInConetxtModeDialog();
-    // } else {
-    // contextManager = ConnectionContextHelper.contextManager;
-    // Map<ContextItem, List<ConectionAdaptContextVariableModel>> variableModels = ConnectionContextHelper
-    // .resueExistContext(contextManager, connectionItem, getConetxtParams());
-    // // set properties for context mode
-    // if (variableModels.size() > 0) {
-    // ConnectionContextHelper.setPropertiesForExistContextMode(connectionItem, getConetxtParams(), variableModels);
-    // }
-    // // refresh current UI.
-    // initialize();
-    // adaptFormToEditable();
-    // }
-    // }
-    // }
-
     protected void revertContext() {
         if (hasContextBtn() && connectionItem != null) {
             if (isContextMode()) {
