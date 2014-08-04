@@ -480,25 +480,27 @@ public abstract class AbstractForm extends Composite {
                         .exportAsContext(connectionItem, getConetxtParams());
                 contextManager = ConnectionContextHelper.contextManager;
 
-                Iterator<ContextItem> contextItor = variableModels.keySet().iterator();
-                while (contextItor.hasNext()) {
-                    ContextItem contextItem = contextItor.next();
-                    List<ConectionAdaptContextVariableModel> apaptModels = variableModels.get(contextItem);
-                    if (contextItem != null && apaptModels.size() == 0) { // create
-                        if (contextManager instanceof JobContextManager) {
-                            Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
-                            // set properties for context mode
-                            ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem, getConetxtParams(),
-                                    map);
+                if (variableModels != null) {
+                    Iterator<ContextItem> contextItor = variableModels.keySet().iterator();
+                    while (contextItor.hasNext()) {
+                        ContextItem contextItem = contextItor.next();
+                        List<ConectionAdaptContextVariableModel> apaptModels = variableModels.get(contextItem);
+                        if (contextItem != null && apaptModels.size() == 0) { // create
+                            if (contextManager instanceof JobContextManager) {
+                                Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
+                                // set properties for context mode
+                                ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem,
+                                        getConetxtParams(), map);
+                            }
+                        } else {
+                            // set properties for exist context
+                            ConnectionContextHelper.setPropertiesForExistContextMode(connectionItem, getConetxtParams(),
+                                    variableModels);
                         }
-                    } else {
-                        // set properties for exist context
-                        ConnectionContextHelper.setPropertiesForExistContextMode(connectionItem, getConetxtParams(),
-                                variableModels);
+                        // refresh current UI.
+                        initialize();
+                        adaptFormToEditable();
                     }
-                    // refresh current UI.
-                    initialize();
-                    adaptFormToEditable();
                 }
             }
         }

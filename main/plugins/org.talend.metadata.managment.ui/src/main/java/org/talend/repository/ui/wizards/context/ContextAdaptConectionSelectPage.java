@@ -105,6 +105,13 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
         GridData gd = new GridData(GridData.FILL_BOTH);
         gd.widthHint = 100;
         descriptionText.setLayoutData(gd);
+        descriptionText.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                validateField();
+            }
+        });
     }
 
     private void createTableViewer(Composite parent) {
@@ -316,6 +323,10 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
         }
         if (currentWizard != null) {
             this.contextManager = currentWizard.getContextManager();
+            // in case click back and chose another context ,and next again,we need to consider to claer the models
+            if (!isNeedClearModels(adaptModels)) {
+                adaptModels.clear();
+            }
             if (adaptModels.size() == 0) {
                 for (IContextParameter contextVariable : getContextVariableList()) {
                     adaptModels.add(new ConectionAdaptContextVariableModel(contextVariable.getName(), "", ""));
@@ -325,6 +336,30 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
         }
         refresh();
         validateField();
+    }
+
+    private boolean isNeedClearModels(List<ConectionAdaptContextVariableModel> adaptModels) {
+        boolean isSame = true;
+        List<String> contextVariableNames = new ArrayList<String>();
+        List<IContext> contextVariableList = this.contextManager.getListContext();
+        List<IContextParameter> contextVariables = contextVariableList.get(0).getContextParameterList();
+        for (IContextParameter para : contextVariables) {
+            contextVariableNames.add(para.getName());
+        }
+
+        if (adaptModels.size() == contextVariableNames.size()) {
+            for (ConectionAdaptContextVariableModel model : adaptModels) {
+                String modelName = model.getName();
+                if (!contextVariableNames.contains(modelName)) {
+                    isSame = false;
+                    break;
+                }
+            }
+        } else {
+            isSame = false;
+        }
+
+        return isSame;
     }
 
     private void refresh() {
