@@ -1,11 +1,11 @@
 package org.talend.core.model.repository;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.talend.core.model.process.IElement;
-import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
 /**
  * created by ycbai on 2013-3-4 Detailled comment
@@ -17,12 +17,12 @@ public interface IRepositoryTypeProcessor {
 
     public boolean isSelectionValid(RepositoryNode node);
 
-    public IRepositoryNode getInputRoot(IProjectRepositoryNode projectRepoNode);
-
     public ViewerFilter makeFilter();
 
     public String getDialogTitle();
 
     public ILabelProvider getLabelProvider(IElement elem);
+
+    public List<ERepositoryObjectType> getShowRootTypes();
 
 }
