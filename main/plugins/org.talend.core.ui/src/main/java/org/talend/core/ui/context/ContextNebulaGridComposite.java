@@ -65,8 +65,6 @@ import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.properties.ContextItem;
-import org.talend.core.model.properties.Project;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
@@ -80,7 +78,6 @@ import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.nattableTree.ContextNatTableUtils;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
-import org.talend.repository.ProjectManager;
 
 /**
  * created by ldong on Jul 8, 2014 Detailled comment
@@ -173,7 +170,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
             createNatTableGroup(this);
 
-            createNatTable(new ArrayList<ContextTableTabParentModel>());
+            createNatTable();
 
             createButtonsGroup(this);
 
@@ -208,7 +205,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         propertyResized = true;
     }
 
-    private void createNatTable(List<ContextTableTabParentModel> listOfData) {
+    private void createNatTable() {
         ScrolledComposite panel = new ScrolledComposite(contextTableComp, SWT.NULL | SWT.V_SCROLL | SWT.H_SCROLL);
         panel.setLayout(new GridLayout());
         panel.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -220,7 +217,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         subPanel.setLayoutData(layoutDataFillBoth);
         subPanel.setLayout(new GridLayout());
 
-        ContextTreeTable.TControl tControl = treeTable.createTable(subPanel, modelManager, listOfData);
+        ContextTreeTable.TControl tControl = treeTable.createTable(subPanel);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(tControl.getControl());
 
         panel.setContent(subPanel);
@@ -651,8 +648,7 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         contextTableComp.setLayout(dataTableLayout);
         GridData gridData = new GridData(GridData.FILL_BOTH);
         contextTableComp.setLayoutData(gridData);
-        treeTable = new ContextTreeTable();
-        // createNatTable(new ArrayList<ContextTableTabParentModel>());
+        treeTable = new ContextTreeTable(modelManager);
     }
 
     private void createButtonsGroup(Composite parentComposite) {
@@ -735,15 +731,12 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         } else {
             reInitializeUI();
 
-            List<IContext> contextList = getContexts();
-            List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
                     if (!Arrays.asList(contextsCombo.getItems()).contains(context.getName())) {
                         contextsCombo.add(context.getName());
                     }
                 }
-
                 for (int i = 0; i < contextsCombo.getItemCount(); i++) {
                     IContext defaultContext = modelManager.getContextManager().getDefaultContext();
                     if (defaultContext.getName().equals(contextsCombo.getItem(i))) {
@@ -752,21 +745,22 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
                     }
                 }
             }
+
             int visibleItemCount = contextsCombo.getItemCount();
             if (visibleItemCount > 20) {
                 visibleItemCount = 20;
             }
             contextsCombo.setVisibleItemCount(visibleItemCount);
 
-            List<ContextTableTabParentModel> listofData = constructContextDatas(contextDatas);
             // dispose the data table composite
             disposeDataTable();
             // create the data table composite
-            createNatTable(listofData);
+            createNatTable();
 
             contextTableComp.getParent().layout();
             contextTableComp.layout();
             treeTable.refresh();
+
         }
     }
 
@@ -800,84 +794,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
             }
         }
     };
-
-    private ContextTableTabParentModel lookupContextParentForNonBuiltinNode(String sourceId,
-            List<ContextTableTabParentModel> output) {
-        ContextTableTabParentModel firstLevelNode = null;
-        if (output != null && output.size() > 0) {
-            for (ContextTableTabParentModel parent : output) {
-                String tempSourceId = parent.getSourceId();
-                if (tempSourceId != null && sourceId.equals(tempSourceId)) {
-                    firstLevelNode = parent;
-                    break;
-                }
-            }
-        }
-        return firstLevelNode;
-    }
-
-    private List<ContextTableTabParentModel> constructContextDatas(List<IContextParameter> contextDatas) {
-        List<ContextTableTabParentModel> output = new ArrayList<ContextTableTabParentModel>();
-        if (!contextDatas.isEmpty()) {
-            int i = 0;
-            for (IContextParameter para : contextDatas) {
-                String sourceId = para.getSource();
-                if (IContextParameter.BUILT_IN.equals(sourceId)) {
-                    sourceId = para.getSource();
-                    ContextTableTabParentModel firstLevelNode = new ContextTableTabParentModel();
-                    String sourceLabel = sourceId;
-                    ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
-                    if (contextItem != null) {
-                        sourceLabel = contextItem.getProperty().getLabel();
-                        final ProjectManager pm = ProjectManager.getInstance();
-                        if (!pm.isInCurrentMainProject(contextItem)) {
-                            final Project project = pm.getProject(contextItem);
-                            if (project != null) {
-                                firstLevelNode.setProjectLabel(project.getLabel());
-                            }
-                        }
-                    }
-                    firstLevelNode.setOrder(i);
-                    firstLevelNode.setSourceName(sourceLabel);
-                    firstLevelNode.setSourceId(sourceId);
-                    firstLevelNode.setContextParameter(para);
-                    output.add(firstLevelNode);
-                } else {
-                    ContextTableTabParentModel firstLevelNode = null;
-                    if (sourceId != null) {
-                        firstLevelNode = lookupContextParentForNonBuiltinNode(sourceId, output);
-                        if (firstLevelNode == null) {
-                            firstLevelNode = new ContextTableTabParentModel();
-                            output.add(firstLevelNode);
-                            String sourceLabel = sourceId;
-                            ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
-                            if (contextItem != null) {
-                                sourceLabel = contextItem.getProperty().getLabel();
-                                final ProjectManager pm = ProjectManager.getInstance();
-                                if (!pm.isInCurrentMainProject(contextItem)) {
-                                    final Project project = pm.getProject(contextItem);
-                                    if (project != null) {
-                                        firstLevelNode.setProjectLabel(project.getLabel());
-                                    }
-                                }
-                            }
-                            firstLevelNode.setSourceName(sourceLabel);
-                            firstLevelNode.setOrder(i);
-                            firstLevelNode.setSourceId(sourceId);
-                        }
-
-                        ContextTableTabChildModel child = new ContextTableTabChildModel();
-                        child.setSourceId(sourceId);
-                        child.setContextParameter(para);
-                        child.setParent(firstLevelNode);
-                        firstLevelNode.addChild(child);
-                    }
-                }
-                i++;
-            }
-        }
-        return output;
-    }
 
     private void disposeDataTable() {
         if (contextTableComp != null && !contextTableComp.isDisposed()) {
