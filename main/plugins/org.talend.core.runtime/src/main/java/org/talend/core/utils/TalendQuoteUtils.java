@@ -117,11 +117,16 @@ public final class TalendQuoteUtils {
         if (text == null) {
             return null;
         }
-        if (!text.startsWith(quote)) {
-            text = quote + text;
-        }
-        if (!text.endsWith(quote)) {
-            text = text + quote;
+        // Without this if("".equals(text)) judgment, then if the value of text is [], the return value will be ["]
+        if ("".equals(text)) { //$NON-NLS-1$
+            text = quote + quote;
+        } else {
+            if (!text.startsWith(quote)) {
+                text = quote + text;
+            }
+            if (!text.endsWith(quote)) {
+                text = text + quote;
+            }
         }
         return text;
     }
