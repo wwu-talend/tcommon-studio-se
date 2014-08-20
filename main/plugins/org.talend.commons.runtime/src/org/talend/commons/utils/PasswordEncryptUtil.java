@@ -46,6 +46,13 @@ public class PasswordEncryptUtil {
         return key;
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "encryptPassword".
+     * 
+     * TDI-30227, should only work for old migration task.
+     */
+    @Deprecated
     public static String encryptPassword(String input) throws Exception {
         if (input == null || input.length() == 0) {
             return input;
@@ -85,6 +92,13 @@ public class PasswordEncryptUtil {
         return dec;
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "encryptPassword".
+     * 
+     * TDI-30227, should only work for old migration task.
+     */
+    @Deprecated
     public static String decryptPassword(String input) throws Exception, BadPaddingException {
         if (input == null || input.length() == 0) {
             return input;
@@ -104,5 +118,17 @@ public class PasswordEncryptUtil {
             return false;
         }
         return type.equals("Password") || type.equals("id_Password"); //$NON-NLS-1$   //$NON-NLS-2$
+    }
+
+    public static String getPasswordDisplay(String value) {
+        if (value != null) {
+            if (value.length() == 0) {
+                // always display 4 start characters.
+                return "****"; //$NON-NLS-1$
+            } else {
+                return value.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        }
+        return value;
     }
 }

@@ -24,21 +24,19 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
-import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * Utilities to work with IContextParamet objects. <br/>
@@ -73,62 +71,53 @@ public final class ContextParameterUtils {
      * @param language Language of the script.
      * @return Script code invoquing the context parameter.
      */
-    public static String getScriptCode(IContextParameter parameter, ECodeLanguage language) {
-        if (parameter == null || language == null) {
+    public static String getScriptCode(IContextParameter parameter) {
+        if (parameter == null) {
             return null;
         }
-        String code = getScriptCode(parameter.getName(), parameter.getType(), language);
+        String code = getScriptCode(parameter.getName(), parameter.getType());
         if (code == null) {
             return parameter.getName();
         }
         return code;
     }
 
-    public static String getScriptCode(ContextParameterType parameter, ECodeLanguage language) {
-        if (parameter == null || language == null) {
+    public static String getScriptCode(ContextParameterType parameter) {
+        if (parameter == null) {
             return null;
         }
-        String code = getScriptCode(parameter.getName(), parameter.getType(), language);
+        String code = getScriptCode(parameter.getName(), parameter.getType());
         if (code == null) {
             return parameter.getName();
         }
         return code;
     }
 
-    private static String getScriptCode(final String name, final String type, ECodeLanguage language) {
+    private static String getScriptCode(final String name, final String type) {
         if (name == null || type == null) {
             return null;
         }
         String code;
 
         final String string = JAVA_STARTWITH + name + JAVA_ENDWITH;
-        switch (language) {
-        case PERL:
-            code = PERL_STARTWITH + name + PERL_ENDWITH;
-            break;
-        case JAVA:
-            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(type);
-            String typeToGenerate = ContextParameterJavaTypeManager.getTypeToGenerate(type, true);
-            if (javaType.isPrimitive()) {
-                if (typeToGenerate.compareTo("String") == 0) { //$NON-NLS-1$
-                    code = string;
-                } else if (typeToGenerate.compareTo("Integer") == 0) { //$NON-NLS-1$
-                    code = "Integer.parseInt(" + string + ")"; //$NON-NLS-1$ //$NON-NLS-2$
-                } else {
-                    code = typeToGenerate + ".parse" + typeToGenerate + "(" + string + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                }
-            } else if (typeToGenerate.compareTo("java.util.Date") == 0) { //$NON-NLS-1$
-
-                code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "(" + string //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-                        + "))"; //$NON-NLS-1$
-            } else if (typeToGenerate.compareTo("java.lang.Object") == 0) { //$NON-NLS-1$
-                code = "(" + typeToGenerate + ")" + string; //$NON-NLS-1$ //$NON-NLS-2$
+        JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(type);
+        String typeToGenerate = ContextParameterJavaTypeManager.getTypeToGenerate(type, true);
+        if (javaType.isPrimitive()) {
+            if (typeToGenerate.compareTo("String") == 0) { //$NON-NLS-1$
+                code = string;
+            } else if (typeToGenerate.compareTo("Integer") == 0) { //$NON-NLS-1$
+                code = "Integer.parseInt(" + string + ")"; //$NON-NLS-1$ //$NON-NLS-2$
             } else {
-                code = "(" + typeToGenerate + ")" + string; //$NON-NLS-1$ //$NON-NLS-2$
+                code = typeToGenerate + ".parse" + typeToGenerate + "(" + string + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
-            break;
-        default:
-            code = name;
+        } else if (typeToGenerate.compareTo("java.util.Date") == 0) { //$NON-NLS-1$
+
+            code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "(" + string //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                    + "))"; //$NON-NLS-1$
+        } else if (typeToGenerate.compareTo("java.lang.Object") == 0) { //$NON-NLS-1$
+            code = "(" + typeToGenerate + ")" + string; //$NON-NLS-1$ //$NON-NLS-2$
+        } else {
+            code = "(" + typeToGenerate + ")" + string; //$NON-NLS-1$ //$NON-NLS-2$
         }
         return code;
     }
@@ -171,12 +160,10 @@ public final class ContextParameterUtils {
         if (code == null) {
             return null;
         }
-        final ECodeLanguage language = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         if (!isContainContextParam(code)) {
             return code;
         } else {
-            String paraName = getContextString(code, language);
+            String paraName = getContextString(code);
             IContextParameter param = context.getContextParameter(paraName);
             if (param != null) {
                 return parseScriptContextCode(param.getValue(), context);// Multi-layer
@@ -189,21 +176,17 @@ public final class ContextParameterUtils {
         }
     }
 
-    private static String getContextString(String code, ECodeLanguage language) {
-        switch (language) {
-        case PERL:
-            if (containOldContext(code)) {
-                return code.substring(code.indexOf(PERL_STARTWITH) + PERL_STARTWITH.length(), code.indexOf(PERL_ENDWITH));
-            }
-        case JAVA:
+    private static String getContextString(String code) {
+        if (code != null) {
             if (containOldContext(code)) {
                 return code.substring(code.indexOf(JAVA_STARTWITH) + JAVA_STARTWITH.length(), code.indexOf(JAVA_ENDWITH));
             } else if (containNewContext(code)) {
-                return trimContextPrefix(code);
+                if (code.startsWith(JAVA_NEW_CONTEXT_PREFIX)) {
+                    return code.substring(JAVA_NEW_CONTEXT_PREFIX.length());
+                }
             }
-        default:
-            return code;
         }
+        return code;
     }
 
     public static boolean isContainContextParam(String code) {
@@ -217,16 +200,8 @@ public final class ContextParameterUtils {
      * @return
      */
     private static boolean containOldContext(String code) {
-        final ECodeLanguage language = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-        switch (language) {
-        case PERL:
-            return (code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH));
-        case JAVA:
-            return (code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1)) && code.contains(JAVA_ENDWITH));
-        default:
-            return false;
-        }
+        return code != null
+                && (code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1)) && code.contains(JAVA_ENDWITH));
     }
 
     /**
@@ -239,51 +214,8 @@ public final class ContextParameterUtils {
         return containContextVariables(code);
     }
 
-    /**
-     * Tells if a context parameter is a valid name.
-     * 
-     * @param name Context parameter name tested.
-     * @param language Language where the context parameter is used.
-     * @return true if the name is valid, false otherwise.
-     * 
-     * @deprecated should be tested in by the context manager of a process
-     */
-    @Deprecated
-    public static boolean isValidName(String name, ECodeLanguage language) {
-        boolean valid;
-        switch (language) {
-        case PERL:
-            String perlPattern = "[a-zA-Z0-9_]+"; //$NON-NLS-1$
-            Pattern p = Pattern.compile(perlPattern);
-            Matcher m = p.matcher(name);
-            valid = m.matches();
-            break;
-        default:
-            valid = true;
-        }
-        return valid;
-    }
-
-    private static boolean containContextPrefix(String code) {
-        if (code == null) {
-            return false;
-        }
-        return code.startsWith(JAVA_NEW_CONTEXT_PREFIX);
-    }
-
-    /**
-     * 
-     * DOC yexiaowei Comment method "trimContextPrefix".
-     * 
-     * @param code
-     * @return
-     */
-    public static String trimContextPrefix(String code) {
-        if (containContextPrefix(code)) {
-            return code.substring(JAVA_NEW_CONTEXT_PREFIX.length());
-        } else {
-            return code;
-        }
+    public static String getNewScriptCode(final String name) {
+        return getNewScriptCode(name, ECodeLanguage.JAVA);
     }
 
     /**
@@ -296,19 +228,7 @@ public final class ContextParameterUtils {
         if (name == null) {
             return null;
         }
-        String code = null;
-
-        switch (language) {
-        case PERL:
-            code = PERL_STARTWITH + name + PERL_ENDWITH;
-            break;
-        case JAVA:
-            code = JAVA_NEW_CONTEXT_PREFIX + name;
-            break;
-        default:
-            code = name;
-        }
-        return code;
+        return JAVA_NEW_CONTEXT_PREFIX + name;
     }
 
     /**
@@ -324,22 +244,15 @@ public final class ContextParameterUtils {
         // if (isContainContextParam(code)) {
         String pattern = null;
         String varPattern = "(.+?)"; //$NON-NLS-1$
-        switch (LanguageManager.getCurrentLanguage()) {
-        case JAVA:
-            String wordPattern = "\\b"; //$NON-NLS-1$
-            pattern = wordPattern + replaceCharForRegex(JAVA_NEW_CONTEXT_PREFIX) + varPattern + wordPattern;
-            break;
-        case PERL:
-        default:
-            pattern = replaceCharForRegex(PERL_STARTWITH) + varPattern + replaceCharForRegex(PERL_ENDWITH);
-        }
+        String wordPattern = "\\b"; //$NON-NLS-1$
+        pattern = wordPattern + replaceCharForRegex(JAVA_NEW_CONTEXT_PREFIX) + varPattern + wordPattern;
         if (pattern != null) {
             Pattern regex = Pattern.compile(pattern, Pattern.CANON_EQ);
             Matcher regexMatcher = regex.matcher(code);
             if (regexMatcher.find()) {
                 try {
                     String var = regexMatcher.group(1);
-                    if (var != null) {
+                    if (var != null && ContextParameterUtils.isValidParameterName(var)) {
                         return var;
                     }
                 } catch (RuntimeException re) {
@@ -400,15 +313,10 @@ public final class ContextParameterUtils {
             return null;
         }
 
-        final String displayValue = parameter.getDisplayValue();
-        if (isPasswordType(parameter)) {
-            if ("".equals(displayValue)) { //$NON-NLS-1$
-                return "****"; //$NON-NLS-1$
-            } else {
-                return displayValue.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
-            }
+        if (PasswordEncryptUtil.isPasswordType(parameter.getType())) {
+            return PasswordEncryptUtil.getPasswordDisplay(parameter.getValue());
         } else {
-            return displayValue;
+            return parameter.getDisplayValue();
         }
     }
 
@@ -422,15 +330,7 @@ public final class ContextParameterUtils {
         if (parameter == null) {
             return false;
         }
-        return isPasswordType(parameter.getType());
-    }
-
-    public static boolean isPasswordType(String type) {
-        String passwordType = JavaTypesManager.PASSWORD.getLabel(); // perl
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            passwordType = JavaTypesManager.PASSWORD.getId();
-        }
-        return passwordType.equals(type);
+        return PasswordEncryptUtil.isPasswordType(parameter.getType());
     }
 
     public static String updateValue(final String value, final String oldName, final String newName) {
@@ -477,7 +377,7 @@ public final class ContextParameterUtils {
                     }
                 }
                 if (param != null) {
-                    String value2 = param.getValue();
+                    String value2 = param.getRawValue();
                     if (value2 != null) {
                         // return TalendTextUtils.removeQuotes(value2); //some value can't be removed for quote
                         return value2;
@@ -487,5 +387,16 @@ public final class ContextParameterUtils {
             }
         }
         return value;
+    }
+
+    public static boolean isValidParameterName(String name) {
+        if (name != null) {
+            // for java, the var name not be named with java keywords.
+            if (ContextUtils.isJavaKeyWords(name)) {
+                return false;
+            }
+            return Pattern.matches(RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN, name);
+        }
+        return false;
     }
 }

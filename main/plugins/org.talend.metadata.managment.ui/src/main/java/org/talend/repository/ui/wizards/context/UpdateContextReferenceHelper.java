@@ -24,7 +24,6 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -229,19 +228,7 @@ public final class UpdateContextReferenceHelper {
                 itemParameterType.setPrompt(parameter.getPrompt());
                 itemParameterType.setPromptNeeded(parameter.isPromptNeeded());
                 itemParameterType.setType(parameter.getType());
-                if (PasswordEncryptUtil.isPasswordType(itemParameterType.getType())) {
-                    // see 0000949: Encryption of DB passwords in XMI
-                    // repository files
-                    try {
-                        String password = PasswordEncryptUtil.encryptPassword(parameter.getValue());
-                        itemParameterType.setValue(password);
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
-                    }
-
-                } else {
-                    itemParameterType.setValue(parameter.getValue());
-                }
+                itemParameterType.setRawValue(parameter.getValue());
                 return true;
 
             }

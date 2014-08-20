@@ -18,13 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordEncryptUtil;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
@@ -33,10 +28,10 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
-import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -234,13 +229,7 @@ public class JobContextManager implements IContextManager {
                 }
             }
         }
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            // for java, the var name not be named with java keywords.
-            if (ContextUtils.isJavaKeyWords(newContextName)) {
-                return false;
-            }
-        }
-        return Pattern.matches(RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN, newContextName);
+        return ContextParameterUtils.isValidParameterName(newContextName);
     }
 
     @Override
@@ -278,19 +267,7 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setName(contextParam.getName());
                     contextParamType.setPrompt(contextParam.getPrompt());
                     contextParamType.setType(contextParam.getType());
-                    if (PasswordEncryptUtil.isPasswordType(contextParamType.getType())) {
-                        // see 0000949: Encryption of DB passwords in XMI
-                        // repository files
-                        try {
-                            String password = PasswordEncryptUtil.encryptPassword(contextParam.getValue());
-                            contextParamType.setValue(password);
-                        } catch (Exception e) {
-                            ExceptionHandler.process(e);
-                        }
-
-                    } else {
-                        contextParamType.setValue(contextParam.getValue());
-                    }
+                    contextParamType.setRawValue(contextParam.getValue());
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {
@@ -347,30 +324,19 @@ public class JobContextManager implements IContextManager {
                 contextParam.setName(contextParamType.getName());
                 contextParam.setPrompt(contextParamType.getPrompt());
                 originalParamerters.add(contextParam.getName());
-                boolean exists = false;
-                ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
-                if (curLanguage == ECodeLanguage.JAVA) {
-                    exists = true;
-                    try {
-                        ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
-                    } catch (IllegalArgumentException e) {
-                        exists = false;
-                    }
-                } else {
-                    String[] existingTypes;
-                    existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-                    for (String existingType : existingTypes) {
-                        if (existingType.equals(contextParamType.getType())) {
-                            exists = true;
-                        }
-                    }
+                boolean exists = true;
+                try {
+                    ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
+                } catch (IllegalArgumentException e) {
+                    exists = false;
                 }
                 if (exists) {
                     contextParam.setType(contextParamType.getType());
                 } else {
                     contextParam.setType(MetadataTalendType.getDefaultTalendType());
                 }
-                contextParam.setValue(contextParamType.getValue());
+                contextParam.setValue(contextParamType.getRawValue());
+
                 contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
                 contextParam.setComment(contextParamType.getComment());
 

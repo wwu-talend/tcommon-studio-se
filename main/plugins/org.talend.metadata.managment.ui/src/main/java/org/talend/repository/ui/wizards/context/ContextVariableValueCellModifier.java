@@ -45,7 +45,7 @@ public class ContextVariableValueCellModifier implements ICellModifier {
         if (property.equals(ContextConstant.VARIABLE_COLUMN_NAME)) {
             return o.getName();
         } else if (property.equals(ContextConstant.VARIABLE_COLUMN_VALUE)) {
-            return o.getValue();
+            return o.getRawValue();
         }
         return null;
     }
@@ -56,7 +56,7 @@ public class ContextVariableValueCellModifier implements ICellModifier {
         TableItem item = (TableItem) element;
         ContextParameterType o = (ContextParameterType) item.getData();
         if (property.equals(ContextConstant.VARIABLE_COLUMN_VALUE)) {
-            o.setValue((String) value);
+            o.setRawValue((String) value);
             isChanged = true;
         }
         if (isChanged) {

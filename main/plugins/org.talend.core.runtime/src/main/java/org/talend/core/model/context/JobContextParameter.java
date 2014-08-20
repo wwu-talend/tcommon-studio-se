@@ -12,12 +12,10 @@
 // ============================================================================
 package org.talend.core.model.context;
 
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.runtime.CoreRuntimePlugin;
 
 /**
  * Parameter in a context. <br/>
@@ -267,12 +265,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     @Override
     public String getScriptCode() {
         if (this.scriptCode == null) {
-            scriptCode = ContextParameterUtils
-                    .getScriptCode(
-                            this,
-                            ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                                    .getProperty(org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                                    .getLanguage());
+            scriptCode = ContextParameterUtils.getScriptCode(this);
         }
         return this.scriptCode;
     }

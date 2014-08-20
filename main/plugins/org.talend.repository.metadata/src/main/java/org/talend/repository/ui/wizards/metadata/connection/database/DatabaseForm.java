@@ -125,6 +125,7 @@ import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -619,7 +620,7 @@ public class DatabaseForm extends AbstractForm {
                 for (ContextParameterType param : (List<ContextParameterType>) selectedContextType.getContextParameter()) {
                     if (param.getName() != null && param.getName().endsWith(ConnectionContextHelper.LINE + EDBParamName.Schema)) {
                         if (getConnection().isContextMode()) {
-                            schema = "context." + param.getName();
+                            schema = ContextParameterUtils.getNewScriptCode(param.getName(), ECodeLanguage.JAVA);
                         } else {
                             schema = param.getValue();
                         }

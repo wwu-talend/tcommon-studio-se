@@ -477,29 +477,6 @@ public final class ConnectionContextHelper {
         return selection;
     }
 
-    @SuppressWarnings("unchecked")
-    static String getContextValue(ContextType contextType, final String value, final String paramName) {
-        if (value == null) {
-            return EMPTY;
-        }
-
-        if (contextType != null && ContextParameterUtils.isContainContextParam(value)) {
-            ContextParameterType param = null;
-            for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
-                if (paramType.getName().equals(paramName)) {
-                    param = paramType;
-                    break;
-                }
-            }
-            if (param != null && param.getValue() != null) {
-                return param.getValue();
-            }
-            return EMPTY;
-        }
-        return value;
-
-    }
-
     /**
      * 
      * ggu Comment method "upateContext".

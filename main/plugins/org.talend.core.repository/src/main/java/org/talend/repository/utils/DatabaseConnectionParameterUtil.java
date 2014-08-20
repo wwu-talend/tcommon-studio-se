@@ -54,7 +54,7 @@ public class DatabaseConnectionParameterUtil {
                                     if (obj instanceof ContextParameterType) {
                                         ContextParameterType type = (ContextParameterType) obj;
                                         if (type.getName().equals(paramValue)) {
-                                            paramValue = type.getValue();
+                                            paramValue = type.getRawValue();
                                             break;
                                         }
                                     }
@@ -97,10 +97,11 @@ public class DatabaseConnectionParameterUtil {
                                     if (obj instanceof ContextParameterType) {
                                         ContextParameterType type = (ContextParameterType) obj;
                                         if (type.getName().equals(tempVlaue)) {
-                                            if (type.getValue() == null) {
+                                            String value = type.getRawValue();
+                                            if (value == null) {
                                                 paramValue = "";
                                             } else {
-                                                paramValue = type.getValue();
+                                                paramValue = value;
                                             }
                                             break;
                                         }

@@ -56,7 +56,7 @@ public class BaseConnectionContextHelper {
      * 
      * if value is context mode, return original value.
      */
-    @SuppressWarnings("unchecked")//$NON-NLS-1$
+    @SuppressWarnings("unchecked")
     public static String getOriginalValue(ContextType contextType, final String value) {
         if (value == null) {
             return EMPTY;
@@ -72,7 +72,7 @@ public class BaseConnectionContextHelper {
                     }
                 }
                 if (param != null) {
-                    String value2 = param.getValue();
+                    String value2 = param.getRawValue();
                     if (value2 != null) {
                         // return TalendTextUtils.removeQuotes(value2); //some value can't be removed for quote
                         return value2;

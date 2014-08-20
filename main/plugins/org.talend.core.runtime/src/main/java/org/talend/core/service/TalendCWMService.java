@@ -47,7 +47,7 @@ public class TalendCWMService {
                     }
                 }
                 if (param != null) {
-                    String value2 = param.getValue();
+                    String value2 = param.getRawValue();
                     if (value2 != null) {
                         return value2;
                     }

@@ -121,7 +121,7 @@ public final class UpdateContextVariablesHelper {
             return false;
         }
         // get old syntax map of the context variables.
-        Map<String, String> replacedScriptCodeMap = retrieveReplacedScriptCodeMap((List<ContextType>) processType.getContext(),
+        Map<String, String> replacedScriptCodeMap = retrieveReplacedScriptCodeMap(processType.getContext(),
                 processType.getDefaultContext());
         if (replacedScriptCodeMap.isEmpty()) {
             return false;
@@ -138,13 +138,11 @@ public final class UpdateContextVariablesHelper {
 
         boolean changed = false;
         // update process parameter
-        changed = updateElementParameter((List<ElementParameterType>) processType.getParameters().getElementParameter(),
-                varScriptCodeMap, oldSyntax);
+        changed = updateElementParameter(processType.getParameters().getElementParameter(), varScriptCodeMap, oldSyntax);
         // update nodes parameter
         for (NodeType node : (List<NodeType>) processType.getNode()) {
             // update parameter
-            changed |= updateElementParameter((List<ElementParameterType>) node.getElementParameter(), varScriptCodeMap,
-                    oldSyntax);
+            changed |= updateElementParameter(node.getElementParameter(), varScriptCodeMap, oldSyntax);
 
             // update extend node data
             String strdata = node.getStringData();
@@ -159,8 +157,7 @@ public final class UpdateContextVariablesHelper {
         // update links parameters(bug 3993)
         for (ConnectionType conn : (List<ConnectionType>) processType.getConnection()) {
             // update parameter
-            changed |= updateElementParameter((List<ElementParameterType>) conn.getElementParameter(), varScriptCodeMap,
-                    oldSyntax);
+            changed |= updateElementParameter(conn.getElementParameter(), varScriptCodeMap, oldSyntax);
         }
         return changed;
     }
@@ -171,7 +168,7 @@ public final class UpdateContextVariablesHelper {
             return false;
         }
         boolean changed = false;
-        for (ElementParameterType eleParameterType : (List<ElementParameterType>) eleParameterList) {
+        for (ElementParameterType eleParameterType : eleParameterList) {
             String oldValue = eleParameterType.getValue();
             if (oldValue != null) {
                 String newValue = hasAndReplaceValue(oldValue, varScriptCodeMap, oldSyntax);
@@ -319,7 +316,7 @@ public final class UpdateContextVariablesHelper {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
 
         for (ContextParameterType parameter : (List<ContextParameterType>) contextType.getContextParameter()) {
-            String oldCode = ContextParameterUtils.getScriptCode(parameter, language);
+            String oldCode = ContextParameterUtils.getScriptCode(parameter);
             String newCode = ContextParameterUtils.getNewScriptCode(parameter.getName(), language);
             varsScriptCodeMap.put(oldCode, newCode);
         }
