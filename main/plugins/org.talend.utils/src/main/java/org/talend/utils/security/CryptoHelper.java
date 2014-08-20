@@ -75,6 +75,9 @@ public class CryptoHelper {
     }
 
     public String encrypt(String str) {
+        if (str == null) {
+            return null;
+        }
         if (EMPTY_STRING.equals(str)) {
             return EMPTY_STRING;
         }
@@ -88,6 +91,9 @@ public class CryptoHelper {
     }
 
     public String decrypt(String str) {
+        if (str == null) {
+            return null;
+        }
         if (EMPTY_STRING.equals(str)) {
             return EMPTY_STRING;
         }
