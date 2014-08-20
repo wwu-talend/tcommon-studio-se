@@ -118,6 +118,8 @@ public class ContextTreeTable {
     // by default sort by the model id
     private final static String TREE_CONTEXT_ID = "orderId";
 
+    private final static int DEFAULT_WIDTH = 760;
+
     public ContextTreeTable() {
     }
 
@@ -254,6 +256,10 @@ public class ContextTreeTable {
 
             int maxWidth = (comWidth > dataColumnsWidth) ? comWidth : dataColumnsWidth;
 
+            if (maxWidth < DEFAULT_WIDTH) {
+                maxWidth = DEFAULT_WIDTH;
+            }
+
             // for caculate the suitable column size for when maxmum or minmum the context tab
 
             addCustomColumnsResizeBehaviour(bodyDataLayer, hideColumnsPos, checkColumnPos, cornerLayer.getWidth(), maxWidth);
@@ -348,38 +354,46 @@ public class ContextTreeTable {
         dataLayer.setColumnsResizableByDefault(true);
         int dataColumnsCount = dataLayer.getPreferredColumnCount();
 
-        int fixedCheckBoxWidth = 30;
-
-        int fixedTypeWidth = 90;
-
-        int typeColumnPos = dataLayer.getColumnPositionByIndex(1);
-
-        int leftWidth = maxWidth - cornerWith - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size();
-
-        int currentColumnsCount = dataColumnsCount - hideColumnsPos.size() - checkColumnsPos.size() - 1;
-        int averageWidth = leftWidth / currentColumnsCount;
-        for (int i = 0; i < dataLayer.getColumnCount(); i++) {
-            boolean findHide = false;
-            boolean findCheck = false;
-            boolean findType = false;
-            if (typeColumnPos == i) {
-                findType = true;
-                dataLayer.setColumnWidthByPosition(i, fixedTypeWidth);
-            }
-            for (int hidePos : hideColumnsPos) {
-                if (hidePos == i) {
-                    findHide = true;
-                    dataLayer.setColumnWidthByPosition(i, 0);
-                }
-            }
-            for (int checkPos : checkColumnsPos) {
-                if (checkPos == i) {
-                    findCheck = true;
-                    dataLayer.setColumnWidthByPosition(i, fixedCheckBoxWidth);
-                }
-            }
-            if (!findHide && !findCheck && !findType) {
+        if (dataColumnsCount == 2) {
+            int averageWidth = maxWidth / dataColumnsCount;
+            for (int i = 0; i < dataColumnsCount; i++) {
                 dataLayer.setColumnWidthByPosition(i, averageWidth);
+            }
+        } else {
+
+            int fixedCheckBoxWidth = 30;
+
+            int fixedTypeWidth = 90;
+
+            int typeColumnPos = dataLayer.getColumnPositionByIndex(1);
+
+            int leftWidth = maxWidth - cornerWith - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size();
+
+            int currentColumnsCount = dataColumnsCount - hideColumnsPos.size() - checkColumnsPos.size() - 1;
+            int averageWidth = leftWidth / currentColumnsCount;
+            for (int i = 0; i < dataLayer.getColumnCount(); i++) {
+                boolean findHide = false;
+                boolean findCheck = false;
+                boolean findType = false;
+                if (typeColumnPos == i) {
+                    findType = true;
+                    dataLayer.setColumnWidthByPosition(i, fixedTypeWidth);
+                }
+                for (int hidePos : hideColumnsPos) {
+                    if (hidePos == i) {
+                        findHide = true;
+                        dataLayer.setColumnWidthByPosition(i, 0);
+                    }
+                }
+                for (int checkPos : checkColumnsPos) {
+                    if (checkPos == i) {
+                        findCheck = true;
+                        dataLayer.setColumnWidthByPosition(i, fixedCheckBoxWidth);
+                    }
+                }
+                if (!findHide && !findCheck && !findType) {
+                    dataLayer.setColumnWidthByPosition(i, averageWidth);
+                }
             }
         }
     }

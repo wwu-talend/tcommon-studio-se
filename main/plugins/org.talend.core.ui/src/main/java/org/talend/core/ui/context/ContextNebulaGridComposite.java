@@ -77,6 +77,7 @@ import org.talend.core.ui.context.model.table.ContextTableCellModifier;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
+import org.talend.core.ui.context.nattableTree.ContextNatTableUtils;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.ProjectManager;
@@ -129,6 +130,12 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private Composite contextTableComp;
 
+    private Composite messageComp;
+
+    private Composite contextsSelectComp;
+
+    private Composite buttonsComp;
+
     private ContextTreeTable treeTable;
 
     /**
@@ -158,44 +165,35 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
      * @param viewer
      */
     private void initializeUI() {
-        createContextsGroup(this);
 
-        contextTableComp = new Composite(this, SWT.NULL);
-        GridLayout dataTableLayout = new GridLayout(1, Boolean.TRUE);
-        contextTableComp.setLayout(dataTableLayout);
-        GridData gridData = new GridData(GridData.FILL_BOTH);
-        // gridData.heightHint = 550;
-        // gridData.widthHint = 500;
-        contextTableComp.setLayoutData(gridData);
-        treeTable = new ContextTreeTable();
+        if (!ContextNatTableUtils.checkIsInstallExternalJar()) {
+            createMessageGroup(this);
+        } else {
+            createContextsGroup(this);
 
-        createNatTable(new ArrayList<ContextTableTabParentModel>());
+            createNatTableGroup(this);
 
-        final Composite buttonsComposite = new Composite(this, SWT.NONE);
-        buttonsComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComposite);
-        buttonList.clear();
-        Button addButton = createAddPushButton(buttonsComposite);
-        buttonList.add(addButton);
-        removeButton = createRemovePushButton(buttonsComposite);
-        buttonList.add(removeButton);
+            createNatTable(new ArrayList<ContextTableTabParentModel>());
 
-        boolean isRepositoryContext = (modelManager instanceof ContextComposite)
-                && ((ContextComposite) modelManager).isRepositoryContext();
-        if (!isRepositoryContext) {// for bug 7393
-            moveUpButton = createMoveUpPushButton(buttonsComposite);
-            buttonList.add(moveUpButton);
-            moveDownButton = createMoveDownPushButton(buttonsComposite);
-            buttonList.add(moveDownButton);
+            createButtonsGroup(this);
+
+            addListener(SWT.Resize, resizeListener);
         }
+    }
 
-        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-            Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComposite);
-            buttonList.add(selectContextVariablesButton);
+    /**
+     * need force refresh here after install the external jar
+     */
+    private void reInitializeUI() {
+        if (messageComp != null && !messageComp.isDisposed()) {
+            messageComp.dispose();
         }
-        // propertyResized = true;
-        addListener(SWT.Resize, resizeListener);
-        // resizeScrolledComposite();
+        if (contextsSelectComp == null && contextTableComp == null && buttonsComp == null) {
+            initializeUI();
+        }
+        if (getContextManager() == null) {
+            this.getParent().setEnabled(false);
+        }
     }
 
     private int lastCompositeSize = 0;
@@ -589,8 +587,20 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         return editorListener;
     }
 
+    private void createMessageGroup(Composite parentComposite) {
+        parentComposite.setLayout(new GridLayout(3, false));
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        parentComposite.setLayoutData(gridData);
+        GridLayout layout2 = (GridLayout) parentComposite.getLayout();
+        layout2.marginHeight = 0;
+        layout2.marginTop = 0;
+        layout2.marginBottom = 0;
+        messageComp = new ContextMissSettingComposite(parentComposite, SWT.NULL);
+        messageComp.setLayoutData(new GridData(GridData.FILL_BOTH));
+    }
+
     private void createContextsGroup(Composite parentComposite) {
-        Composite contextsSelectComp = new Composite(parentComposite, SWT.NULL);
+        contextsSelectComp = new Composite(parentComposite, SWT.NULL);
         contextsSelectComp.setLayout(new GridLayout(3, false));
         GridLayout layout2 = (GridLayout) contextsSelectComp.getLayout();
         layout2.marginHeight = 0;
@@ -635,10 +645,49 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         });
     }
 
+    private void createNatTableGroup(Composite parentComposite) {
+        contextTableComp = new Composite(this, SWT.NULL);
+        GridLayout dataTableLayout = new GridLayout(1, Boolean.TRUE);
+        contextTableComp.setLayout(dataTableLayout);
+        GridData gridData = new GridData(GridData.FILL_BOTH);
+        contextTableComp.setLayoutData(gridData);
+        treeTable = new ContextTreeTable();
+        // createNatTable(new ArrayList<ContextTableTabParentModel>());
+    }
+
+    private void createButtonsGroup(Composite parentComposite) {
+        buttonsComp = new Composite(parentComposite, SWT.NONE);
+        buttonsComp.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
+        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.DOWN).grab(true, false).applyTo(buttonsComp);
+        buttonList.clear();
+        Button addButton = createAddPushButton(buttonsComp);
+        buttonList.add(addButton);
+        removeButton = createRemovePushButton(buttonsComp);
+        buttonList.add(removeButton);
+
+        boolean isRepositoryContext = (modelManager instanceof ContextComposite)
+                && ((ContextComposite) modelManager).isRepositoryContext();
+        if (!isRepositoryContext) {// for bug 7393
+            moveUpButton = createMoveUpPushButton(buttonsComp);
+            buttonList.add(moveUpButton);
+            moveDownButton = createMoveDownPushButton(buttonsComp);
+            buttonList.add(moveDownButton);
+        }
+
+        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+            Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComp);
+            buttonList.add(selectContextVariablesButton);
+        }
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
-        configContext.setEnabled(enabled);
-
+        if (configContext != null) {
+            configContext.setEnabled(enabled);
+        }
+        if (messageComp != null) {
+            this.getParent().setEnabled(true);
+        }
     }
 
     private ICellEditorListener editorListener;
@@ -679,51 +728,46 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     @Override
     public void refresh() {
-        List<IContext> contextList = getContexts();
-        List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
-        if (modelManager.getContextManager() != null) {
-            for (IContext context : modelManager.getContextManager().getListContext()) {
-                if (!Arrays.asList(contextsCombo.getItems()).contains(context.getName())) {
-                    contextsCombo.add(context.getName());
+        if (!ContextNatTableUtils.checkIsInstallExternalJar()) {
+            if (messageComp == null && messageComp.isDisposed()) {
+                createMessageGroup(this);
+            }
+        } else {
+            reInitializeUI();
+
+            List<IContext> contextList = getContexts();
+            List<IContextParameter> contextDatas = ContextTemplateComposite.computeContextTemplate(contextList);
+            if (modelManager.getContextManager() != null) {
+                for (IContext context : modelManager.getContextManager().getListContext()) {
+                    if (!Arrays.asList(contextsCombo.getItems()).contains(context.getName())) {
+                        contextsCombo.add(context.getName());
+                    }
+                }
+
+                for (int i = 0; i < contextsCombo.getItemCount(); i++) {
+                    IContext defaultContext = modelManager.getContextManager().getDefaultContext();
+                    if (defaultContext.getName().equals(contextsCombo.getItem(i))) {
+                        contextsCombo.select(i);
+                        break;
+                    }
                 }
             }
-
-            for (int i = 0; i < contextsCombo.getItemCount(); i++) {
-                IContext defaultContext = modelManager.getContextManager().getDefaultContext();
-                if (defaultContext.getName().equals(contextsCombo.getItem(i))) {
-                    contextsCombo.select(i);
-                    break;
-                }
+            int visibleItemCount = contextsCombo.getItemCount();
+            if (visibleItemCount > 20) {
+                visibleItemCount = 20;
             }
+            contextsCombo.setVisibleItemCount(visibleItemCount);
+
+            List<ContextTableTabParentModel> listofData = constructContextDatas(contextDatas);
+            // dispose the data table composite
+            disposeDataTable();
+            // create the data table composite
+            createNatTable(listofData);
+
+            contextTableComp.getParent().layout();
+            contextTableComp.layout();
+            treeTable.refresh();
         }
-        int visibleItemCount = contextsCombo.getItemCount();
-        if (visibleItemCount > 20) {
-            visibleItemCount = 20;
-        }
-        contextsCombo.setVisibleItemCount(visibleItemCount);
-
-        List<ContextTableTabParentModel> listofData = constructContextDatas(contextDatas);
-        // dispose the data table composite
-        disposeDataTable();
-        // create the data table composite
-        createNatTable(listofData);
-
-        contextTableComp.getParent().layout();
-        contextTableComp.layout();
-        treeTable.refresh();
-
-        // if (propertyResized) {
-        // try {
-        // removeListener(SWT.Resize, resizeListener);
-        // contextTableComp.getParent().layout();
-        //
-        // contextTableComp.pack();
-        // propertyResized = false;
-        // addListener(SWT.Resize, resizeListener);
-        // } catch (Exception e) {
-        // }
-        //
-        // }
     }
 
     public int getLastCompositeSize() {
@@ -749,13 +793,9 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
                     @Override
                     public void run() {
                         if (!isDisposed() && !getParent().isDisposed()) {
-                            int currentSize = getParent().getClientArea().height;
-                            // if (getLastCompositeSize() != currentSize) {
                             refresh();
-                            // }
                         }
                     }
-
                 });
             }
         }
@@ -842,6 +882,22 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
     private void disposeDataTable() {
         if (contextTableComp != null && !contextTableComp.isDisposed()) {
             for (Control control : contextTableComp.getChildren()) {
+                control.dispose();
+            }
+        }
+    }
+
+    private void disposeContextsGroup() {
+        if (contextsSelectComp != null && !contextsSelectComp.isDisposed()) {
+            for (Control control : contextsSelectComp.getChildren()) {
+                control.dispose();
+            }
+        }
+    }
+
+    private void disposeButtonsGroup() {
+        if (buttonsComp != null && !buttonsComp.isDisposed()) {
+            for (Control control : buttonsComp.getChildren()) {
                 control.dispose();
             }
         }

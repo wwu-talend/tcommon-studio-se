@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.ui.context.nattableTree;
 
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -24,6 +26,8 @@ import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
  * 
  */
 public class ContextNatTableUtils {
+
+    public static final String REQUIRE_BUNDLE_NAME = "org.talend.libraries.nattable"; //$NON-NLS-1$
 
     public static boolean isEmptyTreeNode(Object treeData) {
         if (treeData instanceof ContextTableTabParentModel) {
@@ -61,6 +65,16 @@ public class ContextNatTableUtils {
             }
         }
         return para;
+    }
+
+    public static boolean checkIsInstallExternalJar() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+            ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerUIService.class);
+
+            return libUiService.isModuleInstalledForBundle(REQUIRE_BUNDLE_NAME);
+        }
+        return false;
     }
 
 }

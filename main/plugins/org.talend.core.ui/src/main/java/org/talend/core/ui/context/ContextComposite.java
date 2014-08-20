@@ -31,6 +31,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.ui.context.nattableTree.ContextNatTableUtils;
 import org.talend.designer.core.ui.editor.cmd.ContextAddParameterCommand;
 import org.talend.designer.core.ui.editor.cmd.ContextChangeDefaultCommand;
 import org.talend.designer.core.ui.editor.cmd.ContextRemoveParameterCommand;
@@ -88,9 +89,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     public void setPart(EditorPart part) {
         this.part = part;
-        refreshTemplateTab();
         refreshTableTab();
-        refreshTreeTab();
     }
 
     public void setTabEnable(boolean enable) {
@@ -127,7 +126,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     private void refreshTab() {
-        if (getContextManager() == null) {
+        if (getContextManager() == null && !ContextNatTableUtils.checkIsInstallExternalJar()) { // &&
             this.setEnabled(false);
             tableNebulas.clear();
             tableNebulas.setEnabled(isReadOnly());
