@@ -1,7 +1,6 @@
 package org.talend.core.model.metadata.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,7 +20,7 @@ public class ConvertionHelperTest {
     @Rule
     public PowerMockRule powerMockRule = new PowerMockRule();
 
-	@Test
+    @Test
     public void testConvertDatabaseConnectionBooleanString() {
         DatabaseConnection dbProvider = ConnectionFactory.eINSTANCE.createDatabaseConnection();
 
@@ -83,7 +82,7 @@ public class ConvertionHelperTest {
         dbProvider.setId("_9bw28cccEeGQNaw_qcyMFw"); //$NON-NLS-1$
         dbProvider.setLabel("jdbcmysql1"); //$NON-NLS-1$
         dbProvider.setNullChar(""); //$NON-NLS-1$
-        dbProvider.setPassword("shenze"); //$NON-NLS-1$
+        dbProvider.setRawPassword("shenze"); //$NON-NLS-1$
         dbProvider.setPort("3306"); //$NON-NLS-1$
         dbProvider.setServerName(""); //$NON-NLS-1$
         dbProvider.setSqlSynthax("SQL Syntax"); //$NON-NLS-1$
@@ -95,8 +94,8 @@ public class ConvertionHelperTest {
         dbProvider.setDbmsId("mysql_id"); //$NON-NLS-1$
         dbProvider.setProductId("JDBC"); //$NON-NLS-1$
         dbProvider.setDBRootPath(""); //$NON-NLS-1$
-        dbProvider.setSQLMode(false); //$NON-NLS-1$
-        dbProvider.setContextMode(false); //$NON-NLS-1$
+        dbProvider.setSQLMode(false);
+        dbProvider.setContextMode(false);
         dbProvider.setContextId(""); //$NON-NLS-1$
         dbProvider.setContextName(""); //$NON-NLS-1$
         ConnectionHelper.setPurpose("my test purpose", dbProvider); //$NON-NLS-1$

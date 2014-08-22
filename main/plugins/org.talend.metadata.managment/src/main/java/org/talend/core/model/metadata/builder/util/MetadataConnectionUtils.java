@@ -248,7 +248,7 @@ public class MetadataConnectionUtils {
         } else {
             metadataConnection = new MetadataConnection();
             String dbUrl = databaseConnection.getURL();
-            String password = databaseConnection.getPassword();
+            String password = databaseConnection.getRawPassword();
             String userName = databaseConnection.getUsername();
             String dbType = databaseConnection.getDatabaseType();
             String driverClass = databaseConnection.getDriverClass() == null ? EDatabase4DriverClassName
@@ -274,7 +274,7 @@ public class MetadataConnectionUtils {
 
                     if (origValueConn != null) {
                         dbUrl = origValueConn.getURL();
-                        password = origValueConn.getPassword();
+                        password = origValueConn.getRawPassword();
                         userName = origValueConn.getUsername();
                         driverClass = origValueConn.getDriverClass();
                         driverJarPath = origValueConn.getDriverJarPath();

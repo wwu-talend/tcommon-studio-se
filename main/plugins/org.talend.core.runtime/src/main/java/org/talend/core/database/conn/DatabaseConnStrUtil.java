@@ -255,7 +255,7 @@ public class DatabaseConnStrUtil {
     public static String getURLString(final boolean supportContext, final DatabaseConnection conn) {
         if (conn != null) {
             return getURLString(conn.getDatabaseType(), conn.getDbVersionString(), conn.getServerName(), conn.getUsername(),
-                    conn.getPassword(), conn.getPort(), conn.getSID(), conn.getFileFieldName(), conn.getDatasourceName(),
+                    conn.getRawPassword(), conn.getPort(), conn.getSID(), conn.getFileFieldName(), conn.getDatasourceName(),
                     conn.getDBRootPath(), conn.getAdditionalParams());
         }
         return DatabaseConnConstants.EMPTY;

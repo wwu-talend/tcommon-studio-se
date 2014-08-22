@@ -239,7 +239,7 @@ public class DqRepositoryViewServiceTest {
         DatabaseConnection databaseConnection = ConnectionPackage.eINSTANCE.getConnectionFactory().createDatabaseConnection();
         databaseConnection.setLabel(getClass().getName() + "_CONN"); //$NON-NLS-1$
         databaseConnection.setURL("mysql:jdbc://FACK_IP:3306/tbi"); //$NON-NLS-1$
-        databaseConnection.setPassword(""); //$NON-NLS-1$
+        databaseConnection.setRawPassword(""); //$NON-NLS-1$
         databaseConnection.setUsername(""); //$NON-NLS-1$
         databaseConnection.setDatabaseType(EDatabase4DriverClassName.MYSQL.getDbTypeName());
         databaseConnection.setDriverClass(EDatabase4DriverClassName.MYSQL.getDriverClass());

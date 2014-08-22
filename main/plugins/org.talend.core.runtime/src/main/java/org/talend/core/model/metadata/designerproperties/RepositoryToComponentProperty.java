@@ -944,7 +944,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getPassword());
+                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getRawPassword());
                 return TalendQuoteUtils.addQuotes(pwd);
             }
         }

@@ -212,7 +212,8 @@ public class ConnectionHelper {
      * @return the technical name of the element (or null if none)
      */
     public static String getTechnicalName(ModelElement element) {
-        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.TECH_NAME_TAGGED_VAL, element.getTaggedValue());
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.TECH_NAME_TAGGED_VAL,
+                element.getTaggedValue());
         if (taggedValue == null) {
             return "";
         }
@@ -227,7 +228,8 @@ public class ConnectionHelper {
      * @return true if the value was not set before.
      */
     public static boolean setIdentifierQuoteString(String identifierQuoteString, Connection dataProvider) {
-        return TaggedValueHelper.setTaggedValue(dataProvider, TaggedValueHelper.DB_IDENTIFIER_QUOTE_STRING, identifierQuoteString);
+        return TaggedValueHelper
+                .setTaggedValue(dataProvider, TaggedValueHelper.DB_IDENTIFIER_QUOTE_STRING, identifierQuoteString);
     }
 
     /**
@@ -246,8 +248,8 @@ public class ConnectionHelper {
     }
 
     /**
-     * Method "getDatabaseConnection" returns the data provider when the catalog (or schema) is associated to only one data provider. It
-     * returns null if there is no data provider or more than one data provider.
+     * Method "getDatabaseConnection" returns the data provider when the catalog (or schema) is associated to only one
+     * data provider. It returns null if there is no data provider or more than one data provider.
      * 
      * @param catalog the catalog or schema
      * @return the associated data provider or null
@@ -323,7 +325,8 @@ public class ConnectionHelper {
     }
 
     /**
-     * Method "getDatabaseConnection" adds the DatabaseConnections found in the objects collection into the resultingCollection.
+     * Method "getDatabaseConnection" adds the DatabaseConnections found in the objects collection into the
+     * resultingCollection.
      * 
      * @param objects collection in which to search for DatabaseConnections (must not be null)
      * @param resultingCollection the collection in which the DatabaseConnections are added (must not be null).
@@ -666,7 +669,8 @@ public class ConnectionHelper {
                 String sid = dbConn.getSID();
                 if (sid != null && !"".equals(sid.trim())) {
                     // MOD klliu bug 22900
-                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.RETRIEVE_ALL, element.getTaggedValue());
+                    TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.RETRIEVE_ALL,
+                            element.getTaggedValue());
                     // if connection is created by 4.2 or 5.0 ,the tagedValue(RETRIEVE_ALL) has been removed.
                     if (taggedValue != null) {
                         String value = taggedValue.getValue();
@@ -920,7 +924,8 @@ public class ConnectionHelper {
     }
 
     /**
-     * return a set of all MetadataTable linked to this connection by inspecting through all the connection Package and sub-packages
+     * return a set of all MetadataTable linked to this connection by inspecting through all the connection Package and
+     * sub-packages
      * 
      * @param connection the connection to find the related table
      * @return a set of tables.
@@ -983,7 +988,8 @@ public class ConnectionHelper {
     }
 
     /**
-     * return the list of schemas related to a Connectio, it is look for direct Schema and all the potential Schema owned by a Schema.
+     * return the list of schemas related to a Connectio, it is look for direct Schema and all the potential Schema
+     * owned by a Schema.
      * 
      * @param connection, the connection to look for schemas
      * @return Set of unique Schemas related to the connection
@@ -993,7 +999,8 @@ public class ConnectionHelper {
     }
 
     /**
-     * return the list of Catalogs related to a Connectio, it is look for direct Catalog and all the potential Catalog owned by a Catalog.
+     * return the list of Catalogs related to a Connectio, it is look for direct Catalog and all the potential Catalog
+     * owned by a Catalog.
      * 
      * @param connection, the connection to look for Catalogs
      * @return Set of unique Catalogs related to the connection
@@ -1043,8 +1050,7 @@ public class ConnectionHelper {
      * @return
      */
     public static String getDecryptPassword(String password) {
-        CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
-        return cryptoHelper.decrypt(password);
+        return CryptoHelper.DEFAULT.decrypt(password);
     }
 
     /**
@@ -1054,8 +1060,7 @@ public class ConnectionHelper {
      * @return
      */
     public static String getEncryptPassword(String password) {
-        CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
-        return cryptoHelper.encrypt(password);
+        return CryptoHelper.DEFAULT.encrypt(password);
     }
 
     /**
@@ -1282,7 +1287,7 @@ public class ConnectionHelper {
     public static void setPassword(Connection conn, String password) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         if (dbConn != null) {
-            dbConn.setPassword(ConnectionHelper.getEncryptPassword(password));
+            dbConn.setRawPassword(password);
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
@@ -1299,7 +1304,7 @@ public class ConnectionHelper {
     public static String getPassword(Connection conn) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         if (dbConn != null) {
-            return dbConn.getPassword();
+            return dbConn.getRawPassword();
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {
@@ -1356,8 +1361,8 @@ public class ConnectionHelper {
     // ~
 
     /**
-     * Compares this Using URL tagged value to the specified connection. The result is true if and only if the url is not equal with the
-     * tagged value. yyi 2011-04-14
+     * Compares this Using URL tagged value to the specified connection. The result is true if and only if the url is
+     * not equal with the tagged value. yyi 2011-04-14
      * 
      * @param conn
      * @return <code>true</code> if the <code>Url </code>are not equal; <code>false</code> otherwise.

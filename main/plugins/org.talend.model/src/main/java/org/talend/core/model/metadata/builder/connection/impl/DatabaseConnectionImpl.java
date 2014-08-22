@@ -14,11 +14,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.utils.security.CryptoHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Database Connection</b></em>'. <!--
@@ -768,30 +767,19 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @not generated
+     * @generated
      */
     public String getPassword() {
-        if (!contextMode) {
-            try {
-                return PasswordEncryptUtil.decryptPassword(password);
-            } catch (Exception e) {
-                // MOD xqliu 2010-07-07 bug 13826
-                String pwd = ConnectionHelper.getDecryptPassword(password);
-                return pwd == null ? password : pwd;
-                // ~ 13826
-            }
-        }
         return password;
     }
 
-    /**
-     * 
-     * Get the password directly without decryption.
-     * 
-     * @not generated
-     * @return
-     */
     public String getRawPassword() {
+        if (!isContextMode() && password != null && password.length() > 0) {
+            String decrypt = CryptoHelper.DEFAULT.decrypt(password);
+            if (decrypt != null) {
+                return decrypt;
+            }
+        }
         return password;
     }
 
@@ -807,6 +795,17 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PASSWORD, oldPassword,
                     password));
         }
+    }
+
+    public void setRawPassword(String value) {
+        if (!isContextMode() && value != null && value.length() > 0) {
+            String encrypt = CryptoHelper.DEFAULT.encrypt(value);
+            if (encrypt != null) {
+                setPassword(encrypt);
+                return;
+            }
+        }
+        setPassword(value);
     }
 
     /**
@@ -1406,14 +1405,13 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated NOT
+     * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
-            return getRawPassword();
-            // return getPassword();
+            return getPassword();
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
             return getCdcConns();
         }

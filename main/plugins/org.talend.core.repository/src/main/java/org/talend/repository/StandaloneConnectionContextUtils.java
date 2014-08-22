@@ -20,8 +20,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.model.metadata.Dbms;
@@ -86,20 +84,7 @@ public class StandaloneConnectionContextUtils {
         cloneConn.setDatasourceName(datasource);
         cloneConn.setDBRootPath(dbRootPath);
         cloneConn.setFileFieldName(filePath);
-
-        // if use context
-        if (dbConn.isContextMode()) {
-            String encryptedPassword = null;
-            try {
-                encryptedPassword = PasswordEncryptUtil.encryptPassword(password);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
-            cloneConn.setPassword(encryptedPassword);
-        } else {
-            cloneConn.setPassword(password);
-        }
-
+        cloneConn.setRawPassword(password); // the password is raw.
         cloneConn.setPort(port);
         cloneConn.setUiSchema(schemaOracle);
         cloneConn.setServerName(server);

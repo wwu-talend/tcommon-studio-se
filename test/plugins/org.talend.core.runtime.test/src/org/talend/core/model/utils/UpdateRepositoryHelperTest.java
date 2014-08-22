@@ -55,7 +55,7 @@ public class UpdateRepositoryHelperTest {
         databaseConnection.setDbVersionString("MYSQL_5");
         databaseConnection.setPort("3306");
         databaseConnection.setUsername("root");
-        databaseConnection.setPassword("ekQFUSSa83o=");
+        databaseConnection.setRawPassword("toor");
         databaseConnection.setServerName("127.0.0.1");
         databaseConnection.setProductId("MYSQL");
         databaseConnection.setAdditionalParams("noDatetimeStringSync=true");

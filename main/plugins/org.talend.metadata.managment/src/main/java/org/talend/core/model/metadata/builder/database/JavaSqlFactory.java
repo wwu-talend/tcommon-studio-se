@@ -87,10 +87,10 @@ public final class JavaSqlFactory {
         String driverClassName = providerConnection.getDriverClass();
         Properties props = new Properties();
         props.put(TaggedValueHelper.USER, providerConnection.getUsername());
-        props.put(TaggedValueHelper.PASSWORD, providerConnection.getPassword());
+        props.put(TaggedValueHelper.PASSWORD, providerConnection.getRawPassword());
         String pass = props.getProperty(TaggedValueHelper.PASSWORD);
         if (pass != null) {
-            String clearTextPassword = providerConnection.getPassword();
+            String clearTextPassword = providerConnection.getRawPassword();
             if (clearTextPassword == null) {
                 rc.setMessage(Messages.getString("JavaSqlFactory.UnableDecryptPassword")); //$NON-NLS-1$
                 rc.setOk(false);
@@ -228,12 +228,7 @@ public final class JavaSqlFactory {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         String psw = "";//$NON-NLS-1$
         if (dbConn != null) {
-            psw = dbConn.getPassword();
-            if (conn.isContextMode()) {
-                psw = getOriginalConntextValue(dbConn, psw);
-
-            }
-
+            psw = getOriginalConntextValue(dbConn, dbConn.getRawPassword());
         } else {
             MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
             if (mdmConn != null) {
@@ -272,7 +267,7 @@ public final class JavaSqlFactory {
     public static void setPassword(Connection conn, String password) {
         DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
         if (dbConn != null) {
-            dbConn.setPassword(ConnectionHelper.getEncryptPassword(password));
+            dbConn.setRawPassword(password);
         }
         MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
         if (mdmConn != null) {

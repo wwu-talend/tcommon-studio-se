@@ -22,9 +22,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.bridge.ReponsitoryContextBridge;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
@@ -115,7 +113,9 @@ public final class DBConnectionContextUtils {
                     ConnectionContextHelper.createParameters(varList, paramName, conn.getFileFieldName(), JavaTypesManager.FILE);
                     break;
                 case Password:
-                    ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword(), JavaTypesManager.PASSWORD);
+                    // for context, need raw password, because it's for IContextParameter with raw value in mem.
+                    ConnectionContextHelper
+                            .createParameters(varList, paramName, conn.getRawPassword(), JavaTypesManager.PASSWORD);
                     break;
                 // hshen
                 case JdbcUrl:
@@ -386,7 +386,7 @@ public final class DBConnectionContextUtils {
 
         String server = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getServerName());
         String username = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getUsername());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getRawPassword());
         String port = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getPort());
         String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getSID());
         String datasource = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getDatasourceName());
@@ -441,7 +441,7 @@ public final class DBConnectionContextUtils {
 
         String server = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getServerName());
         String username = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getUsername());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getRawPassword());
         String port = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getPort());
         String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getSID());
         String datasource = ConnectionContextHelper.getOriginalValue(contextType, dbConn.getDatasourceName());
@@ -526,20 +526,7 @@ public final class DBConnectionContextUtils {
         cloneConn.setDatasourceName(datasource);
         cloneConn.setDBRootPath(dbRootPath);
         cloneConn.setFileFieldName(filePath);
-
-        // if use context
-        if (contextType != null) {
-            String encryptedPassword = null;
-            try {
-                encryptedPassword = PasswordEncryptUtil.encryptPassword(password);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
-            cloneConn.setPassword(encryptedPassword);
-        } else {
-            cloneConn.setPassword(password);
-        }
-
+        cloneConn.setRawPassword(password); // the password is raw.
         cloneConn.setPort(port);
         cloneConn.setUiSchema(schemaOracle);
         cloneConn.setServerName(server);
@@ -651,7 +638,7 @@ public final class DBConnectionContextUtils {
         }
         String server = ConnectionContextHelper.getOriginalValue(contextType, conn.getServerName());
         String username = ConnectionContextHelper.getOriginalValue(contextType, conn.getUsername());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, conn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, conn.getRawPassword());
         String port = ConnectionContextHelper.getOriginalValue(contextType, conn.getPort());
         String sidOrDatabase = ConnectionContextHelper.getOriginalValue(contextType, conn.getSID());
         String datasource = ConnectionContextHelper.getOriginalValue(contextType, conn.getDatasourceName());
@@ -671,11 +658,7 @@ public final class DBConnectionContextUtils {
         conn.setDatasourceName(datasource);
         conn.setDBRootPath(dbRootPath);
         conn.setFileFieldName(filePath);
-        try {
-            conn.setPassword(PasswordEncryptUtil.encryptPassword(password));
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
+        conn.setRawPassword(password);
         conn.setPort(port);
         conn.setUiSchema(schemaOracle);
         conn.setServerName(server);

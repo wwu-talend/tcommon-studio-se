@@ -34,10 +34,10 @@ public class JavaSqlFactoryTest {
         DatabaseConnection conn = ConnectionPackage.eINSTANCE.getConnectionFactory().createDatabaseConnection();
         String pwd = JavaSqlFactory.getPassword(conn);
         assertEquals("", pwd); //$NON-NLS-1$
-        conn.setPassword(""); //$NON-NLS-1$
+        conn.setRawPassword(""); //$NON-NLS-1$
         pwd = JavaSqlFactory.getPassword(conn);
         assertEquals("", pwd); //$NON-NLS-1$
-        conn.setPassword("talend4ever"); //$NON-NLS-1$
+        conn.setRawPassword("talend4ever"); //$NON-NLS-1$
         pwd = JavaSqlFactory.getPassword(conn);
         assertEquals("talend4ever", pwd); //$NON-NLS-1$
 
