@@ -126,14 +126,11 @@ public class PasswordEncryptUtil {
     }
 
     public static String getPasswordDisplay(String value) {
-        if (value != null) {
-            if (value.length() == 0) {
-                // always display 4 start characters.
-                return "****"; //$NON-NLS-1$
-            } else {
-                return value.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
-            }
+        if (value == null || value.length() == 0) {
+            // always display 4 start characters.
+            return "****"; //$NON-NLS-1$
+        } else {
+            return value.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        return value;
     }
 }

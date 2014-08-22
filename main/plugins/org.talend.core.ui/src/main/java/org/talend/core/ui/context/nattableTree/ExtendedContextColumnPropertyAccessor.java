@@ -26,6 +26,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.ReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.group.ColumnGroupModel;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -190,12 +191,13 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                                 return currentPara.isPromptNeeded();
                             } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
                                 return currentPara.getPrompt();
-                            } else {
-                                String value = currentPara.getValue();
-                                if (NatTableCellEditorFactory.isPassword(currentPara.getType())) {
-                                    return value != null ? value.replaceAll(".", "*") : "";
+                            } else if (currentColumnName.equals(ContextTableConstants.COLUMN_CONTEXT_VALUE)) {
+                                // because it's raw value, so need display * for password type.
+                                if (PasswordEncryptUtil.isPasswordType(currentPara.getType())) {
+                                    return PasswordEncryptUtil.getPasswordDisplay(currentPara.getValue());
                                 }
-                                return value;
+                                return currentPara.getDisplayValue();
+
                             }
                         }
                     }
