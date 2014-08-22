@@ -14,7 +14,6 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -102,7 +101,10 @@ public class ContextItem2JobDocExtContentHandler implements IRepositoryContentHa
 
     @Override
     public ERepositoryObjectType getRepositoryObjectType(Item item) {
-        return item instanceof ContextItem ? ERepositoryObjectType.getType("JOB_DOC_EXT") : null;
+        // FIXME tmp to disable this test. because if add this test, will bring some problems for CNF and migration
+        // task.
+        // return item instanceof ContextItem ? ERepositoryObjectType.getType("JOB_DOC_EXT") : null;
+        return null;
     }
 
     @Override
