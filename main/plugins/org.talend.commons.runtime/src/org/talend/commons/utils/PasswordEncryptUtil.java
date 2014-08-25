@@ -116,15 +116,31 @@ public class PasswordEncryptUtil {
         return dec;
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "isPasswordType".
+     * 
+     * should match with JavaTypesManager.PASSWORD.getId()
+     * 
+     * @param type
+     * @return
+     */
     public static boolean isPasswordType(String type) {
-        // should match with JavaTypesManager.PASSWORD.getLabel() and
-        // JavaTypesManager.PASSWORD.getId()
         if (type == null) {
             return false;
         }
         return type.equals("Password") || type.equals("id_Password"); //$NON-NLS-1$   //$NON-NLS-2$
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "getPasswordDisplay".
+     * 
+     * will be * to dispaly always.
+     * 
+     * @param value
+     * @return
+     */
     public static String getPasswordDisplay(String value) {
         if (value == null || value.length() == 0) {
             // always display 4 start characters.
@@ -133,4 +149,5 @@ public class PasswordEncryptUtil {
             return value.replaceAll(".", "*"); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
+
 }
