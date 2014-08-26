@@ -67,7 +67,6 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.properties.tab.HorizontalTabFactory;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
@@ -132,8 +131,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
     private ContextTreeTable treeTable;
 
-    private HorizontalTabFactory tabFactory = null;
-
     /**
      * Constructor.
      * 
@@ -146,7 +143,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         cellFactory = new DefaultCellEditorFactory(this);
         buttonList = new ArrayList<Button>();
         this.helper = new ContextManagerHelper(manager.getContextManager());
-        tabFactory = new HorizontalTabFactory();
         this.setBackground(parent.getBackground());
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
@@ -217,12 +213,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
     }
 
     private void createNatTable(List<ContextTableTabParentModel> listOfData) {
-        // Composite panel = new Composite(contextTableComp, SWT.NULL);// | SWT.V_SCROLL | SWT.H_SCROLL
-        // panel.setLayout(new GridLayout());
-        // panel.setLayoutData(new GridData(GridData.FILL_BOTH));
-        // panel.setAlwaysShowScrollBars(false);
-        // panel.setExpandHorizontal(true);
-        // panel.setExpandVertical(true);
 
         GridData layoutDataFillBoth = new GridData(GridData.FILL_BOTH);
         Composite subPanel = new Composite(contextTableComp, SWT.NULL);
@@ -231,8 +221,6 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
         ContextTreeTable.TControl tControl = treeTable.createTable(subPanel, modelManager, listOfData);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(tControl.getControl());
-
-        // panel.setContent(subPanel);
     }
 
     private Button createAddPushButton(final Composite parent) {

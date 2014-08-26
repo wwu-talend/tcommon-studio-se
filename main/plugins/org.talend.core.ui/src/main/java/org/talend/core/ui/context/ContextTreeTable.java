@@ -416,11 +416,6 @@ public class ContextTreeTable {
 
     private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
             ColumnGroupModel groupModel, IContextManager manager) {
-        // DefaultNatTableStyleConfiguration natTableConfiguration = new DefaultNatTableStyleConfiguration();
-        // // for the repository context's background.we control its backgroup colour is gray
-        // natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextTextPainter(false, false,
-        // false),
-        // bodyDataProvider);
 
         ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
         // for the repository context's background.we control its backgroup colour is gray
