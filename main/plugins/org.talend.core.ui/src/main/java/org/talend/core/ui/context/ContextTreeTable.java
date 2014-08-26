@@ -28,7 +28,6 @@ import org.eclipse.jface.window.DefaultToolTip;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.config.ConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.config.DefaultComparator;
-import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.DetailGlazedListsEventLayer;
@@ -71,6 +70,7 @@ import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -89,6 +89,7 @@ import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.nattableTree.ContextNatTableBackGroudPainter;
 import org.talend.core.ui.context.nattableTree.ContextNatTableConfiguration;
+import org.talend.core.ui.context.nattableTree.ContextNatTableStyleConfiguration;
 import org.talend.core.ui.context.nattableTree.ContextRowDataListFixture;
 import org.talend.core.ui.context.nattableTree.ContextTextPainter;
 import org.talend.core.ui.context.nattableTree.ExtendedContextColumnPropertyAccessor;
@@ -160,7 +161,7 @@ public class ContextTreeTable {
         ColumnGroupModel columnGroupModel = new ColumnGroupModel();
         configRegistry.registerConfigAttribute(SortConfigAttributes.SORT_COMPARATOR, new DefaultComparator());
         String[] propertyNames = ContextRowDataListFixture.getPropertyNames(manager);
-        int comWidth = parent.getParent().getParent().getClientArea().width;
+        int comWidth = parent.getParent().getClientArea().width;
         // the data source for the context
         if (propertyNames.length > 0) {
             treeNodes.clear();
@@ -241,7 +242,7 @@ public class ContextTreeTable {
             natTable = new NatTable(parent, NatTable.DEFAULT_STYLE_OPTIONS | SWT.BORDER, gridLayer, false);
             natTable.setConfigRegistry(configRegistry);
 
-            addCustomStylingBehaviour(bodyDataProvider, columnGroupModel, manager.getContextManager());
+            addCustomStylingBehaviour(parent.getFont(), bodyDataProvider, columnGroupModel, manager.getContextManager());
 
             natTable.addConfiguration(new DefaultTreeLayerConfiguration(treeLayer));
 
@@ -354,7 +355,7 @@ public class ContextTreeTable {
 
         int typeColumnPos = dataLayer.getColumnPositionByIndex(1);
 
-        int leftWidth = maxWidth - cornerWith - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size();
+        int leftWidth = maxWidth - fixedTypeWidth - fixedCheckBoxWidth * checkColumnsPos.size() - cornerWith * 2;
 
         int currentColumnsCount = dataColumnsCount - hideColumnsPos.size() - checkColumnsPos.size() - 1;
         int averageWidth = leftWidth / currentColumnsCount;
@@ -413,9 +414,15 @@ public class ContextTreeTable {
         return hidePos;
     }
 
-    private void addCustomStylingBehaviour(final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
+    private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
             ColumnGroupModel groupModel, IContextManager manager) {
-        DefaultNatTableStyleConfiguration natTableConfiguration = new DefaultNatTableStyleConfiguration();
+        // DefaultNatTableStyleConfiguration natTableConfiguration = new DefaultNatTableStyleConfiguration();
+        // // for the repository context's background.we control its backgroup colour is gray
+        // natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextTextPainter(false, false,
+        // false),
+        // bodyDataProvider);
+
+        ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
         // for the repository context's background.we control its backgroup colour is gray
         natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextTextPainter(false, false, false),
                 bodyDataProvider);
