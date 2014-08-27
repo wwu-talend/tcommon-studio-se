@@ -409,4 +409,5 @@ public interface IRepositoryFactory {
 
     public boolean isModified(Object property);
 
+    public void afterLogon();
 }

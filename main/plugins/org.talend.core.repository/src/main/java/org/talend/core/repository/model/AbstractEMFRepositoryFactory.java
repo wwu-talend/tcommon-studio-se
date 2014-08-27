@@ -1018,4 +1018,14 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
         return new LockInfo("", "", null);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.repository.model.IRepositoryFactory#afterLogon()
+     */
+    @Override
+    public void afterLogon() {
+        // do nothing by default
+    }
 }

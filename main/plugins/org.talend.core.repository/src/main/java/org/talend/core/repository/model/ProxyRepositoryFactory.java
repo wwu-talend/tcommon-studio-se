@@ -1860,6 +1860,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                     }
                 }
                 fullLogonFinished = true;
+                this.repositoryFactoryFromProvider.afterLogon();
             } finally {
                 TimeMeasure.end("logOnProject"); //$NON-NLS-1$
                 TimeMeasure.display = false;
