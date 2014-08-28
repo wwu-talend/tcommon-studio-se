@@ -35,6 +35,7 @@ import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
@@ -516,6 +517,52 @@ public final class ParameterValueUtil {
         return EMPTY;
     }
 
+    public static String getValue4Doc(IContextParameter contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                if (isHidePassword() && PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                    if (isHidePassword()) { // if hide will display the *
+                        docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
+                    } else { // the value has been raw, so need encrypt it like the ContextParameterType.
+                        String encryptValue = getEncryptValue(contextParam);
+                        if (encryptValue != null) {
+                            docValue = encryptValue;
+                        }
+                    }
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getEncryptValue(IContextParameter contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue);
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static String getEncryptValue(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null && docValue instanceof String) {
+                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
     public static Object getValue4Doc(IElementParameter param) {
         if (param != null) {
             Object docValue = param.getValue();
@@ -527,7 +574,7 @@ public final class ParameterValueUtil {
                     if (isHidePassword()) { // if hide will display the *
                         docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
                     } else { // the value has been raw, so need encrypt it like the ElementParameterType.
-                        String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
+                        String encryptValue = getEncryptValue(param);
                         if (encryptValue != null) {
                             docValue = encryptValue;
                         }
