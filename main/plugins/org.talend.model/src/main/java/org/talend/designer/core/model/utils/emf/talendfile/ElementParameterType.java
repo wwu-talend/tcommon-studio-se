@@ -194,9 +194,8 @@ public interface ElementParameterType extends EObject {
     /**
      * Set the raw value and encrypt it.
      * 
-     * @param value
-     * @param encrypt if true, will encrypt the value
+     * @param newValue, if the feild is PASSWORD will encrypt.
      */
-    void setValue(String value, boolean encrypt);
+    void setRawValue(String newValue);
 
 } // ElementParameterType

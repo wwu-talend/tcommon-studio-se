@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
@@ -277,7 +278,7 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
     }
 
     public String getRawValue() {
-        if (value != null && value.length() > 0) {
+        if (value != null && value.length() > 0 && PasswordEncryptUtil.isPasswordField(getField())) {
             String decrypt = CryptoHelper.DEFAULT.decrypt(value);
             if (decrypt != null) {
                 return decrypt;
@@ -300,15 +301,15 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         }
     }
 
-    public void setValue(String value, boolean encrypt) {
-        if (encrypt && value != null && value.length() > 0) {
-            String encryptValue = CryptoHelper.DEFAULT.encrypt(value);
+    public void setRawValue(String newValue) {
+        if (newValue != null && newValue.length() > 0 && PasswordEncryptUtil.isPasswordField(getField())) {
+            String encryptValue = CryptoHelper.DEFAULT.encrypt(newValue);
             if (encryptValue != null) {
                 setValue(encryptValue);
                 return;
             }
         }
-        setValue(value);
+        setValue(newValue);
     }
 
     /**

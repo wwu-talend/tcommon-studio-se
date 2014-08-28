@@ -126,10 +126,20 @@ public class PasswordEncryptUtil {
      * @return
      */
     public static boolean isPasswordType(String type) {
-        if (type == null) {
-            return false;
-        }
-        return type.equals("Password") || type.equals("id_Password"); //$NON-NLS-1$   //$NON-NLS-2$
+        return "Password".equals(type) || "id_Password".equals(type); //$NON-NLS-1$   //$NON-NLS-2$
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "isPasswordField".
+     * 
+     * should match with the EParameterFieldType.PASSWORD
+     * 
+     * @param field
+     * @return
+     */
+    public static boolean isPasswordField(String field) {
+        return "PASSWORD".equals(field); //$NON-NLS-1$   
     }
 
     /**
