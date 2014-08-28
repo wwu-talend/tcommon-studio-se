@@ -31,17 +31,24 @@ import org.apache.oro.text.regex.Substitution;
 import org.apache.oro.text.regex.Util;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Point;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
+import org.talend.repository.ProjectManager;
+import org.talend.utils.security.CryptoHelper;
 
 /**
  * cli class global comment. Detailled comment
  */
 public final class ParameterValueUtil {
+
+    public static final String EMPTY = ""; //$NON-NLS-1$
 
     private ParameterValueUtil() {
     }
@@ -105,7 +112,7 @@ public final class ParameterValueUtil {
 
         if (matcher.contains(value, pattern)) {
             // replace
-            String returnValue = "";
+            String returnValue = EMPTY;
             if (value.contains(TalendQuoteUtils.getQuoteChar()) && !flag) {
                 // returnValue = splitQueryData(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
                 returnValue = splitQueryData(oldName, newName, value);
@@ -124,7 +131,7 @@ public final class ParameterValueUtil {
     public static String splitQueryData(PatternMatcher matcher, Pattern pattern, Substitution sub, String value, int numSubs) {
         String[] split = value.split("\"");
         int i = 0;
-        String replace = "";
+        String replace = EMPTY;
         for (String s : split) {
             if (i % 2 == 0) {
                 replace = s;
@@ -137,7 +144,7 @@ public final class ParameterValueUtil {
             }
             i++;
         }
-        String returnValue = "";
+        String returnValue = EMPTY;
         for (int t = 1; t < split.length; t++) {
             if (t % 2 == 0) {
                 returnValue += split[t];
@@ -493,5 +500,63 @@ public final class ParameterValueUtil {
 
         return prefix + UpdateContextVariablesHelper.replaceSpecialChar(toTest) + suffix;
 
+    }
+
+    public static String getValue4Doc(ContextParameterType contextParam) {
+        if (contextParam != null) {
+            String docValue = contextParam.getValue();
+            if (docValue != null) {
+                if (isHidePassword() && PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                    // use the raw value to display.
+                    docValue = PasswordEncryptUtil.getPasswordDisplay(contextParam.getRawValue());
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static Object getValue4Doc(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null) {
+                if ((param.getRepositoryValue() != null && param.getRepositoryValue().toUpperCase().contains("PASSWORD") //$NON-NLS-1$
+                || EParameterFieldType.PASSWORD.equals(param.getFieldType()))//
+                        && !ContextParameterUtils.containContextVariables((String) docValue)) {
+
+                    if (isHidePassword()) { // if hide will display the *
+                        docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
+                    } else { // the value has been raw, so need encrypt it like the ElementParameterType.
+                        String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
+                        if (encryptValue != null) {
+                            docValue = encryptValue;
+                        }
+                    }
+                }
+                return docValue;
+            }
+        }
+        return EMPTY;
+    }
+
+    public static String getValue4Doc(ElementParameterType param) {
+        if (param != null) {
+            String docValue = param.getValue();
+            if (docValue != null && param.getField() == EParameterFieldType.PASSWORD.getName() && isHidePassword()
+                    && !ContextParameterUtils.containContextVariables(docValue)) {
+                // the value has been raw, so just get dispaly value.
+                docValue = PasswordEncryptUtil.getPasswordDisplay(docValue);
+            }
+            return docValue;
+        }
+        return EMPTY;
+    }
+
+    public static boolean isHidePassword() {
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject != null) {
+            return currentProject.getEmfProject().isHidePassword();
+        }
+        return false;
     }
 }

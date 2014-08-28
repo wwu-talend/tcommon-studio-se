@@ -23,10 +23,9 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.model.utils.ParameterValueUtil;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.repository.ProjectManager;
 
 /**
  * This class is internal node component handler for generating HTML. <br/>
@@ -175,12 +174,10 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                 // int index = type.getIndexOfItemFromList(type.getDisplayName());
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
-                else if ((elemparameter.getRepositoryValue() != null
+                else if (elemparameter.getRepositoryValue() != null
                         && elemparameter.getRepositoryValue().toUpperCase().contains("PASSWORD") //$NON-NLS-1$
-                || elemparameter.getFieldType() == EParameterFieldType.PASSWORD)
-                        && ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()
-                        && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
-                    value = "******"; //$NON-NLS-1$
+                        || elemparameter.getFieldType() == EParameterFieldType.PASSWORD) {
+                    value = ParameterValueUtil.getValue4Doc(elemparameter).toString();
                 }
                 Element columnElement = parametersElement.addElement("column"); //$NON-NLS-1$
                 columnElement.addAttribute("name", HTMLDocUtils.checkString(elemparameter.getDisplayName())); //$NON-NLS-1$
