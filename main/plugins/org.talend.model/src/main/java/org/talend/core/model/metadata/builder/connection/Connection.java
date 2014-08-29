@@ -6,25 +6,21 @@
 package org.talend.core.model.metadata.builder.connection;
 
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
-import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Connection</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Connection</b></em>'. <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * base class tha represent a connection, may be to a database or a file or else
- * <!-- end-model-doc -->
+ * <!-- begin-model-doc --> base class tha represent a connection, may be to a database or a file or else <!--
+ * end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextName <em>Context Name</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextName <em>Context Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,13 +31,13 @@ import org.eclipse.emf.common.util.EList;
 public interface Connection extends AbstractMetadataObject, DataProvider {
 
     /**
-     * Returns the value of the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Version</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
+     * 
      * @return the value of the '<em>Version</em>' attribute.
      * @see #setVersion(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Version()
@@ -51,9 +47,9 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     String getVersion();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion
+     * <em>Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Version</em>' attribute.
      * @see #getVersion()
      * @generated
@@ -61,17 +57,16 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     void setVersion(String value);
 
     /**
-     * Returns the value of the '<em><b>Queries</b></em>' containment reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
+     * Returns the value of the '<em><b>Queries</b></em>' containment reference. It is bidirectional and its opposite is
+     * '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Queries</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Queries</em>' containment reference list isn't clear, there really should be more of a
+     * description here...
      * </p>
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * This defines the SQL queries related to this connection
-     * <!-- end-model-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> This defines the SQL queries related to this connection <!--
+     * end-model-doc -->
+     * 
      * @return the value of the '<em>Queries</em>' containment reference.
      * @see #setQueries(QueriesConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Queries()
@@ -82,9 +77,9 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     QueriesConnection getQueries();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries
+     * <em>Queries</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Queries</em>' containment reference.
      * @see #getQueries()
      * @generated
@@ -92,16 +87,14 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     void setQueries(QueriesConnection value);
 
     /**
-     * Returns the value of the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Context Mode</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Context Mode</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Context Mode</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * whether this connection is defined using a context or is standalone
-     * <!-- end-model-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> whether this connection is defined using a context or is
+     * standalone <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Context Mode</em>' attribute.
      * @see #setContextMode(boolean)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextMode()
@@ -111,9 +104,9 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     boolean isContextMode();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode
+     * <em>Context Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Context Mode</em>' attribute.
      * @see #isContextMode()
      * @generated
@@ -121,16 +114,14 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     void setContextMode(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Context Id</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Context Id</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Context Id</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
-     * <!-- end-user-doc -->
-     * <!-- begin-model-doc -->
-     * Id of the context this connection is linked to, only used when ContextMode attribute is true
-     * <!-- end-model-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> Id of the context this connection is linked to, only used when
+     * ContextMode attribute is true <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Context Id</em>' attribute.
      * @see #setContextId(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextId()
@@ -140,9 +131,9 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     String getContextId();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId
+     * <em>Context Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Context Id</em>' attribute.
      * @see #getContextId()
      * @generated
@@ -150,13 +141,13 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     void setContextId(String value);
 
     /**
-     * Returns the value of the '<em><b>Context Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Context Name</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Context Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Context Name</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
+     * 
      * @return the value of the '<em>Context Name</em>' attribute.
      * @see #setContextName(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextName()
@@ -166,9 +157,9 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     String getContextName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextName <em>Context Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextName
+     * <em>Context Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Context Name</em>' attribute.
      * @see #getContextName()
      * @generated
@@ -176,11 +167,18 @@ public interface Connection extends AbstractMetadataObject, DataProvider {
     void setContextName(String value);
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @model kind="operation" dataType="orgomg.cwm.objectmodel.core.String"
      * @generated
      */
     String getConnectionTypeName();
+
+    /**
+     * encrypt is true, will try to encrypt the value, else, if false, will try to decrypt the value,
+     * 
+     * @generated NOT
+     */
+    String getValue(String value, boolean encrypt);
 
 } // Connection

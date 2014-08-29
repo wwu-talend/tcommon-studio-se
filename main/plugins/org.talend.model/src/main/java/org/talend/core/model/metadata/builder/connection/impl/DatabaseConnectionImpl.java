@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.utils.security.CryptoHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Database Connection</b></em>'. <!--
@@ -773,13 +772,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     }
 
     public String getRawPassword() {
-        if (!isContextMode() && password != null && password.length() > 0) {
-            String decrypt = CryptoHelper.DEFAULT.decrypt(password);
-            if (decrypt != null) {
-                return decrypt;
-            }
-        }
-        return password;
+        return getValue(password, false);
     }
 
     /**
@@ -797,14 +790,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     }
 
     public void setRawPassword(String value) {
-        if (!isContextMode() && value != null && value.length() > 0) {
-            String encrypt = CryptoHelper.DEFAULT.encrypt(value);
-            if (encrypt != null) {
-                setPassword(encrypt);
-                return;
-            }
-        }
-        setPassword(value);
+        setPassword(getValue(value, true));
     }
 
     /**
