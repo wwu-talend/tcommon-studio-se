@@ -57,11 +57,28 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
 
         itemState.setDeleted(property.getItem().getState().isDeleted());
         path = property.getItem().getState().getPath();
+        if (property.getItem() instanceof FolderItem) {
+            FolderItem originalItem = (FolderItem) property.getItem();
+            if (originalItem.getParent() != null) {
+                path = getFullFolderPath(originalItem);
+            }
+        }
         itemState.setPath(path);
         org.talend.core.model.properties.Project emfproject = ProjectManager.getInstance().getProject(property.getItem());
         this.projectLabel = emfproject.getLabel();
 
         this.type = type;
+    }
+
+    public String getFullFolderPath(FolderItem folder) {
+        return getFullFolderPath(folder, ""); //$NON-NLS-1$
+    }
+
+    private String getFullFolderPath(FolderItem folder, String currentPath) {
+        if (folder.getParent() instanceof FolderItem) {
+            return getFullFolderPath((FolderItem) folder.getParent(), folder.getProperty().getLabel() + "/" + currentPath); //$NON-NLS-1$
+        }
+        return folder.getProperty().getLabel() + "/" + currentPath; //$NON-NLS-1$
     }
 
     /**

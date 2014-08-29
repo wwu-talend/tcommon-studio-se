@@ -397,10 +397,14 @@ public final class ProjectManager {
     }
 
     public List<FolderItem> getFolders(org.talend.core.model.properties.Project project) {
-        if (!foldersMap.containsKey(project.getTechnicalLabel())) {
-            foldersMap.put(project.getTechnicalLabel(), new ArrayList<FolderItem>());
+        return getFolders(project.getTechnicalLabel());
+    }
+
+    public List<FolderItem> getFolders(String technicalProjectName) {
+        if (!foldersMap.containsKey(technicalProjectName)) {
+            foldersMap.put(technicalProjectName, new ArrayList<FolderItem>());
         }
-        return foldersMap.get(project.getTechnicalLabel());
+        return foldersMap.get(technicalProjectName);
     }
 
     public static boolean enableSpecialTechnicalProjectName() {

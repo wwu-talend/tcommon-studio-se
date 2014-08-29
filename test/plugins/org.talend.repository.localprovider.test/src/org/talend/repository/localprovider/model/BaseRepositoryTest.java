@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -89,10 +88,14 @@ public class BaseRepositoryTest {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
         repositoryContext.setProject(sampleProject);
+        ProjectManager.getInstance().getFolders(sampleProject.getTechnicalLabel()).clear();
     }
 
     @After
     public void afterTest() throws Exception {
+        if (ProjectManager.getInstance().getFolders(sampleProject.getTechnicalLabel()).isEmpty()) {
+            return;
+        }
         // make sure there is nothing in both jobs / routines after do anything
         try {
             final List<IRepositoryViewObject> allJobs = repositoryFactory.getAll(sampleProject, ERepositoryObjectType.PROCESS,
@@ -230,7 +233,7 @@ public class BaseRepositoryTest {
 
     protected void testGetSerializableRoutine(LocalRepositoryFactory repositoryFactory, String path) throws PersistenceException,
             CoreException {
-        Object fullFolder;
+        FolderItem fullFolder;
         List<IRepositoryViewObject> serializableFromFolder;
         IRepositoryViewObject rvo;
         // ### START ### Test for routine
@@ -341,7 +344,7 @@ public class BaseRepositoryTest {
         // retrieve after create
         ProcessItem pItem = createTempProcessItem(repositoryFactory, path);
         String jobId = pItem.getProperty().getId();
-        Object fullFolder = getFullFolder(repositoryFactory, sampleProject, ERepositoryObjectType.PROCESS, path);
+        FolderItem fullFolder = getFullFolder(repositoryFactory, sampleProject, ERepositoryObjectType.PROCESS, path);
         List<IRepositoryViewObject> serializableFromFolder = repositoryFactory.getSerializableFromFolder(ProjectManager
                 .getInstance().getCurrentProject(), fullFolder, jobId, ERepositoryObjectType.PROCESS, true, true, true, false);
         assertNotNull(serializableFromFolder);
@@ -441,25 +444,18 @@ public class BaseRepositoryTest {
         // ### END ### Test for Job
     }
 
-    private Object getFullFolder(LocalRepositoryFactory repositoryFactory, Project project, ERepositoryObjectType itemType,
+    private FolderItem getFullFolder(LocalRepositoryFactory repositoryFactory, Project project, ERepositoryObjectType itemType,
             String path) throws PersistenceException {
-        Object folder = repositoryFactory.getFolder(project, itemType);
+        FolderItem folder = repositoryFactory.getFolder(project, itemType);
         if (folder == null) {
             return null;
         }
-        Object fullFolder;
-        if (folder instanceof IFolder) {
-            fullFolder = repositoryFactory.getFolder(project, itemType);
-            if (path != null && !"".equals(path)) {
-                fullFolder = ((IFolder) fullFolder).getFolder(new Path(path));
-            }
+        FolderItem fullFolder;
+        if (path != null && !"".equals(path)) {
+            fullFolder = repositoryFactory.getFolderHelper(project.getEmfProject()).getFolder(
+                    folder.getProperty().getLabel() + "/" + path); //$NON-NLS-1$
         } else {
-            if (path != null && !"".equals(path)) {
-                fullFolder = repositoryFactory.getFolderHelper(project.getEmfProject()).getFolder(
-                        ((FolderItem) folder).getProperty().getLabel() + "/" + path); //$NON-NLS-1$
-            } else {
-                fullFolder = folder;
-            }
+            fullFolder = folder;
         }
         return fullFolder;
     }
