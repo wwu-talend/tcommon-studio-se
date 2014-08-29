@@ -1475,7 +1475,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(connection.getValue(value, true));
             }
         }
         if ("MODULENAME".equals(param.getRepositoryValue())) { //$NON-NLS-1$
@@ -1524,7 +1524,7 @@ public class ComponentToRepositoryProperty {
         if ("PROXY_PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
-                connection.setProxyPassword(value);
+                connection.setProxyPassword(connection.getValue(value, true));
             }
 
         }

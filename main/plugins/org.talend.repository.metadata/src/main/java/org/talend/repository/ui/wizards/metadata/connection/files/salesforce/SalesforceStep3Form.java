@@ -192,6 +192,7 @@ public class SalesforceStep3Form extends AbstractSalesforceStepForm {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 MetadataToolHelper.validateSchema(metadataNameText.getText());
                 metadataTable.setLabel(metadataNameText.getText());
@@ -210,6 +211,7 @@ public class SalesforceStep3Form extends AbstractSalesforceStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -218,6 +220,7 @@ public class SalesforceStep3Form extends AbstractSalesforceStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -290,7 +293,7 @@ public class SalesforceStep3Form extends AbstractSalesforceStepForm {
 
         bean.setWebServerUrl(originalValueConnection.getWebServiceUrl());
         bean.setUserName(originalValueConnection.getUserName());
-        bean.setPassword(originalValueConnection.getPassword());
+        bean.setPassword(originalValueConnection.getValue(originalValueConnection.getPassword(), false));
         bean.setModuleName(originalValueConnection.getModuleName());
         bean.setQueryCondition(originalValueConnection.getQueryCondition());
         // add for feature 7507
@@ -300,7 +303,7 @@ public class SalesforceStep3Form extends AbstractSalesforceStepForm {
         bean.setProxyHost(originalValueConnection.getProxyHost());
         bean.setProxyPort(originalValueConnection.getProxyPort());
         bean.setProxyUsername(originalValueConnection.getProxyUsername());
-        bean.setProxyPassword(originalValueConnection.getProxyPassword());
+        bean.setProxyPassword(originalValueConnection.getValue(originalValueConnection.getProxyPassword(), false));
 
         processDescription.setSalesforceSchemaBean(bean);
 

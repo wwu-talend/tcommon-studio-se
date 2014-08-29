@@ -277,7 +277,7 @@ public class SalesforceSchemaWizard extends CheckLastVersionRepositoryWizard imp
         ssCon.setProxyHost(oldProxyHost);
         ssCon.setProxyPort(oldProxyPort);
         ssCon.setProxyUsername(oldProxyUser);
-        ssCon.setProxyPassword(oldProxyPwd);
+        ssCon.setProxyPassword(ssCon.getValue(oldProxyPwd, true));
 
     }
 

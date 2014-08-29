@@ -1506,7 +1506,7 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         SalesforceSchemaConnection connection = oldTemConnection;
         endPoint = connection.getWebServiceUrl();
         username = connection.getUserName();
-        pwd = connection.getPassword();
+        pwd = connection.getValue(connection.getPassword(), false);
         batchSize = connection.getBatchSize();
         timeOut = connection.getTimeOut();
         useHttpProxy = connection.isUseHttpProxy();
@@ -1517,11 +1517,11 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
         proxyHost = connection.getProxyHost();
         proxyPort = connection.getProxyPort();
         proxyUsername = connection.getProxyUsername();
-        proxyPassword = connection.getProxyPassword();
+        proxyPassword = connection.getValue(connection.getProxyPassword(), false);
 
         endPointForAuth = connection.getWebServiceUrlTextForOAuth();
         consumerKey = connection.getConsumeKey();
-        consumeSecret = connection.getConsumeSecret();
+        consumeSecret = connection.getValue(connection.getConsumeSecret(), false);
         callbackHost = connection.getCallbackHost();
         callbackPort = connection.getCallbackPort();
         salesforceVersion = connection.getSalesforceVersion();

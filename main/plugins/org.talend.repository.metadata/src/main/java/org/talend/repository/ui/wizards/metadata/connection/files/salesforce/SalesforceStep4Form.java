@@ -239,6 +239,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         // Navigation : when the user select a table
         tableNavigator.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 String schemaLabel = tableNavigator.getSelection()[0].getText();
 
@@ -266,6 +267,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         // metadataNameText : Event modifyText
         metadataNameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 String labelText = metadataNameText.getText();
                 MetadataToolHelper.validateSchema(labelText);
@@ -293,6 +295,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         // metadataCommentText : Event modifyText
         metadataCommentText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 metadataTable.setComment(metadataCommentText.getText());
             }
@@ -301,6 +304,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         tableEditorView.getMetadataEditor().addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 checkFieldsValue();
             }
@@ -308,6 +312,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         // add listener to tableMetadata (listen the event of the toolbars)
         metadataEditor.addAfterOperationListListener(new IListenableListListener() {
 
+            @Override
             public void handleEvent(ListenableListEvent event) {
                 changeTableNavigatorStatus(checkFieldsValue());
             }
@@ -383,6 +388,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         // Event addTable Button
         addTableButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (!addTableButton.getEnabled()) {
                     addTableButton.setEnabled(true);
@@ -534,7 +540,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
 
         bean.setWebServerUrl(originalValueConnection.getWebServiceUrl());
         bean.setUserName(originalValueConnection.getUserName());
-        bean.setPassword(originalValueConnection.getPassword());
+        bean.setPassword(originalValueConnection.getValue(originalValueConnection.getPassword(), false));
         bean.setModuleName(originalValueConnection.getModuleName());
         bean.setQueryCondition(originalValueConnection.getQueryCondition());
         // add for feature 7507
@@ -544,7 +550,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         bean.setProxyHost(originalValueConnection.getProxyHost());
         bean.setProxyPort(originalValueConnection.getProxyPort());
         bean.setProxyUsername(originalValueConnection.getProxyUsername());
-        bean.setProxyPassword(originalValueConnection.getProxyPassword());
+        bean.setProxyPassword(originalValueConnection.getValue(originalValueConnection.getProxyPassword(), false));
 
         processDescription.setSalesforceSchemaBean(bean);
 
@@ -877,6 +883,7 @@ public class SalesforceStep4Form extends AbstractSalesforceStepForm {
         metadataEditor.setMetadataTable(metadataTable);
     }
 
+    @Override
     protected org.talend.core.model.metadata.builder.connection.MetadataTable getTableByLabel(String label) {
         org.talend.core.model.metadata.builder.connection.MetadataTable result = null;
         EList<SalesforceModuleUnit> modules = temConnection.getModules();

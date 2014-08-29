@@ -853,19 +853,21 @@ public abstract class RepositoryUpdateManager {
                         }
                         if (citem == contextItem) {
                             if (conn instanceof SalesforceSchemaConnection) {
-                                SalesforceSchemaConnection dbConn = (SalesforceSchemaConnection) conn;
-                                if (dbConn.getWebServiceUrl() != null && dbConn.getWebServiceUrl().equals(oldValue)) {
-                                    dbConn.setWebServiceUrl(newValue);
-                                } else if (dbConn.getPassword() != null && dbConn.getPassword().equals(oldValue)) {
-                                    dbConn.setPassword(newValue);
-                                } else if (dbConn.getUserName() != null && dbConn.getUserName().equals(oldValue)) {
-                                    dbConn.setUserName(newValue);
-                                } else if (dbConn.getTimeOut() != null && dbConn.getTimeOut().equals(oldValue)) {
-                                    dbConn.setTimeOut(newValue);
-                                } else if (dbConn.getBatchSize() != null && dbConn.getBatchSize().equals(oldValue)) {
-                                    dbConn.setBatchSize(newValue);
-                                } else if (dbConn.getQueryCondition() != null && dbConn.getQueryCondition().equals(oldValue)) {
-                                    dbConn.setQueryCondition(newValue);
+                                SalesforceSchemaConnection ssConn = (SalesforceSchemaConnection) conn;
+                                if (ssConn.getWebServiceUrl() != null && ssConn.getWebServiceUrl().equals(oldValue)) {
+                                    ssConn.setWebServiceUrl(newValue);
+                                } else if (ssConn.getPassword() != null && ssConn.getPassword().equals(oldValue)) {
+                                    // in fact, because in context mode. can setPassword directly.
+                                    // ssConn.setPassword(ssConn.getValue(newValue,true));
+                                    ssConn.setPassword(newValue);
+                                } else if (ssConn.getUserName() != null && ssConn.getUserName().equals(oldValue)) {
+                                    ssConn.setUserName(newValue);
+                                } else if (ssConn.getTimeOut() != null && ssConn.getTimeOut().equals(oldValue)) {
+                                    ssConn.setTimeOut(newValue);
+                                } else if (ssConn.getBatchSize() != null && ssConn.getBatchSize().equals(oldValue)) {
+                                    ssConn.setBatchSize(newValue);
+                                } else if (ssConn.getQueryCondition() != null && ssConn.getQueryCondition().equals(oldValue)) {
+                                    ssConn.setQueryCondition(newValue);
                                 }
                                 factory.save(item);
                             }

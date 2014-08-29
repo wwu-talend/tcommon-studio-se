@@ -487,7 +487,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         }
         // for bug TDI-8662 . should be careful that connection.getModuleName() will always get the latest name of the
@@ -544,7 +544,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getProxyPassword())) {
                 return connection.getProxyPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getProxyPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxyPassword(), false));
             }
         } else if ("TIMEOUT".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getTimeOut())) {
@@ -568,7 +568,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getConsumeSecret())) {
                 return connection.getConsumeSecret();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getConsumeSecret());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getConsumeSecret(), false));
             }
         } else if ("OAUTH_CALLBACK_HOST".equals(value)) {
             if (isContextMode(connection, connection.getCallbackHost())) {

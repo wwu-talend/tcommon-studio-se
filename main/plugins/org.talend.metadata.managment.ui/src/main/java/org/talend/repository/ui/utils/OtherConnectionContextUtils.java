@@ -431,7 +431,8 @@ public final class OtherConnectionContextUtils {
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getUserName());
 
             paramName = prefixName + EParamName.Password;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getPassword(), JavaTypesManager.PASSWORD);
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getValue(ssConn.getPassword(), false),
+                    JavaTypesManager.PASSWORD);
 
             paramName = prefixName + EParamName.BatchSize;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getBatchSize());
@@ -452,7 +453,8 @@ public final class OtherConnectionContextUtils {
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyUsername());
 
             paramName = prefixName + EParamName.SFProxyPassword;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyPassword());
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getValue(ssConn.getProxyPassword(), false),
+                    JavaTypesManager.PASSWORD);
         } else {
             paramName = prefixName + EParamName.WebServiceUrlForOauth;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getWebServiceUrlTextForOAuth());
@@ -461,7 +463,8 @@ public final class OtherConnectionContextUtils {
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeKey());
 
             paramName = prefixName + EParamName.ConsumerSecret;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getConsumeSecret());
+            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getValue(ssConn.getConsumeSecret(), false),
+                    JavaTypesManager.PASSWORD);
 
             paramName = prefixName + EParamName.CallbackHost;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getCallbackHost());
@@ -728,14 +731,15 @@ public final class OtherConnectionContextUtils {
         }
         String url = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getWebServiceUrl());
         String userName = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getUserName());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getValue(ssConn.getPassword(), false));
         String batchSize = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getBatchSize());
         String queryCondition = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getQueryCondition());
         String timeOut = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getTimeOut());
         String webServiceUrlForOauth = ConnectionContextHelper.getOriginalValue(contextType,
                 ssConn.getWebServiceUrlTextForOAuth());
         String consumerKey = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeKey());
-        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeSecret());
+        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getConsumeSecret(), false));
         String callbackHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackHost());
         String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
         String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
@@ -743,17 +747,18 @@ public final class OtherConnectionContextUtils {
         String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyHost());
         String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPort());
         String proxyUsername = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyUsername());
-        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPassword());
+        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getProxyPassword(), false));
 
         ssConn.setWebServiceUrl(url);
         ssConn.setUserName(userName);
-        ssConn.setPassword(password);
+        ssConn.setPassword(ssConn.getValue(password, true));
         ssConn.setBatchSize(batchSize);
         ssConn.setQueryCondition(queryCondition);
         ssConn.setTimeOut(timeOut);
         ssConn.setWebServiceUrlTextForOAuth(webServiceUrlForOauth);
         ssConn.setConsumeKey(consumerKey);
-        ssConn.setConsumeSecret(consumerSecret);
+        ssConn.setConsumeSecret(ssConn.getValue(consumerSecret, true));
         ssConn.setCallbackHost(callbackHost);
         ssConn.setCallbackPort(callbackPort);
         ssConn.setSalesforceVersion(salesforceVersion);
@@ -761,7 +766,7 @@ public final class OtherConnectionContextUtils {
         ssConn.setProxyHost(proxyHost);
         ssConn.setProxyPort(proxyPort);
         ssConn.setProxyUsername(proxyUsername);
-        ssConn.setProxyPassword(proxyPassword);
+        ssConn.setProxyPassword(ssConn.getValue(proxyPassword, true));
 
     }
 
@@ -776,14 +781,15 @@ public final class OtherConnectionContextUtils {
 
         String url = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getWebServiceUrl());
         String userName = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getUserName());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getValue(ssConn.getPassword(), false));
         String batchSize = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getBatchSize());
         String timeOut = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getTimeOut());
         String queryCondition = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getQueryCondition());
         String webServiceUrlForOauth = ConnectionContextHelper.getOriginalValue(contextType,
                 ssConn.getWebServiceUrlTextForOAuth());
         String consumerKey = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeKey());
-        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getConsumeSecret());
+        String consumerSecret = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getConsumeSecret(), false));
         String callbackHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackHost());
         String callbackPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getCallbackPort());
         String salesforceVersion = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getSalesforceVersion());
@@ -791,17 +797,18 @@ public final class OtherConnectionContextUtils {
         String proxyHost = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyHost());
         String proxyPort = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPort());
         String proxyUsername = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyUsername());
-        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType, ssConn.getProxyPassword());
+        String proxyPassword = ConnectionContextHelper.getOriginalValue(contextType,
+                ssConn.getValue(ssConn.getProxyPassword(), false));
 
         cloneConn.setWebServiceUrl(url);
         cloneConn.setUserName(userName);
-        cloneConn.setPassword(password);
+        cloneConn.setPassword(cloneConn.getValue(password, true));
         cloneConn.setBatchSize(batchSize);
         cloneConn.setTimeOut(timeOut);
         cloneConn.setQueryCondition(queryCondition);
         cloneConn.setWebServiceUrlTextForOAuth(webServiceUrlForOauth);
         cloneConn.setConsumeKey(consumerKey);
-        cloneConn.setConsumeSecret(consumerSecret);
+        cloneConn.setConsumeSecret(cloneConn.getValue(consumerSecret, true));
         cloneConn.setCallbackHost(callbackHost);
         cloneConn.setCallbackPort(callbackPort);
         cloneConn.setSalesforceVersion(salesforceVersion);
@@ -809,7 +816,7 @@ public final class OtherConnectionContextUtils {
         cloneConn.setProxyHost(proxyHost);
         cloneConn.setProxyPort(proxyPort);
         cloneConn.setProxyUsername(proxyUsername);
-        cloneConn.setProxyPassword(proxyPassword);
+        cloneConn.setProxyPassword(cloneConn.getValue(proxyPassword, true));
 
         ConnectionContextHelper.cloneConnectionProperties(ssConn, cloneConn);
 
@@ -836,9 +843,9 @@ public final class OtherConnectionContextUtils {
         paramName = prefixName + EParamName.Port;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getPort(), JavaTypesManager.INTEGER);
 
-        // because the encrytion are same as context, so no need do decrypt for LDAP and redo-encrypt for context.
         paramName = prefixName + EParamName.BindPassword;
-        ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getBindPassword(), JavaTypesManager.PASSWORD);
+        ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getValue(ldapConn.getBindPassword(), false),
+                JavaTypesManager.PASSWORD);
 
         paramName = prefixName + EParamName.BindPrincipal;
         ConnectionContextHelper.createParameters(varList, paramName, ldapConn.getBindPrincipal());

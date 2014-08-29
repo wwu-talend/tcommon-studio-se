@@ -49,6 +49,15 @@
             name="UnifyPasswordEncryption4LdapConnectionMigrationTask"
             version="5.5.1">
       </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="5.5.1"
+            class="org.talend.repository.model.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            description="Unify the entryption for Salesforce password fields"
+            id="org.talend.repository.model.migration.UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            name="UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask"
+            version="5.5.1">
+      </projecttask>
    </extension>
    <extension
          point="org.talend.core.repositoryContextualsActions">

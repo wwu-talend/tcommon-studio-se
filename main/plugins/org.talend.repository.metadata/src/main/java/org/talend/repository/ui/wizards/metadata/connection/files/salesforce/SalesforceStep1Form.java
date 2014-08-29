@@ -41,6 +41,7 @@ import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -247,6 +248,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         webServiceUrlTextForOAuth = new LabelledText(oauthComposite, Messages.getString("webServiceUrlTextForOAuth"), 3);
         consumeKeyText = new LabelledText(oauthComposite, Messages.getString("SalesforceStep1Form.ConsumeKey"), 1);
         consumeKeySecretText = new LabelledText(oauthComposite, Messages.getString("SalesforceStep1Form.ConsumeKeySecret"), 1);
+        consumeKeySecretText.getTextControl().setEchoChar(pwdEhcoChar);
         callbackHostText = new LabelledText(oauthComposite, Messages.getString("SalesforceStep1Form.CallbackHost"), 1);
         callbackPortText = new LabelledText(oauthComposite, Messages.getString("SalesforceStep1Form.CallbackPort"), 1);
         apiVersionText = new LabelledText(oauthComposite, Messages.getString("SalesforceStep1Form.Version"), 1);
@@ -380,7 +382,8 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 if (!isContextMode()) {
                     loginOk = false;
                     checkFieldsValue();
-                    getConnection().setPassword(passwordText.getText());
+                    SalesforceSchemaConnection connection2 = getConnection();
+                    connection2.setPassword(connection2.getValue(passwordText.getText(), true));
                     setCheckEnable();
                 }
             }
@@ -489,7 +492,8 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     checkFieldsValue();
-                    getConnection().setProxyPassword(proxyPasswordText.getText());
+                    SalesforceSchemaConnection connection2 = getConnection();
+                    connection2.setProxyPassword(connection2.getValue(proxyPasswordText.getText(), true));
                 }
             }
 
@@ -538,7 +542,8 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 if (!isContextMode()) {
                     loginOk = false;
                     checkFieldsValue();
-                    getConnection().setConsumeSecret(consumeKeySecretText.getText());
+                    SalesforceSchemaConnection connection2 = getConnection();
+                    connection2.setConsumeSecret(connection2.getValue(consumeKeySecretText.getText(), true));
                     setCheckEnable();
                 }
             }
@@ -910,42 +915,43 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
     @Override
     protected void initialize() {
 
-        if (getConnection() == null) {
+        SalesforceSchemaConnection connection2 = getConnection();
+        if (connection2 == null) {
             return;
         }
 
-        if (getConnection().getWebServiceUrl() != null && !getConnection().getWebServiceUrl().equals("")) { //$NON-NLS-1$
-            webServiceUrlText.setText(getConnection().getWebServiceUrl());
+        if (connection2.getWebServiceUrl() != null && !connection2.getWebServiceUrl().equals("")) { //$NON-NLS-1$
+            webServiceUrlText.setText(connection2.getWebServiceUrl());
         }
 
-        if (getConnection().getWebServiceUrl() == null || getConnection().getWebServiceUrl().equals("")) { //$NON-NLS-1$
-            getConnection().setWebServiceUrl(TSALESFORCE_INPUT_URL);
+        if (connection2.getWebServiceUrl() == null || connection2.getWebServiceUrl().equals("")) { //$NON-NLS-1$
+            connection2.setWebServiceUrl(TSALESFORCE_INPUT_URL);
         } // Give a default value
 
         if (webServiceUrlText.getText() == null || webServiceUrlText.getText().equals("")) { //$NON-NLS-1$
             webServiceUrlText.setText(TSALESFORCE_INPUT_URL);
         }
 
-        setTextValue(getConnection().getUserName(), userNameText);
-        setTextValue(getConnection().getPassword(), passwordText);
-        String batchSize2 = getConnection().getBatchSize();
+        setTextValue(connection2.getUserName(), userNameText);
+        setTextValue(connection2.getValue(connection2.getPassword(), false), passwordText);
+        String batchSize2 = connection2.getBatchSize();
         setTextValue((batchSize2 != null && !"".equals(batchSize2)) ? batchSize2 : String //$NON-NLS-1$
                 .valueOf(SalesforceSchemaBean.DEFAULT_BATCH_SIZE), batchSizeText);
-        useProxyBtn.setSelection(getConnection().isUseProxy());
-        useHttpBtn.setSelection(getConnection().isUseHttpProxy());
-        setTextValue(getConnection().getProxyHost(), proxyHostText);
-        setTextValue(getConnection().getProxyPort(), proxyPortText);
-        setTextValue(getConnection().getProxyUsername(), proxyUsernameText);
-        setTextValue(getConnection().getProxyPassword(), proxyPasswordText);
-        String timeOutStr = getConnection().getTimeOut();
+        useProxyBtn.setSelection(connection2.isUseProxy());
+        useHttpBtn.setSelection(connection2.isUseHttpProxy());
+        setTextValue(connection2.getProxyHost(), proxyHostText);
+        setTextValue(connection2.getProxyPort(), proxyPortText);
+        setTextValue(connection2.getProxyUsername(), proxyUsernameText);
+        setTextValue(connection2.getValue(connection2.getProxyPassword(), false), proxyPasswordText);
+        String timeOutStr = connection2.getTimeOut();
         String value = (timeOutStr != null && !"".equals(timeOutStr)) ? timeOutStr : String //$NON-NLS-1$
                 .valueOf(SalesforceSchemaBean.DEFAULT_TIME_OUT);
         timeOut = value;
         setTextValue(value, timeOutText);
 
-        if (getConnection().getLoginType() != null && !getConnection().getLoginType().equals("")) {
-            authBtn.setText(getConnection().getLoginType());
-            if (getConnection().getLoginType().equalsIgnoreCase(BASIC)) {
+        if (connection2.getLoginType() != null && !connection2.getLoginType().equals("")) {
+            authBtn.setText(connection2.getLoginType());
+            if (connection2.getLoginType().equalsIgnoreCase(BASIC)) {
                 authBtn.select(0);
                 stackLayout.topControl = basicComposite;
                 stackComposite.layout();
@@ -955,25 +961,25 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 stackComposite.layout();
             }
         } else {
-            getConnection().setLoginType(BASIC);
+            connection2.setLoginType(BASIC);
         }
-        setTextValue(getConnection().getWebServiceUrlTextForOAuth(), webServiceUrlTextForOAuth);
+        setTextValue(connection2.getWebServiceUrlTextForOAuth(), webServiceUrlTextForOAuth);
         if (webServiceUrlTextForOAuth.getText() == null || webServiceUrlTextForOAuth.getText().equals("")) {
             webServiceUrlTextForOAuth.setText(TSALESFORCE_INPUT_URL_OAUTH);
-            getConnection().setWebServiceUrlTextForOAuth(TSALESFORCE_INPUT_URL_OAUTH);
+            connection2.setWebServiceUrlTextForOAuth(TSALESFORCE_INPUT_URL_OAUTH);
         }
 
-        setTextValue(getConnection().getSalesforceVersion(), apiVersionText);
+        setTextValue(connection2.getSalesforceVersion(), apiVersionText);
         if (apiVersionText.getText() == null || apiVersionText.getText().equals("")) {
             apiVersionText.setText(TSALESFORCE_VERSION);
-            getConnection().setSalesforceVersion(TSALESFORCE_VERSION);
+            connection2.setSalesforceVersion(TSALESFORCE_VERSION);
         }
 
-        setTextValue(getConnection().getConsumeKey(), consumeKeyText);
-        setTextValue(getConnection().getConsumeSecret(), consumeKeySecretText);
-        setTextValue(getConnection().getCallbackHost(), callbackHostText);
-        setTextValue(getConnection().getCallbackPort(), callbackPortText);
-        setTextValue(getConnection().getToken(), tokenText);
+        setTextValue(connection2.getConsumeKey(), consumeKeyText);
+        setTextValue(connection2.getValue(connection2.getConsumeSecret(), false), consumeKeySecretText);
+        setTextValue(connection2.getCallbackHost(), callbackHostText);
+        setTextValue(connection2.getCallbackPort(), callbackPortText);
+        setTextValue(connection2.getToken(), tokenText);
     }
 
     private void setTextValue(String value, LabelledText control) {

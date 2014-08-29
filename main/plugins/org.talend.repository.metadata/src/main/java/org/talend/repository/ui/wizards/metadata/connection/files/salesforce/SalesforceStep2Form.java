@@ -675,7 +675,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
         SalesforceSchemaBean bean = new SalesforceSchemaBean();
         bean.setWebServerUrl(originalValueConnection.getWebServiceUrl());
         bean.setUserName(originalValueConnection.getUserName());
-        bean.setPassword(originalValueConnection.getPassword());
+        bean.setPassword(originalValueConnection.getValue(originalValueConnection.getPassword(), false));
         bean.setModuleName(originalValueConnection.getModuleName());
         bean.setQueryCondition(originalValueConnection.getQueryCondition());
         bean.setUseCustomModule(originalValueConnection.isUseCustomModuleName());
@@ -685,7 +685,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
         bean.setProxyHost(originalValueConnection.getProxyHost());
         bean.setProxyPort(originalValueConnection.getProxyPort());
         bean.setProxyUsername(originalValueConnection.getProxyUsername());
-        bean.setProxyPassword(originalValueConnection.getProxyPassword());
+        bean.setProxyPassword(originalValueConnection.getValue(originalValueConnection.getProxyPassword(), false));
         try {
             bean.setTimeOut(Integer.parseInt(originalValueConnection.getTimeOut()));
         } catch (NumberFormatException e) {

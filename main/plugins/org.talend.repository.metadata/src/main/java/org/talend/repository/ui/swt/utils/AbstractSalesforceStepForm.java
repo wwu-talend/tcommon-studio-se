@@ -479,33 +479,34 @@ public abstract class AbstractSalesforceStepForm extends AbstractForm {
      * DOC zli Comment method "readMetadataDetail".
      */
     public IMetadataTable readMetadataDetail() {
-        String moduleName = getConnection().getModuleName();
+        SalesforceSchemaConnection connection2 = getConnection();
+        String moduleName = connection2.getModuleName();
 
         if (moduleName == null || moduleName.equals("")) { //$NON-NLS-1$
             return null;
         }
 
-        String webServiceUrl = getConnection().getWebServiceUrl();
-        String userName = getConnection().getUserName();
-        String password = getConnection().getPassword();
-        String timeOut = getConnection().getTimeOut();
+        String webServiceUrl = connection2.getWebServiceUrl();
+        String userName = connection2.getUserName();
+        String password = connection2.getValue(connection2.getPassword(), false);
+        String timeOut = connection2.getTimeOut();
         // add for feature 7507
-        String betchSize = getConnection().getBatchSize();
-        boolean useProxy = getConnection().isUseProxy();
-        boolean useHttp = getConnection().isUseHttpProxy();
-        String proxyHost = getConnection().getProxyHost();
-        String proxyPort = getConnection().getProxyPort();
-        String proxyUsername = getConnection().getProxyUsername();
-        String proxyPassword = getConnection().getProxyPassword();
+        String betchSize = connection2.getBatchSize();
+        boolean useProxy = connection2.isUseProxy();
+        boolean useHttp = connection2.isUseHttpProxy();
+        String proxyHost = connection2.getProxyHost();
+        String proxyPort = connection2.getProxyPort();
+        String proxyUsername = connection2.getProxyUsername();
+        String proxyPassword = connection2.getValue(connection2.getProxyPassword(), false);
 
-        String webServiceUrlForOauth = getConnection().getWebServiceUrlTextForOAuth();
-        String comsumeKey = getConnection().getConsumeKey();
-        String consumeSecret = getConnection().getConsumeSecret();
-        String callbackHost = getConnection().getCallbackHost();
-        String callbackPort = getConnection().getCallbackPort();
-        String salesforceVersion = getConnection().getSalesforceVersion();
-        String token = getConnection().getToken();
-        String loginType = getConnection().getLoginType();
+        String webServiceUrlForOauth = connection2.getWebServiceUrlTextForOAuth();
+        String comsumeKey = connection2.getConsumeKey();
+        String consumeSecret = connection2.getValue(connection2.getConsumeSecret(), false);
+        String callbackHost = connection2.getCallbackHost();
+        String callbackPort = connection2.getCallbackPort();
+        String salesforceVersion = connection2.getSalesforceVersion();
+        String token = connection2.getToken();
+        String loginType = connection2.getLoginType();
 
         if (isContextMode() && getContextModeManager() != null) {
             webServiceUrl = getContextModeManager().getOriginalValue(webServiceUrl);
