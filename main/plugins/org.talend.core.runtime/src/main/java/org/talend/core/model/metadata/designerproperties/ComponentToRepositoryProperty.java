@@ -864,7 +864,7 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = (getParameterValue(connection, node, param)).replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ 
             if (value != null) {
-                connection.setBindPassword(value);
+                connection.setBindPassword(connection.getValue(value, true));
             }
         }
         if ("FILTER".equals(param.getRepositoryValue())) { //$NON-NLS-1$

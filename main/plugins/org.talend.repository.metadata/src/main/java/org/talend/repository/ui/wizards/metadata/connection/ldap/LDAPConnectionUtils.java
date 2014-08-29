@@ -140,15 +140,16 @@ public class LDAPConnectionUtils {
             }
         }
 
-        Object[] array = (Object[]) attributeSet.toArray();
+        Object[] array = attributeSet.toArray();
 
         return array;
     }
 
     private static void featchAttributes(Attribute oc, Set<String> attributeSet, SchemaOps schema) {
         try {
-            if (oc.contains(SchemaOps.SCHEMA_FAKE_OBJECT_CLASS_NAME))
+            if (oc.contains(SchemaOps.SCHEMA_FAKE_OBJECT_CLASS_NAME)) {
                 return;
+            }
             NamingEnumeration ocs = oc.getAll();
             while (ocs.hasMore()) {
                 final Object next = ocs.next();
@@ -162,8 +163,9 @@ public class LDAPConnectionUtils {
                     NamingEnumeration musts = mustAtt.getAll();
                     while (musts.hasMore()) {
                         String attributeName = (String) musts.next();
-                        if (attributeName.indexOf(";binary") > 0)//$NON-NLS-1$
+                        if (attributeName.indexOf(";binary") > 0) {
                             attributeName = attributeName.substring(0, attributeName.indexOf(";binary"));//$NON-NLS-1$
+                        }
                         String ldapName = null;
                         if (schema.knownOID(attributeName)) {
                             ldapName = schema.translateOID(attributeName);
@@ -181,8 +183,9 @@ public class LDAPConnectionUtils {
                     while (mays.hasMore()) {
                         String attOID = (String) mays.next();
                         // XXX isNonString hack
-                        if (attOID.indexOf(";binary") > 0)//$NON-NLS-1$
+                        if (attOID.indexOf(";binary") > 0) {
                             attOID = attOID.substring(0, attOID.indexOf(";binary"));//$NON-NLS-1$
+                        }
 
                         String ldapName = null;
                         if (schema.knownOID(attOID)) {
@@ -192,7 +195,7 @@ public class LDAPConnectionUtils {
                             Attributes myldapEntry = schema.getAttributes("AttributeDefinition/" + attOID);//$NON-NLS-1$
                             if (myldapEntry != null) {
                                 Attribute attribute = myldapEntry.get("NAME");
-                                ldapName = attribute.get().toString();//$NON-NLS-1$
+                                ldapName = attribute.get().toString();
                                 attributeSet.add(ldapName);
                             }
 
@@ -265,7 +268,7 @@ public class LDAPConnectionUtils {
 
         String encryptionMethod = connection.getEncryptionMethodName();
         String userOrBindId = connection.getBindPrincipal();
-        String password = connection.getBindPassword();
+        String password = connection.getValue(connection.getBindPassword(), false);
 
         String aliasesDereference = connection.getAliases();
         String referral = connection.getReferrals();

@@ -269,7 +269,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
                     password = bindPasswordText.getText().trim();
                     if (saveBindPasswordButton.getSelection() == true) {
                         connection.setSavePassword(true);
-                        connection.setBindPassword(password);
+                        connection.setBindPassword(connection.getValue(password, true));
                     }
                 }
             }
@@ -615,7 +615,7 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
         if (bindPrincipal != null && bindPrincipal.length() > 0) {
             this.bindPrincipalCombo.setText(bindPrincipal);
         }
-        String password = connection.getBindPassword();
+        String password = connection.getValue(connection.getBindPassword(), false);
         if (password != null && password.length() > 0) {
             this.bindPasswordText.setText(password);
             if (connection.isSavePassword()) {

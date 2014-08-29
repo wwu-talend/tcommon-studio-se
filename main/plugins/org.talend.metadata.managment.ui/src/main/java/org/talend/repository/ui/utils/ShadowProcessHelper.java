@@ -485,7 +485,7 @@ public class ShadowProcessHelper {
         if (bindPrincipal != null) {
             bean.setUser(TalendQuoteUtils.addQuotes(bindPrincipal.replaceAll("\\\\", "\\\\\\\\"))); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        String bindPassword = connection.getBindPassword();
+        String bindPassword = connection.getValue(connection.getBindPassword(), false);
         if (bindPassword != null) {
             bean.setPasswd(TalendQuoteUtils.addQuotes(bindPassword.replaceAll("\\\\", "\\\\\\\\"))); //$NON-NLS-1$ //$NON-NLS-2$
         }

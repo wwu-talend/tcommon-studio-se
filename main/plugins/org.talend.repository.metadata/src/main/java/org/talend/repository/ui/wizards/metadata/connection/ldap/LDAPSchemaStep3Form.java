@@ -169,11 +169,13 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
     protected void addFieldsListeners() {
         filterText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     String filter = filterText.getText();
-                    if (filter != null && filter.length() > 0)
+                    if (filter != null && filter.length() > 0) {
                         getConnection().setFilter(filterText.getText().trim());
+                    }
                 }
             }
         });
@@ -184,11 +186,13 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
      * 
      * @param cancelButton
      */
+    @Override
     protected void addUtilsButtonListeners() {
 
         // Event PreviewButton
         previewButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
 
                 refreshPreview();
@@ -199,6 +203,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             // Event CancelButton
             cancelButton.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(final SelectionEvent e) {
                     getShell().close();
                 }
@@ -209,6 +214,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
         final Table table = tableEditorView.getTableViewerCreator().getTable();
         table.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (e.detail == SWT.CHECK) {
                     TableItem tableItem = (TableItem) e.item;
@@ -258,6 +264,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
@@ -274,6 +281,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
 
         ProcessDescription processDescription = null;
 
+        @Override
         public boolean preProcessStart() {
             previewButton.setText(Messages.getString("FileStep2.stop")); //$NON-NLS-1$
 
@@ -292,6 +300,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             return true;
         }
 
+        @Override
         public void nonUIProcessInThread() {
             // get the CsvArray width an adapt ProcessDescription
             try {
@@ -303,12 +312,14 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsCanceled() {
             if (!previewInformationLabel.isDisposed()) {
                 previewInformationLabel.setText(""); //$NON-NLS-1$
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsNotCanceled() {
             if (previewInformationLabel.isDisposed()) {
                 return;
@@ -319,6 +330,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
                 //$NON-NLS-2$
                 Display.getDefault().asyncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -338,6 +350,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
 
                 Display.getDefault().asyncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem, e);
                     }
@@ -358,6 +371,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
                 } catch (final Exception e) {
                     Display.getDefault().asyncExec(new Runnable() {
 
+                        @Override
                         public void run() {
                             handleErrorOutput(outputComposite, tabFolder, outputTabItem, e);
                         }
@@ -373,6 +387,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadFinally() {
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
@@ -380,6 +395,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             }
         }
 
+        @Override
         public void postProcessCancle() {
             previewButton.setEnabled(false);
         }
@@ -423,10 +439,12 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
                 TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
                 column.setBeanPropertyAccessors(new IBeanPropertyAccessors<String, String>() {
 
+                    @Override
                     public String get(String bean) {
                         return bean.toString();
                     }
 
+                    @Override
                     public void set(String bean, String value) {
                     }
 
@@ -448,6 +466,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
         selectAllButton.setToolTipText(Messages.getString("LDAPSchemaStep3Form.selectAllTipText")); //$NON-NLS-1$
         selectAllButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 TableItem[] tableItems = tableEditorView.getTable().getItems();
                 if (tableItems != null && tableItems.length > 0) {
@@ -465,6 +484,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
         selectNoneButton.setToolTipText(Messages.getString("LDAPSchemaStep3Form.selectNoneTipText")); //$NON-NLS-1$
         selectNoneButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 TableItem[] tableItems = tableEditorView.getTable().getItems();
                 if (tableItems != null && tableItems.length > 0) {
@@ -608,7 +628,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
         newCon.version = 3;
         newCon.useGSSAPI = false;
         newCon.userDN = talendLDAPConnection.getBindPrincipal();
-        String bindPassword = talendLDAPConnection.getBindPassword();
+        String bindPassword = connection.getValue(talendLDAPConnection.getBindPassword(), false);
         if (bindPassword != null) {
             newCon.pwd = bindPassword.toCharArray();
         }
@@ -657,19 +677,23 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             return null;
         }
 
-        if (host != null)
+        if (host != null) {
             host = host.trim();
+        }
 
-        if (portString != null)
+        if (portString != null) {
             portString = portString.trim();
+        }
 
         int port = Integer.parseInt(portString);
 
-        if (port < 0)
+        if (port < 0) {
             return null;
+        }
 
-        if (port > 65536)
+        if (port > 65536) {
             return null;
+        }
 
         return "ldap://" + host + ":" + port;//$NON-NLS-1$//$NON-NLS-2$
     }
@@ -701,6 +725,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
      * 
      * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (super.isVisible()) {
@@ -736,8 +761,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
     protected void checkTheRightAttributes(List<String> attribute) {
 
         TableItem[] tableItems = tableEditorView.getTableViewerCreator().getTable().getItems();
-        for (int j = 0; j < tableItems.length; j++) {
-            TableItem tableItem = tableItems[j];
+        for (TableItem tableItem : tableItems) {
             for (int i = 0; i < attribute.size(); i++) {
                 String attributeName = attribute.get(i);
                 if (attributeName != null && !("").equals(attributeName)) { //$NON-NLS-1$

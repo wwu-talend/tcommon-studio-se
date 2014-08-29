@@ -2159,7 +2159,8 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getBindPassword())) {
                 return connection.getBindPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getBindPassword()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getBindPassword(), false)).replaceAll(
+                        "\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         if (value.equals("FILTER")) { //$NON-NLS-1$
