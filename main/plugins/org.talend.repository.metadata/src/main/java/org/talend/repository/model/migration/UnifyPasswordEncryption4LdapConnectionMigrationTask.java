@@ -58,6 +58,7 @@ public class UnifyPasswordEncryption4LdapConnectionMigrationTask extends Abstrac
                         String pass = ldapConn.getBindPassword();
                         ldapConn.setBindPassword(ldapConn.getValue(pass, true));
                         factory.save(item, true);
+                        return ExecutionResult.SUCCESS_NO_ALERT;
                     }
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
@@ -65,7 +66,7 @@ public class UnifyPasswordEncryption4LdapConnectionMigrationTask extends Abstrac
                 }
             }
         }
-        return ExecutionResult.SUCCESS_NO_ALERT;
+        return ExecutionResult.NOTHING_TO_DO;
     }
 
     /*

@@ -59,6 +59,7 @@ public class UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask ext
                         ssConn.setProxyPassword(ssConn.getValue(ssConn.getProxyPassword(), true));
                         ssConn.setConsumeSecret(ssConn.getValue(ssConn.getConsumeSecret(), true));
                         factory.save(item, true);
+                        return ExecutionResult.SUCCESS_NO_ALERT;
                     }
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
@@ -66,7 +67,7 @@ public class UnifyPasswordEncryption4SalesforceSchemaConnectionMigrationTask ext
                 }
             }
         }
-        return ExecutionResult.SUCCESS_NO_ALERT;
+        return ExecutionResult.NOTHING_TO_DO;
     }
 
     /*
