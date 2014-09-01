@@ -556,7 +556,7 @@ public final class OtherConnectionContextUtils {
         ConnectionContextHelper.createParameters(varList, paramName, conn.getUsername());
 
         paramName = prefixName + EParamName.FTPPASSWORD;
-        ConnectionContextHelper.createParameters(varList, paramName, conn.getPassword());
+        ConnectionContextHelper.createParameters(varList, paramName, conn.getValue(conn.getPassword(), false));
 
         return varList;
     }
@@ -1035,12 +1035,12 @@ public final class OtherConnectionContextUtils {
         String host = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getHost());
         String port = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getPort());
         String userName = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getUsername());
-        String password = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getPassword());
+        String password = ConnectionContextHelper.getOriginalValue(contextType, ftpConn.getValue(ftpConn.getPassword(), false));
 
         cloneConn.setHost(host);
         cloneConn.setPort(port);
         cloneConn.setUsername(userName);
-        cloneConn.setPassword(password);
+        cloneConn.setPassword(cloneConn.getValue(password, true));
 
         return cloneConn;
     }
