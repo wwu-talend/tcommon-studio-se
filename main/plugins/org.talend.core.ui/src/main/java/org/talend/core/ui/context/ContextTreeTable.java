@@ -112,7 +112,7 @@ public class ContextTreeTable {
 
     private IStructuredSelection currentNatTabSel;
 
-    private final static String TREE_CONTEXT_ROOT = "root";
+    private final static String TREE_CONTEXT_ROOT = "";
 
     private final static String TREE_DEFAULT_NODE = "node";
 

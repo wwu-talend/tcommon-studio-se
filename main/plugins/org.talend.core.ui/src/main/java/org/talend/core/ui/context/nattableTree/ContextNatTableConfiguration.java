@@ -24,6 +24,7 @@ import org.eclipse.nebula.widgets.nattable.config.IEditableRule;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.data.convert.DefaultBooleanDisplayConverter;
 import org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes;
+import org.eclipse.nebula.widgets.nattable.edit.config.DialogErrorHandling;
 import org.eclipse.nebula.widgets.nattable.edit.editor.AbstractCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.CheckBoxCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor;
@@ -97,6 +98,7 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
         registerEditors(configRegistry);
         registerStyleRules(configRegistry);
         registerValidateRules(configRegistry);
+        registerErrorHandlingStrategies(configRegistry);
     }
 
     private void registerEditableRules(IConfigRegistry configRegistry) {
@@ -134,8 +136,13 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
     }
 
     private void registerValidateRules(IConfigRegistry configRegistry) {
-        configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, new EventDataValidator(dataProvider),
-                DisplayMode.EDIT, ContextTableConstants.COLUMN_CHECK_PROPERTY);
+        configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR,
+                new EventDataValidator(dataProvider, manager), DisplayMode.EDIT, ContextTableConstants.COLUMN_NAME_PROPERTY);
+    }
+
+    private void registerErrorHandlingStrategies(IConfigRegistry configRegistry) {
+        configRegistry.registerConfigAttribute(EditConfigAttributes.VALIDATION_ERROR_HANDLER, new DialogErrorHandling(),
+                DisplayMode.EDIT, ContextTableConstants.COLUMN_NAME_PROPERTY);
     }
 
     private IEditableRule getEditRule() {
