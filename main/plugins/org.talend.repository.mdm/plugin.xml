@@ -94,6 +94,18 @@
          </importItemsHandler>
       </importItemsProvider>
    </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <projecttask
+            beforeLogon="false"
+            breaks="5.5.1"
+            class="org.talend.repository.mdm.repository.migration.UnifyPasswordEncryption4MDMConnectionMigrationTask"
+            description="Unify the entryption for MDM password field"
+            id="org.talend.repository.mdm.repository.migration.UnifyPasswordEncryption4MDMConnectionMigrationTask"
+            name="UnifyPasswordEncryption4MDMConnectionMigrationTask"
+            version="5.5.1">
+      </projecttask>
+   </extension>
    <!--
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">

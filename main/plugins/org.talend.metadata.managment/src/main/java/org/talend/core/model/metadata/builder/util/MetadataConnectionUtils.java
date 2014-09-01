@@ -757,7 +757,7 @@ public class MetadataConnectionUtils {
      */
     public static XtentisBindingStub getXtentisBindingStub(MDMConnection dataProvider) throws ServiceException {
         return getXtentisBindingStub(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
-                dataProvider.getUsername(), dataProvider.getPassword());
+                dataProvider.getUsername(), dataProvider.getValue(dataProvider.getPassword(), false));
     }
 
     /**

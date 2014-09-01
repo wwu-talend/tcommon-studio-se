@@ -248,14 +248,7 @@ public final class JavaSqlFactory {
      * @param username
      */
     public static void setUsername(Connection conn, String username) {
-        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        if (dbConn != null) {
-            dbConn.setUsername(username);
-        }
-        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
-        if (mdmConn != null) {
-            mdmConn.setUsername(username);
-        }
+        ConnectionHelper.setUsername(conn, username);
     }
 
     /**
@@ -265,14 +258,7 @@ public final class JavaSqlFactory {
      * @param password
      */
     public static void setPassword(Connection conn, String password) {
-        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
-        if (dbConn != null) {
-            dbConn.setRawPassword(password);
-        }
-        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
-        if (mdmConn != null) {
-            mdmConn.setPassword(ConnectionHelper.getEncryptPassword(password));
-        }
+        ConnectionHelper.setPassword(conn, password);
     }
 
     /**

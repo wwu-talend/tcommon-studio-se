@@ -156,6 +156,7 @@ public class MDMForm extends AbstractForm {
     protected void addFieldsListeners() {
         mdmUsernameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setUsername(mdmUsernameText.getText());
                 checkFieldsValue();
@@ -164,14 +165,17 @@ public class MDMForm extends AbstractForm {
         });
         mdmPasswordText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
-                getConnection().setPassword(mdmPasswordText.getText());
+                MDMConnection conn = getConnection();
+                conn.setPassword(conn.getValue(mdmPasswordText.getText(), true));
                 checkFieldsValue();
             }
 
         });
         mdmServer.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setServer(mdmServer.getText());
                 checkFieldsValue();
@@ -180,6 +184,7 @@ public class MDMForm extends AbstractForm {
         });
         mdmHostnameText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 getConnection().setPort(mdmHostnameText.getText());
                 checkFieldsValue();
@@ -214,7 +219,7 @@ public class MDMForm extends AbstractForm {
 
     private void checkMDMConnection() {
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress("http://" + mdmServer.getText() + ":" + mdmHostnameText.getText()//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
+        xtentisService.setXtentisPortEndpointAddress("http://" + mdmServer.getText() + ":" + mdmHostnameText.getText()//$NON-NLS-1$//$NON-NLS-2$
                 + "/talend/TalendPort" + "?wsdl");//$NON-NLS-1$
         String username = mdmUsernameText.getText();
         String pass = mdmPasswordText.getText();
@@ -307,17 +312,19 @@ public class MDMForm extends AbstractForm {
      */
     @Override
     protected void initialize() {
-        String username = getConnection().getUsername();
-        String pass = getConnection().getPassword();
-        String server = getConnection().getServer();
-        String port = getConnection().getPort();
+        MDMConnection mdmConn = getConnection();
+        String username = mdmConn.getUsername();
+        String pass = mdmConn.getValue(mdmConn.getPassword(), false);
+        String server = mdmConn.getServer();
+        String port = mdmConn.getPort();
         mdmUsernameText.setText(username);
         mdmPasswordText.setText(pass);
         if (server == null || "".equals(server)) { //$NON-NLS-1$
             mdmServer.setText("localhost"); //$NON-NLS-1$
-            getConnection().setServer("localhost"); //$NON-NLS-1$
-        } else
+            mdmConn.setServer("localhost"); //$NON-NLS-1$
+        } else {
             mdmServer.setText(server);
+        }
         mdmHostnameText.setText(port);
         // if (username != null && pass != null && server != null && port != null) {
         // updateStatus(IStatus.ERROR, "Please check the connection");

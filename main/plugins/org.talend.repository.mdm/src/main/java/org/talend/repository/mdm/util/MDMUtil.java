@@ -104,7 +104,7 @@ public class MDMUtil {
     }
 
     public static File getTempTemplateXSDFile() {
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();
@@ -118,7 +118,7 @@ public class MDMUtil {
         // xsdFilePath = temp.toOSString() + "\\template.xsd";
         XtentisBindingStub stub = null;
         String userName = mdmConn.getUsername();
-        String password = mdmConn.getPassword();
+        String password = mdmConn.getValue(mdmConn.getPassword(), false);
         String server = mdmConn.getServer();
         String port = mdmConn.getPort();
         String universe = mdmConn.getUniverse();
@@ -127,7 +127,7 @@ public class MDMUtil {
         WSUniversePK universePK = null;
         WSDataModelPK modelPK = null;
         XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         XtentisPort xtentisWS = xtentisService.getXtentisPort();
         stub = (XtentisBindingStub) xtentisWS;
         stub.setUsername(userName);
@@ -139,9 +139,9 @@ public class MDMUtil {
             universes = null;
         }
         if (universes != null) {
-            for (int i = 0; i < universes.length; i++) {
-                if (universes[i].getPk().equals(universe)) {
-                    universePK = universes[i];
+            for (WSUniversePK universe2 : universes) {
+                if (universe2.getPk().equals(universe)) {
+                    universePK = universe2;
                     break;
                 }
             }
@@ -158,9 +158,9 @@ public class MDMUtil {
         if (models == null) {
             return;
         }
-        for (int i = 0; i < models.length; i++) {
-            if (models[i].getPk().equals(datamodel)) {
-                modelPK = models[i];
+        for (WSDataModelPK model : models) {
+            if (model.getPk().equals(datamodel)) {
+                modelPK = model;
                 break;
             }
         }
