@@ -605,13 +605,13 @@ public class ShadowProcessHelper {
         bean.setMethod(TalendQuoteUtils.addQuotes(connection.getMethodName()));
         bean.setNeedAuth(connection.isNeedAuth());
         bean.setUserName(TalendQuoteUtils.addQuotes(connection.getUserName()));
-        bean.setPassword(TalendQuoteUtils.addQuotes(connection.getPassword()));
+        bean.setPassword(TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false)));
         bean.setParameters(connection.getParameters());
         bean.setUseProxy(connection.isUseProxy());
         bean.setProxyHost(TalendQuoteUtils.addQuotes(connection.getProxyHost()));
         bean.setProxyPort(TalendQuoteUtils.addQuotes(connection.getProxyPort()));
         bean.setProxyUser(TalendQuoteUtils.addQuotes(connection.getProxyUser()));
-        bean.setProxyPassword(TalendQuoteUtils.addQuotes(connection.getProxyPassword()));
+        bean.setProxyPassword(TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxyPassword(), false)));
         bean.setTimeOut(connection.getTimeOut());
         bean.setIsInputModel(connection.isIsInputModel());
         bean.setServerName(connection.getServerName());

@@ -51,6 +51,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.CsvArray;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -400,7 +401,8 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     checkFieldsValue();
-                    getConnection().setPassword(passWordText.getText());
+                    WSDLSchemaConnection conn = getConnection();
+                    conn.setPassword(conn.getValue(passWordText.getText(), true));
                 }
             }
 
@@ -456,7 +458,8 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     checkFieldsValue();
-                    getConnection().setProxyPassword(proxyPassword.getText());
+                    WSDLSchemaConnection wsdlConn = getConnection();
+                    wsdlConn.setProxyPassword(wsdlConn.getValue(proxyPassword.getText(), true));
                 }
             }
 
@@ -642,41 +645,42 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
      */
     @Override
     protected void initialize() {
-        String wsdlUrl = getConnection().getWSDL();
+        WSDLSchemaConnection wsdlConn = getConnection();
+        String wsdlUrl = wsdlConn.getWSDL();
         this.wsdlText.setText(wsdlUrl == null ? "" : wsdlUrl); //$NON-NLS-1$
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-            boolean needAuth2 = getConnection().isNeedAuth();
-            String userName = getConnection().getUserName();
+            boolean needAuth2 = wsdlConn.isNeedAuth();
+            String userName = wsdlConn.getUserName();
             this.userNameText.setText(userName == null ? "" : userName); //$NON-NLS-1$
-            String password2 = getConnection().getPassword();
+            String password2 = wsdlConn.getValue(wsdlConn.getPassword(), false);
             this.passWordText.setText(password2 == null ? "" : password2); //$NON-NLS-1$
             setNeedAuthEnable(needAuth2);
-            boolean useproxy = getConnection().isUseProxy();
+            boolean useproxy = wsdlConn.isUseProxy();
 
-            String proxyHost = getConnection().getProxyHost();
+            String proxyHost = wsdlConn.getProxyHost();
             this.proxyHost.setText(proxyHost == null ? "" : proxyHost); //$NON-NLS-1$
-            String proxyPort = getConnection().getProxyPort();
+            String proxyPort = wsdlConn.getProxyPort();
             this.proxyPort.setText(proxyPort == null ? "" : proxyPort); //$NON-NLS-1$
-            String proxyUser = getConnection().getProxyUser();
+            String proxyUser = wsdlConn.getProxyUser();
             this.proxyUser.setText(proxyUser == null ? "" : proxyUser); //$NON-NLS-1$
-            String proxyPass = getConnection().getProxyPassword();
+            String proxyPass = wsdlConn.getValue(wsdlConn.getProxyPassword(), false);
             this.proxyPassword.setText(proxyPass == null ? "" : proxyPass); //$NON-NLS-1$
-            int timeOut = getConnection().getTimeOut();
+            int timeOut = wsdlConn.getTimeOut();
             this.timeOut.setText(timeOut < 0 ? "0" : String.valueOf(timeOut)); //$NON-NLS-1$
             setUseProxyEnable(useproxy);
         } else if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-            String endPointURI = getConnection().getEndpointURI();
+            String endPointURI = wsdlConn.getEndpointURI();
             this.endPointURI.setText(endPointURI == null ? "" : endPointURI); //$NON-NLS-1$
-            if (getConnection().getEncoding() != null && !getConnection().getEncoding().equals("")) { //$NON-NLS-1$
-                encodingCombo.setText(getConnection().getEncoding());
+            if (wsdlConn.getEncoding() != null && !wsdlConn.getEncoding().equals("")) { //$NON-NLS-1$
+                encodingCombo.setText(wsdlConn.getEncoding());
             } else {
                 encodingCombo.select(0);
             }
             encodingCombo.clearSelection();
         }
-        String method = getConnection().getMethodName();
+        String method = wsdlConn.getMethodName();
         this.methodText.setText(method == null ? "" : method); //$NON-NLS-1$
-        ArrayList hashparameter = getConnection().getParameters();
+        ArrayList hashparameter = wsdlConn.getParameters();
         // Object[] objs = hashparameter.values().toArray();
         // LinkedList<ColumnValue> list = new LinkedList<ColumnValue>();
         // for (Object object : objs) {

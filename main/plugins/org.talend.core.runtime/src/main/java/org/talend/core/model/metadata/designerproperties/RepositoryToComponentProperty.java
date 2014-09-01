@@ -625,7 +625,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getPassword())) {
                 return connection.getPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getPassword(), false));
             }
         } else if ("UES_PROXY".equals(value)) { //$NON-NLS-1$
             return new Boolean(connection.isUseProxy());
@@ -651,7 +651,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getProxyPassword())) {
                 return connection.getProxyPassword();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getProxyPassword());
+                return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxyPassword(), false));
             }
         } else if ("METHOD".equals(value)) { //$NON-NLS-1$
             if (!connection.isIsInputModel()) {
