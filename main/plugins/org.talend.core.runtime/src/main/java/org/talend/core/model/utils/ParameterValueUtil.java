@@ -521,7 +521,7 @@ public final class ParameterValueUtil {
         if (contextParam != null) {
             String docValue = contextParam.getValue();
             if (docValue != null) {
-                if (isHidePassword() && PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
+                if (PasswordEncryptUtil.isPasswordType(contextParam.getType())) {
                     if (isHidePassword()) { // if hide will display the *
                         docValue = PasswordEncryptUtil.getPasswordDisplay(docValue.toString());
                     } else { // the value has been raw, so need encrypt it like the ContextParameterType.
