@@ -133,6 +133,10 @@ public class ContextTreeTable {
         return currentNatTabSel;
     }
 
+    public void clearSelection() {
+        currentNatTabSel = null;
+    }
+
     public List<IContext> getContexts(IContextManager contextManger) {
         List<IContext> contexts = new ArrayList<IContext>();
         if (contextManger != null) {

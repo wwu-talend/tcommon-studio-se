@@ -337,30 +337,36 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
 
                 IStructuredSelection sel = treeTable.getSelection();
 
-                Object[] obj = new Object[sel.toList().size()];
+                if (treeTable.getSelection() != null) {
 
-                int i = 0;
-                for (Object node : sel.toList().toArray()) {
-                    if (node instanceof ContextTreeNode) {
-                        obj[i++] = ((ContextTreeNode) node).getTreeData();
+                    Object[] obj = new Object[sel.toList().size()];
+
+                    int i = 0;
+                    for (Object node : sel.toList().toArray()) {
+                        if (node instanceof ContextTreeNode) {
+                            obj[i++] = ((ContextTreeNode) node).getTreeData();
+                        }
+
                     }
 
-                }
+                    for (Object object : obj) { // multi delete
+                        if (object == null) {
+                            return;
+                        }
+                        if (object instanceof ContextTableTabParentModel) {
+                            ContextTableTabParentModel parentModel = (ContextTableTabParentModel) object;
+                            removeParentModelInGroupBySource(parentModel);
+                        } else if (object instanceof ContextTableTabChildModel) {
+                            ContextTableTabChildModel childModel = (ContextTableTabChildModel) object;
+                            removeChildModelInGroupBySource(childModel);
+                        }
 
-                for (Object object : obj) { // multi delete
-                    if (object == null) {
-                        return;
+                        modelManager.refreshTableTab();
+                        checkButtonEnableState();
                     }
-                    if (object instanceof ContextTableTabParentModel) {
-                        ContextTableTabParentModel parentModel = (ContextTableTabParentModel) object;
-                        removeParentModelInGroupBySource(parentModel);
-                    } else if (object instanceof ContextTableTabChildModel) {
-                        ContextTableTabChildModel childModel = (ContextTableTabChildModel) object;
-                        removeChildModelInGroupBySource(childModel);
+                    if (!treeTable.getSelection().isEmpty()) {
+                        treeTable.clearSelection();
                     }
-
-                    modelManager.refreshTableTab();
-                    checkButtonEnableState();
                 }
             }
         });
