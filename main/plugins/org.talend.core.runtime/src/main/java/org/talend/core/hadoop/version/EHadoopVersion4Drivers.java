@@ -83,6 +83,14 @@ public enum EHadoopVersion4Drivers {
 
     MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true),
 
+    APACHE_2_4_0_EMR(
+                     EHadoopDistributions.AMAZON_EMR,
+                     "Apache 2.4.0",
+                     "APACHE_2_4_0_EMR",
+                     true,
+                     false,
+                     new EMRVersion[] { EMRVersion.YARN }),
+
     APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false),
 
     MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true),
