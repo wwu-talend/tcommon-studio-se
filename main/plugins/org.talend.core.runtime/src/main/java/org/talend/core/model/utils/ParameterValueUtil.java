@@ -550,19 +550,6 @@ public final class ParameterValueUtil {
         return null;
     }
 
-    public static String getEncryptValue(IElementParameter param) {
-        if (param != null) {
-            Object docValue = param.getValue();
-            if (docValue != null && docValue instanceof String) {
-                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
-                if (encryptValue != null) {
-                    return encryptValue;
-                }
-            }
-        }
-        return null;
-    }
-
     public static Object getValue4Doc(IElementParameter param) {
         if (param != null) {
             Object docValue = param.getValue();
@@ -586,15 +573,30 @@ public final class ParameterValueUtil {
         return EMPTY;
     }
 
+    public static String getEncryptValue(IElementParameter param) {
+        if (param != null) {
+            Object docValue = param.getValue();
+            if (docValue != null && docValue instanceof String) {
+                String encryptValue = CryptoHelper.DEFAULT.encrypt(docValue.toString());
+                if (encryptValue != null) {
+                    return encryptValue;
+                }
+            }
+        }
+        return null;
+    }
+
     public static String getValue4Doc(ElementParameterType param) {
         if (param != null) {
             String docValue = param.getValue();
-            if (docValue != null && param.getField() == EParameterFieldType.PASSWORD.getName() && isHidePassword()
-                    && !ContextParameterUtils.containContextVariables(docValue)) {
-                // the value has been raw, so just get dispaly value.
-                docValue = PasswordEncryptUtil.getPasswordDisplay(docValue);
+            if (docValue != null) {
+                if (EParameterFieldType.PASSWORD.getName().equals(param.getField()) && isHidePassword()
+                        && !ContextParameterUtils.containContextVariables(docValue)) {
+                    // the value has been raw, so just get dispaly value.
+                    docValue = PasswordEncryptUtil.getPasswordDisplay(param.getRawValue());
+                }
+                return docValue;
             }
-            return docValue;
         }
         return EMPTY;
     }

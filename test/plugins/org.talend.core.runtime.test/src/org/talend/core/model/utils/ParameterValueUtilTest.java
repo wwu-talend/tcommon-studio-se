@@ -12,14 +12,32 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
+import java.util.ArrayList;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.talend.commons.utils.PasswordEncryptUtil;
+import org.talend.core.model.context.JobContextParameter;
+import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.properties.Project;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.repository.ProjectManager;
+import org.talend.utils.security.CryptoHelper;
 
 /**
  * DOC cmeng class global comment. Detailled comment
+ * 
+ * 
+ * test for the encryption and decryption, in this junit, maybe some test case will be failed random, so fart, can't
+ * find out the root problems.
  */
-@SuppressWarnings("nls")
+@SuppressWarnings({ "nls", "deprecation" })
 public class ParameterValueUtilTest {
 
     @Test
@@ -434,5 +452,540 @@ public class ParameterValueUtilTest {
         // if flag is false, means is from SQL. but when replace the globlemap, will be problem.
         retValue = ParameterValueUtil.renameValues(testString, "tFileList_1", "tFileList_2", false);
         Assert.assertTrue("testRenameValues4SQLAndGlobleMap", expectRetValue.equals(retValue));
+    }
+
+    @Test
+    public void testGetValue4Doc4ContextParameterTypeWithNonPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((ContextParameterType) null));
+
+        ContextParameterType contextParamType = TalendFileFactory.eINSTANCE.createContextParameterType();
+        contextParamType.setType(JavaTypesManager.getDefaultJavaType().getId());
+
+        contextParamType.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        contextParamType.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        contextParamType.setValue("123");
+        Assert.assertEquals("123", ParameterValueUtil.getValue4Doc(contextParamType));
+
+    }
+
+    @Test
+    public void testGetValue4Doc4ContextParameterTypeWithPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((ContextParameterType) null));
+
+        boolean oldHidePasswordFlag = ParameterValueUtil.isHidePassword();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
+
+        currentProject.setHidePassword(false);
+
+        ContextParameterType contextParamType = TalendFileFactory.eINSTANCE.createContextParameterType();
+        contextParamType.setType(JavaTypesManager.PASSWORD.getId());
+
+        contextParamType.setRawValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        contextParamType.setRawValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        contextParamType.setRawValue("123");
+        Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        //
+        currentProject.setHidePassword(true);
+
+        contextParamType.setRawValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        contextParamType.setRawValue("");
+        Assert.assertEquals("****", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        contextParamType.setRawValue("123");
+        Assert.assertEquals("***", ParameterValueUtil.getValue4Doc(contextParamType));
+
+        currentProject.setHidePassword(oldHidePasswordFlag);
+    }
+
+    @Test
+    public void testGetValue4Doc4IContextParameterWithNonPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((IContextParameter) null));
+
+        JobContextParameter contextParam = new JobContextParameter();
+        contextParam.setType(JavaTypesManager.getDefaultJavaType().getId());
+
+        contextParam.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+
+        contextParam.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+
+        contextParam.setValue("123");
+        Assert.assertEquals("123", ParameterValueUtil.getValue4Doc(contextParam));
+
+    }
+
+    @Test
+    public void testGetValue4Doc4IContextParameterWithPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((IContextParameter) null));
+
+        boolean oldHidePasswordFlag = ParameterValueUtil.isHidePassword();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
+
+        currentProject.setHidePassword(false);
+
+        IContextParameter contextParam = new JobContextParameter();
+        contextParam.setType(JavaTypesManager.PASSWORD.getId());
+
+        contextParam.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+
+        contextParam.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+
+        contextParam.setValue("123");
+        Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(contextParam));
+
+        //
+        currentProject.setHidePassword(true);
+
+        contextParam.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(contextParam));
+
+        contextParam.setValue("");
+        Assert.assertEquals("****", ParameterValueUtil.getValue4Doc(contextParam));
+
+        contextParam.setValue("123");
+        Assert.assertEquals("***", ParameterValueUtil.getValue4Doc(contextParam));
+
+        currentProject.setHidePassword(oldHidePasswordFlag);
+    }
+
+    @Test
+    public void testGetEncryptValue4IContextParameter() {
+        Assert.assertNull(ParameterValueUtil.getEncryptValue((IContextParameter) null));
+
+        IContextParameter contextParam = new JobContextParameter();
+
+        contextParam.setValue(null);
+        Assert.assertNull(ParameterValueUtil.getEncryptValue(contextParam));
+
+        contextParam.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getEncryptValue(contextParam));
+
+        contextParam.setValue("123");
+        Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getEncryptValue(contextParam));
+    }
+
+    @Test
+    public void testGetValue4Doc4IElementParameterWithNonPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((IElementParameter) null));
+
+        IElementParameter param = new TestElementParameter();
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("123", ParameterValueUtil.getValue4Doc(param));
+
+    }
+
+    @Test
+    public void testGetValue4Doc4IElementParameterWithPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((IElementParameter) null));
+
+        boolean oldHidePasswordFlag = ParameterValueUtil.isHidePassword();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
+
+        currentProject.setHidePassword(false);
+
+        IElementParameter param = new TestElementParameter();
+        param.setFieldType(EParameterFieldType.PASSWORD);
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(param));
+
+        // repository value
+        param.setRepositoryValue("PASSWORD");
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getValue4Doc(param));
+
+        //
+        currentProject.setHidePassword(true);
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("****", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("***", ParameterValueUtil.getValue4Doc(param));
+
+        // context
+        param.setValue("context.var1");
+        Assert.assertEquals("context.var1", ParameterValueUtil.getValue4Doc(param));
+
+        currentProject.setHidePassword(oldHidePasswordFlag);
+    }
+
+    @Test
+    public void testGetEncryptValue4IElementParameter() {
+        Assert.assertNull(ParameterValueUtil.getEncryptValue((IElementParameter) null));
+
+        IElementParameter param = new TestElementParameter();
+
+        param.setValue(null);
+        Assert.assertNull(ParameterValueUtil.getEncryptValue(param));
+
+        param.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getEncryptValue(param));
+
+        param.setValue("123");
+        Assert.assertEquals("/81ashGeQx8=", ParameterValueUtil.getEncryptValue(param));
+
+        param.setValue(new ArrayList<String>());
+        Assert.assertNull(ParameterValueUtil.getEncryptValue(param));
+    }
+
+    @Test
+    public void testGetValue4Doc4ElementParameterTypeWithNonPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((ElementParameterType) null));
+
+        ElementParameterType param = TalendFileFactory.eINSTANCE.createElementParameterType();
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("123", ParameterValueUtil.getValue4Doc(param));
+
+    }
+
+    @Test
+    public void testGetValue4Doc4ElementParameterTypeWithPass() {
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc((ElementParameterType) null));
+
+        boolean oldHidePasswordFlag = ParameterValueUtil.isHidePassword();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
+
+        currentProject.setHidePassword(false);
+
+        ElementParameterType param = TalendFileFactory.eINSTANCE.createElementParameterType();
+        param.setField(EParameterFieldType.PASSWORD.getName());
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("123", ParameterValueUtil.getValue4Doc(param));
+
+        //
+        currentProject.setHidePassword(true);
+
+        param.setValue(null);
+        Assert.assertEquals("", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("");
+        Assert.assertEquals("****", ParameterValueUtil.getValue4Doc(param));
+
+        param.setValue("123");
+        Assert.assertEquals("***", ParameterValueUtil.getValue4Doc(param));
+
+        // context
+        param.setValue("context.var1");
+        Assert.assertEquals("context.var1", ParameterValueUtil.getValue4Doc(param));
+
+        currentProject.setHidePassword(oldHidePasswordFlag);
+    }
+
+    @Test
+    public void testMixedEncryptDecryptFunction1() throws Exception {
+        // TDI-30227
+
+        String decryptPassword1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
+        String decryptPassword2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertEquals("pr", decryptPassword1);
+        Assert.assertEquals("EL3F4nt3", decryptPassword2);
+
+        // redo again.
+        decryptPassword1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
+        decryptPassword2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertEquals("pr", decryptPassword1);
+        Assert.assertEquals("EL3F4nt3", decryptPassword2);
+    }
+
+    @Test
+    public void testMixedEncryptDecryptFunction2() throws Exception {
+        // TDI-30227
+
+        String encryptPassword1 = PasswordEncryptUtil.encryptPassword("123");
+        String encryptPassword2 = CryptoHelper.DEFAULT.encrypt("123");
+        Assert.assertEquals("123", PasswordEncryptUtil.decryptPassword(encryptPassword1));
+        Assert.assertEquals("123", CryptoHelper.DEFAULT.decrypt(encryptPassword2));
+
+        // redo again.
+        encryptPassword1 = PasswordEncryptUtil.encryptPassword("123");
+        encryptPassword2 = CryptoHelper.DEFAULT.encrypt("123");
+        Assert.assertEquals("123", PasswordEncryptUtil.decryptPassword(encryptPassword1));
+        Assert.assertEquals("123", CryptoHelper.DEFAULT.decrypt(encryptPassword2));
+
+    }
+
+    @Test
+    public void testMixedEncryptDecryptFunction3() throws Exception {
+        // TDI-30227
+
+        String decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
+        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        String decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertEquals("pr", decryptValue1);
+        Assert.assertEquals("aiXea2Va", decryptValue2);
+        Assert.assertEquals("EL3F4nt3", decryptValue3);
+
+        decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
+        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertEquals("pr", decryptValue1);
+        Assert.assertEquals("aiXea2Va", decryptValue2);
+        Assert.assertEquals("EL3F4nt3", decryptValue3);
+
+        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
+        Assert.assertEquals("pr", decryptValue1);
+        Assert.assertEquals("aiXea2Va", decryptValue2);
+        Assert.assertEquals("EL3F4nt3", decryptValue3);
+
+        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        decryptValue1 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw=");
+        decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertEquals("pr", decryptValue1);
+        Assert.assertEquals("aiXea2Va", decryptValue2);
+        Assert.assertEquals("EL3F4nt3", decryptValue3);
+
+    }
+
+    @Test
+    public void testTDI30227_MultiThread1() {
+        Thread t1 = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    // "Oracle_workingLinux.item", "dxlWbpCxXBw=" //old one
+                    String testEncryptionValue1 = "dxlWbpCxXBw=";
+                    String decryptValue1 = PasswordEncryptUtil.decryptPassword(testEncryptionValue1);
+                    Assert.assertNotNull(decryptValue1);
+                    Assert.assertEquals("pr", decryptValue1);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        };
+
+        Thread t2 = new Thread() {
+
+            @Override
+            public void run() {
+                // "Oracle_notworkingLinux.item", "HiV5kR+6mPKhnI5NbYbw/Q=="
+                String testEncryptionValue2 = "HiV5kR+6mPKhnI5NbYbw/Q==";
+                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                Assert.assertNotNull(decryptValue2);
+                Assert.assertEquals("aiXea2Va", decryptValue2);
+            }
+
+        };
+
+        Thread t3 = new Thread() {
+
+            @Override
+            public void run() {
+                // "Oracle_workingWindows.item", "+ZE8yV1ehYi0jSmx94/wVA=="
+                String testEncryptionValue2 = "+ZE8yV1ehYi0jSmx94/wVA==";
+                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                Assert.assertNotNull(decryptValue2);
+                Assert.assertEquals("EL3F4nt3", decryptValue2);
+            }
+
+        };
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+    }
+
+    @Test
+    public void testTDI30227_MultiThread2() {
+        Thread t1 = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    // "Oracle_workingLinux.item", "dxlWbpCxXBw=" //old one
+                    String testEncryptionValue1 = "dxlWbpCxXBw=";
+                    String decryptValue1 = PasswordEncryptUtil.decryptPassword(testEncryptionValue1);
+                    Assert.assertNotNull(decryptValue1);
+                    Assert.assertEquals("pr", decryptValue1);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        };
+
+        Thread t2 = new Thread() {
+
+            @Override
+            public void run() {
+                // "Oracle_notworkingLinux.item", "HiV5kR+6mPKhnI5NbYbw/Q=="
+                String testEncryptionValue2 = "HiV5kR+6mPKhnI5NbYbw/Q==";
+                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                Assert.assertNotNull(decryptValue2);
+                Assert.assertEquals("aiXea2Va", decryptValue2);
+            }
+
+        };
+
+        Thread t3 = new Thread() {
+
+            @Override
+            public void run() {
+                // "Oracle_workingWindows.item", "+ZE8yV1ehYi0jSmx94/wVA=="
+                String testEncryptionValue2 = "+ZE8yV1ehYi0jSmx94/wVA==";
+                String decryptValue2 = CryptoHelper.DEFAULT.decrypt(testEncryptionValue2);
+                Assert.assertNotNull(decryptValue2);
+                Assert.assertEquals("EL3F4nt3", decryptValue2);
+            }
+
+        };
+
+        t2.start();
+        t1.start();
+        t3.start();
+
+    }
+
+    /**
+     * 
+     * there are some problem when decryption. It's not because the TDI-30227, I think, should be some problem for the
+     * encrypt JAVA API for PasswordEncryptUtil and CryptoHelper. like Cipher,
+     */
+    @Test
+    public void testTDI30227_NewDecryption4OldValue1() {
+        String decryptValue1 = CryptoHelper.DEFAULT.decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old one.
+        Assert.assertNull(decryptValue1);
+
+        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        /*
+         * Because use the new decryption to decrypt the old encrypted value, will cause this problem. don't know what's
+         * happen and why, need find one way to fix maybe. even thought, now all password have be unified for
+         * encryption/decryption. but, if re-decrypt will be ok, @see testTDI30227_NewDecryption4OldValue2 and
+         * testTDI30227_NewDecryption4OldValue3.
+         */
+        Assert.assertEquals("aiXea2Va", decryptValue2); // will be failure.
+    }
+
+    @Test
+    public void testTDI30227_NewDecryption4OldValue2() {
+        String decryptValue1 = CryptoHelper.DEFAULT.decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old one.
+        Assert.assertNull(decryptValue1);
+
+        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        // FIXM, ??????? will be failied first time for messy characters.
+        // Assert.assertEquals("aiXea2Va", decryptValue2);
+
+        // redo
+        decryptValue2 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        Assert.assertEquals("aiXea2Va", decryptValue2); // now it's ok
+    }
+
+    @Test
+    public void testTDI30227_NewDecryption4OldValue3() {
+        String decryptValue1 = CryptoHelper.DEFAULT.decrypt("dxlWbpCxXBw="); // use new encryption to decrypt old one.
+        Assert.assertNull(decryptValue1);
+
+        String decryptValue2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        // FIXM, ??????? will be failied first time
+        // Assert.assertEquals("EL3F4nt3", decryptValue2); // same as testTDI30227_NewDecryption4OldValue2, will be
+        // messy characters
+
+        // redo
+        decryptValue2 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertEquals("EL3F4nt3", decryptValue2); // now it's ok
+    }
+
+    @Test
+    public void testTDI30227_OldDecryption4NewValue1() {
+
+        try {
+            String decryptValue1 = PasswordEncryptUtil.decryptPassword("HiV5kR+6mPKhnI5NbYbw/Q=="); // new encryption
+            Assert.assertNotNull(decryptValue1); // seem enable to decrypt, but it's messy characters
+        } catch (Exception e) {
+            // e.printStackTrace();
+            Assert.assertTrue(false); // never to be here.
+        }
+
+        try {
+            String decryptValue2 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw="); // old encryption
+            Assert.assertEquals("pr", decryptValue2);
+        } catch (Exception e) {
+            // e.printStackTrace();
+        }
+
+        String decryptValue3 = CryptoHelper.DEFAULT.decrypt("HiV5kR+6mPKhnI5NbYbw/Q==");
+        Assert.assertNotNull(decryptValue3);
+        Assert.assertEquals("aiXea2Va", decryptValue3);
+    }
+
+    @Test
+    public void testTDI30227_OldDecryption4NewValue2() {
+
+        try {
+            String decryptValue1 = PasswordEncryptUtil.decryptPassword("+ZE8yV1ehYi0jSmx94/wVA=="); // new encryption
+            Assert.assertTrue(false); // never to be here. so strange, it's not same as the
+                                      // testTDI30227_OldDecryption4NewValue1
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Assert.assertTrue(false); // But why will throw error, and don't like the
+            // testTDI30227_OldDecryption4NewValue1
+        }
+
+        try {
+            String decryptValue2 = PasswordEncryptUtil.decryptPassword("dxlWbpCxXBw="); // old encryption
+            Assert.assertEquals("pr", decryptValue2);
+        } catch (Exception e) {
+            // e.printStackTrace();
+        }
+
+        String decryptValue3 = CryptoHelper.DEFAULT.decrypt("+ZE8yV1ehYi0jSmx94/wVA==");
+        Assert.assertNotNull(decryptValue3);
+        Assert.assertEquals("EL3F4nt3", decryptValue3);
     }
 }
