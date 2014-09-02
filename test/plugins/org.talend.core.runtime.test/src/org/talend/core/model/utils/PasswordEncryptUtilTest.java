@@ -16,13 +16,14 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.talend.commons.utils.PasswordEncryptUtil;
-import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
+@SuppressWarnings("nls")
 public class PasswordEncryptUtilTest {
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testEncryptPassword() throws Exception {
         String rawStr = "Talend123";
@@ -33,41 +34,44 @@ public class PasswordEncryptUtilTest {
         Assert.assertEquals(rawStr, decryptPassword);
     }
 
-    // @Test
-    public void testTemp() throws Exception {
-        //
-        System.out.println("--------------Ref-------------");
-        process("mysql_0.1.item", "18EtsbtPYT8L2YrW7TIiEPS1zh8bi+vb9PeroXRnhOo=", true);
-        process("ora_0.1.item", "o5x4H8fO+ytK9p711oe8Ww==", true);
+    @Test
+    public void testEncryptPasswordHex() throws Exception {
+        Assert.assertNull(PasswordEncryptUtil.encryptPasswordHex(null));
+        Assert.assertEquals("", PasswordEncryptUtil.encryptPasswordHex(""));
 
-        System.out.println("--------------Main-------------");
-        process("condb2_0.1.item", "H78DEODtsZpZy/zAAA4SvQ==", false);
-        process("conmysql_0.1.item", "A6+FeQ5U2Pw=", false);
-        process("conpostgres_0.1.item", "xA8b4Nmhxhc=", false);
-
+        Assert.assertEquals("910351e7b8926e62", PasswordEncryptUtil.encryptPasswordHex("Talend"));
+        Assert.assertEquals("4d6073c4a9734e61", PasswordEncryptUtil.encryptPasswordHex("toor"));
+        Assert.assertEquals("00104aa786b8cf2a6c5b4f14a2e00b07", PasswordEncryptUtil.encryptPasswordHex("Talend123"));
     }
 
-    private void process(String itemName, String encrypted, boolean more) {
-        String decryptPassword = null;
-        System.out.println(itemName);
-        try {
-            decryptPassword = PasswordEncryptUtil.decryptPassword(encrypted);
-            System.out.print("  ");
-        } catch (Exception e) {
-            System.out.print("~*");
-            decryptPassword = ConnectionHelper.getDecryptPassword(encrypted);
-        }
-        System.out.println(">>: " + decryptPassword);
+    @Test
+    public void testIsPasswordType() {
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordType(null));
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordType(""));
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordType("TEST"));
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordType("1234"));
 
-        if (more) {
-            try {
-                decryptPassword = PasswordEncryptUtil.decryptPassword(decryptPassword);
-                System.out.print("  ");
-            } catch (Exception e) {
-                System.out.print("~*");
-                decryptPassword = ConnectionHelper.getDecryptPassword(decryptPassword);
-            }
-            System.out.println(">>: " + decryptPassword);
-        }
+        Assert.assertTrue(PasswordEncryptUtil.isPasswordType("Password")); // seems test for perl.
+        Assert.assertTrue(PasswordEncryptUtil.isPasswordType("id_Password"));
+    }
+
+    @Test
+    public void testIsPasswordField() {
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordField(null));
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordField(""));
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordField("TEST"));
+        Assert.assertFalse(PasswordEncryptUtil.isPasswordField("1234"));
+
+        Assert.assertTrue(PasswordEncryptUtil.isPasswordField("PASSWORD"));
+    }
+
+    @Test
+    public void testGetPasswordDisplay() {
+        Assert.assertEquals("****", PasswordEncryptUtil.getPasswordDisplay(null));
+        Assert.assertEquals("****", PasswordEncryptUtil.getPasswordDisplay(""));
+
+        Assert.assertEquals("*", PasswordEncryptUtil.getPasswordDisplay("1"));
+        Assert.assertEquals("*****", PasswordEncryptUtil.getPasswordDisplay("12345"));
+        Assert.assertEquals("*******", PasswordEncryptUtil.getPasswordDisplay("ABCD123"));
     }
 }

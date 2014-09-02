@@ -105,7 +105,7 @@ public class PasswordEncryptUtil {
      * 
      */
     public static String encryptPasswordHex(String input) throws Exception {
-        if (input == null) {
+        if (input == null || input.length() == 0) {
             return input;
         }
         SecretKey key = getSecretKeyUTF8();
