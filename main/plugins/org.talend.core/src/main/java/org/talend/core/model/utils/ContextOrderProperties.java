@@ -108,38 +108,42 @@ public class ContextOrderProperties extends Properties {
     private void initContextProperties() {
         // group the context and set the comment
         for (IContextParameter parameter : parameterList) {
-            int currentIndex = parameterList.indexOf(parameter);
-            if (currentIndex == 0) {
-                if (parameter.getSource().equals(IContextParameter.BUILT_IN)) {
-                    this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()), BUILD_IN_COMMENT);
-                } else {
-                    String contextName = ContextUtils.getContextItemById(parameter.getSource()).getProperty().getLabel();
-                    this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()), REPOSITORY_COMMENT
-                            + contextName);
-                }
-            } else {
-                int previousIndex = currentIndex - 1;
-                if (parameter.getSource().equals(IContextParameter.BUILT_IN)) {
-                    if (parameterList.get(previousIndex).getSource().equals(IContextParameter.BUILT_IN)) {
-                        // same neighbor build-in,so should be in one group,no need to add comment since the
-                        // previous has added comment
-                        this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()), "");
-                    } else {
+            // for the temp parameter in expression builder,its source is empty,need to filter from sort
+            if (!parameter.getSource().equals("")) {
+                int currentIndex = parameterList.indexOf(parameter);
+                if (currentIndex == 0) {
+                    if (parameter.getSource().equals(IContextParameter.BUILT_IN)) {
                         this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
                                 BUILD_IN_COMMENT);
-                    }
-                } else {
-                    String contextName = ContextUtils.getContextItemById(parameter.getSource()).getProperty().getLabel();
-                    if (parameterList.get(previousIndex).getSource().equals(IContextParameter.BUILT_IN)) {
+                    } else {
+                        String contextName = ContextUtils.getContextItemById3(parameter.getSource()).getProperty().getLabel();
                         this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
                                 REPOSITORY_COMMENT + contextName);
-                    } else {
-                        // need to check if the same repository's context
-                        if (parameterList.get(previousIndex).getSource().equals(parameter.getSource())) {
+                    }
+                } else {
+                    int previousIndex = currentIndex - 1;
+                    if (parameter.getSource().equals(IContextParameter.BUILT_IN)) {
+                        if (parameterList.get(previousIndex).getSource().equals(IContextParameter.BUILT_IN)) {
+                            // same neighbor build-in,so should be in one group,no need to add comment since the
+                            // previous has added comment
                             this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()), "");
                         } else {
                             this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
+                                    BUILD_IN_COMMENT);
+                        }
+                    } else {
+                        String contextName = ContextUtils.getContextItemById3(parameter.getSource()).getProperty().getLabel();
+                        if (parameterList.get(previousIndex).getSource().equals(IContextParameter.BUILT_IN)) {
+                            this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
                                     REPOSITORY_COMMENT + contextName);
+                        } else {
+                            // need to check if the same repository's context
+                            if (parameterList.get(previousIndex).getSource().equals(parameter.getSource())) {
+                                this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()), "");
+                            } else {
+                                this.setProperty(parameter.getName(), TalendTextUtils.trimParameter(parameter.getValue()),
+                                        REPOSITORY_COMMENT + contextName);
+                            }
                         }
                     }
                 }
