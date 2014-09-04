@@ -373,7 +373,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean contains(String jarName) {
-        return jarList.contains(jarName);
+        return list().contains(jarName);
     }
 
     /*
