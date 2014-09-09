@@ -126,7 +126,7 @@ public class ProxyDynamicCellEditor extends AbstractCellEditor {
             if (NatTableCellEditorFactory.isBoolean(realPara.getType())) {
                 final List<String> list = Arrays.asList(NatTableCellEditorFactory.BOOLEANS);
                 ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(list);
-                comboBoxCellEditor.setFreeEdit(true);
+                comboBoxCellEditor.setFreeEdit(false);
                 dynamicEditor = comboBoxCellEditor;
                 Object displayDefaultValue = false;
                 // the combox need a default value at least
