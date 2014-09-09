@@ -107,7 +107,7 @@ public class TalendHookAdaptor implements AdaptorHook {
         if (libFolderSysProp != null) {
             return new File(libFolderSysProp);
         } else {
-            Location installLocation = getInstallLocation(context);
+            Location installLocation = getConfigurationLocation(context);
             File installFolder = URIUtil.toFile(URIUtil.toURI(installLocation.getURL()));
             return new File(installFolder, System.getProperty("org.talend.lib.subfolder", LIB_JAVA_SUB_FOLDER)); //$NON-NLS-1$
         }
@@ -129,6 +129,23 @@ public class TalendHookAdaptor implements AdaptorHook {
         ServiceTracker installLocation = new ServiceTracker(bundleContext, filter, null);
         installLocation.open();
         return (Location) installLocation.getService();
+    }
+
+    /**
+     * return the eclipse configuration location
+     * 
+     * @param bundleContext
+     */
+    private Location getConfigurationLocation(BundleContext bundleContext) {
+        Filter filter = null;
+        try {
+            filter = bundleContext.createFilter(Location.CONFIGURATION_FILTER);
+        } catch (InvalidSyntaxException e) {
+            // ignore this. It should never happen as we have tested the above format.
+        }
+        ServiceTracker configurationLocation = new ServiceTracker(bundleContext, filter, null);
+        configurationLocation.open();
+        return (Location) configurationLocation.getService();
     }
 
     /*

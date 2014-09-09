@@ -36,7 +36,7 @@ public class LibrariesManagerUtils {
         if (libPath != null) {
             return libPath;
         }
-        return Platform.getInstallLocation().getURL().getFile() + "lib/java";
+        return Platform.getConfigurationLocation().getURL().getFile() + "lib/java";
     }
 
     public static List<ModuleNeeded> getNotInstalledModules(List<ModuleNeeded> modules) {
