@@ -55,6 +55,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -301,6 +302,8 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
         protected boolean commitOnEnter = true;
 
+        private Object setOriginalCanonicalValue;
+
         /*
          * The wrapped editor control.
          */
@@ -333,6 +336,9 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
                 ContextTreeNode rowNode = ((GlazedListsDataProvider<ContextTreeNode>) dataProvider).getRowObject(cellRowIndex);
 
                 realPara = ContextNatTableUtils.getRealParameter(manager, columnGroupName, rowNode.getTreeData());
+                if (PasswordEncryptUtil.isPasswordType(realPara.getType())) {
+                    this.setOriginalCanonicalValue = realPara.getValue();
+                }
             }
             final ContextValuesNatText text = new ContextValuesNatText(parent, this.cellStyle, realPara, style);
 
@@ -421,9 +427,10 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
          */
         @Override
         protected Control activateCell(Composite parent, Object originalCanonicalValue) {
+            this.setOriginalCanonicalValue = originalCanonicalValue;
             this.buttonText = (ContextValuesNatText) createEditorControl(parent);
-
-            setCanonicalValue(originalCanonicalValue);
+            // use the real value.
+            setCanonicalValue(this.setOriginalCanonicalValue);
 
             return this.buttonText;
         }
