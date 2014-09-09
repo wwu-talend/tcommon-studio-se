@@ -28,7 +28,6 @@ import org.talend.commons.ui.swt.composites.MessagesWithActionComposite;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.ui.i18n.Messages;
-import org.talend.designer.core.ui.views.contexts.Contexts;
 
 /**
  * created by ldong on Aug 18, 2014 Detailled comment
@@ -117,13 +116,17 @@ public class ContextMissSettingComposite extends Composite {
                             for (String jarName : missModulesNeeded) {
                                 libUiService.installModules(new String[] { jarName });
                             }
-                            Contexts.forceRefreshContextsView();
+                            // after install the jar,need to refresh again the parent composite
+                            refreshContextView();
                         }
                     }
                 }
-
             });
         }
+    }
+
+    private void refreshContextView() {
+        ((ContextNebulaGridComposite) this.getParent()).refresh();
     }
 
     protected void disposeChildren() {

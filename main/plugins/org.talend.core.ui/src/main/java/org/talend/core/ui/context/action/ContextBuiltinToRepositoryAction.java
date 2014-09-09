@@ -21,9 +21,11 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.context.IContextModelManager;
+import org.talend.core.ui.context.cmd.ContextBuiltinToRepositoryCommand;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.model.template.ContextVariableTabChildModel;
@@ -63,8 +65,13 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
     @Override
     protected void doRun() {
         if (contextManager != null) {
-            CoreRuntimePlugin.getInstance().getRepositoryService()
+            ContextItem item = CoreRuntimePlugin.getInstance().getRepositoryService()
                     .openRepositoryReviewDialog(ERepositoryObjectType.CONTEXT, null, params, contextManager);
+            if (modelManager.getCommandStack() != null) {
+                modelManager.getCommandStack().execute(new ContextBuiltinToRepositoryCommand(params, contextManager, item));
+            } else {
+                new ContextBuiltinToRepositoryCommand(params, contextManager, item).execute();
+            }
             modelManager.refresh();
         }
     }
@@ -138,5 +145,4 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
         }
         setEnabled(canWork);
     }
-
 }

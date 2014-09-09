@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
@@ -103,8 +104,8 @@ public interface IRepositoryService extends IService {
 
     public IRepositoryNode getRepositoryNode(String id, boolean expanded);
 
-    public void openRepositoryReviewDialog(ERepositoryObjectType type, String repositoryType, List<IContextParameter> params,
-            IContextManager contextManager);
+    public ContextItem openRepositoryReviewDialog(ERepositoryObjectType type, String repositoryType,
+            List<IContextParameter> params, IContextManager contextManager);
 
     public IRepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 

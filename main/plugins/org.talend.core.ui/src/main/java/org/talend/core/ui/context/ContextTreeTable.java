@@ -290,8 +290,8 @@ public class ContextTreeTable {
                 public void mouseDoubleClick(MouseEvent e) {
                     // get the row position for the click in the NatTable
                     int rowPos = natTable.getRowPositionByY(e.y);
-                    if (rowPos == 0) {
-                        // in case click the column header
+                    if (rowPos == 0 || rowPos == -1) {
+                        // in case click the column header or the empty space
                         return;
                     }
                     int rowIndex = natTable.getRowIndexByPosition(rowPos);

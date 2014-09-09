@@ -12,25 +12,25 @@
 // ============================================================================
 package org.talend.core.ui.context.nattableTree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.HorizontalAlignmentEnum;
 import org.eclipse.nebula.widgets.nattable.style.IStyle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.talend.core.model.process.IContextParameter;
@@ -61,9 +61,11 @@ public class ContextValuesNatText extends Composite {
     private NatTableCellEditorFactory cellFactory;
 
     /**
-     * Flag to determine whether the button was hidden on focus lost.
+     * Flag to determine whether the text is on focus or lost.
      */
-    private boolean hideByFocusLost = false;
+    private boolean focusLostActive = false;
+
+    private List<FocusListener> focusListener = new ArrayList<FocusListener>();
 
     public ContextValuesNatText(Composite parent, IStyle cellStyle, IContextParameter realPara, int style) {
         this(parent, cellStyle, style, realPara);
@@ -112,6 +114,7 @@ public class ContextValuesNatText extends Composite {
 
         GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
         text.setLayoutData(gridData);
+        // text.addFocusListener(new FocusListenerWrapper());
 
         if (cellFactory.isSpecialType(realPara)) {
             button = new Button(this, widgetStyle);
@@ -134,7 +137,7 @@ public class ContextValuesNatText extends Composite {
 
                 @Override
                 public void focusLost(FocusEvent e) {
-                    hideButtonCanvaControl(true);
+                    hideButtonControl(true);
                     if (freeEdit) {
                         text.forceFocus();
                     }
@@ -143,25 +146,17 @@ public class ContextValuesNatText extends Composite {
         }
     }
 
-    protected void createButtonControl(int style) {
-        buttonShell = new Shell(getShell(), SWT.MODELESS);
-        buttonShell.setLayout(new FillLayout());
-
-        int buttonStyle = SWT.NULL;
-    }
-
     protected void updateTextControl(boolean focusOnText) {
         text.setText(getTransformedTextForDialog(focusOnText));
-        // realPara.setValue(getValue());
         if (focusOnText) {
-            hideButtonCanvaControl(true);
+            hideButtonControl(true);
         }
     }
 
     /**
      * Hide the buttonCanva of cell
      */
-    public void hideButtonCanvaControl(boolean visible) {
+    public void hideButtonControl(boolean visible) {
         button.setVisible(visible);
     }
 
@@ -193,17 +188,38 @@ public class ContextValuesNatText extends Composite {
     public void addMouseListener(MouseListener listener) {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.swt.widgets.Control#addFocusListener(org.eclipse.swt.events.FocusListener)
+     */
     @Override
-    public void notifyListeners(int eventType, Event event) {
-        // this.button.notifyListeners(eventType, event);
+    public void addFocusListener(FocusListener listener) {
+        this.text.addFocusListener(listener);
     }
 
-    public void addSelectionListener(SelectionListener listener) {
-        // this.button.addSelectionListener(listener);
-    }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.swt.widgets.Control#removeFocusListener(org.eclipse.swt.events.FocusListener)
+     */
+    @Override
+    public void removeFocusListener(final FocusListener listener) {
+        if (focusLostActive) {
+            try {
+                new Thread() {
 
-    public void addShellListener(ShellListener listener) {
-        this.buttonShell.addShellListener(listener);
+                    @Override
+                    public void run() {
+                        focusListener.remove(listener);
+                    };
+                }.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            focusListener.remove(listener);
+        }
     }
 
     /**
@@ -232,5 +248,4 @@ public class ContextValuesNatText extends Composite {
         result = getTransformedSelection(focusOnText);
         return result;
     }
-
 }
