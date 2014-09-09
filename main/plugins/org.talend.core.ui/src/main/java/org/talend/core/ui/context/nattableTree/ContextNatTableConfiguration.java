@@ -25,7 +25,6 @@ import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.data.convert.DefaultBooleanDisplayConverter;
 import org.eclipse.nebula.widgets.nattable.edit.EditConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.edit.config.DialogErrorHandling;
-import org.eclipse.nebula.widgets.nattable.edit.editor.AbstractCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.CheckBoxCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.ComboBoxCellEditor;
 import org.eclipse.nebula.widgets.nattable.edit.editor.TextCellEditor;
@@ -35,29 +34,17 @@ import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
 import org.eclipse.nebula.widgets.nattable.painter.cell.CheckBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ComboBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ImagePainter;
-import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.MoveDirectionEnum;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleUtil;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
 import org.eclipse.nebula.widgets.nattable.style.Style;
 import org.eclipse.nebula.widgets.nattable.ui.util.CellEdgeEnum;
 import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
-import org.eclipse.nebula.widgets.nattable.widget.EditModeEnum;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContextManager;
-import org.talend.core.model.process.IContextParameter;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
@@ -285,167 +272,9 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
     }
 
     private void registerColumnFiveTextEditor(IConfigRegistry configRegistry) {
-        CustomTextCellEditor cutomCellEditor = new CustomTextCellEditor(true, true);
-        cutomCellEditor.setFreeEdit(true);
+        ProxyDynamicCellEditor cutomCellEditor = new ProxyDynamicCellEditor(dataProvider, columnGroupModel, manager);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, cutomCellEditor, DisplayMode.EDIT,
                 ContextTableConstants.COLUMN_CONTEXT_VALUE);
-    }
-
-    class CustomTextCellEditor extends AbstractCellEditor {
-
-        private final boolean commitOnUpDown;
-
-        private final boolean moveSelectionOnEnter;
-
-        protected boolean freeEdit = false;
-
-        protected boolean commitOnEnter = true;
-
-        /*
-         * The wrapped editor control.
-         */
-        private ContextValuesNatText buttonText;
-
-        public CustomTextCellEditor(boolean commitOnUpDown, boolean moveSelectionOnEnter) {
-            this.commitOnUpDown = commitOnUpDown;
-            this.moveSelectionOnEnter = moveSelectionOnEnter;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor#createEditorControl(org.eclipse.swt.widgets.Composite
-         * )
-         */
-        @Override
-        public Control createEditorControl(Composite parent) {
-            int style = this.editMode == EditModeEnum.INLINE ? SWT.NONE : SWT.BORDER;
-            if (!this.freeEdit) {
-                style |= SWT.READ_ONLY;
-            }
-            int cellColumnIndex = this.layerCell.getColumnIndex();
-            int cellRowIndex = this.layerCell.getRowIndex();
-            IContextParameter realPara = null;
-            if (columnGroupModel != null && columnGroupModel.isPartOfAGroup(cellColumnIndex)) {
-                String columnGroupName = columnGroupModel.getColumnGroupByIndex(cellColumnIndex).getName();
-
-                ContextTreeNode rowNode = ((GlazedListsDataProvider<ContextTreeNode>) dataProvider).getRowObject(cellRowIndex);
-
-                realPara = ContextNatTableUtils.getRealParameter(manager, columnGroupName, rowNode.getTreeData());
-            }
-            final ContextValuesNatText text = new ContextValuesNatText(parent, this.cellStyle, realPara, style);
-
-            text.setCursor(new Cursor(Display.getDefault(), SWT.CURSOR_IBEAM));
-
-            addTextListener(text);
-            return text;
-
-        }
-
-        protected void addTextListener(final ContextValuesNatText text) {
-            text.addKeyListener(new KeyAdapter() {
-
-                @Override
-                public void keyPressed(KeyEvent event) {
-                    if (commitOnEnter && (event.keyCode == SWT.CR || event.keyCode == SWT.KEYPAD_CR)) {
-                        MoveDirectionEnum move = MoveDirectionEnum.NONE;
-                        if (moveSelectionOnEnter && editMode == EditModeEnum.INLINE) {
-                            if (event.stateMask == 0) {
-                                move = MoveDirectionEnum.DOWN;
-                            } else if (event.stateMask == SWT.SHIFT) {
-                                move = MoveDirectionEnum.UP;
-                            }
-                        }
-
-                        commit(move);
-                    } else if (event.keyCode == SWT.ESC && event.stateMask == 0) {
-                        close();
-                    } else if (commitOnUpDown && editMode == EditModeEnum.INLINE) {
-                        if (event.keyCode == SWT.ARROW_UP) {
-                            commit(MoveDirectionEnum.UP);
-                        } else if (event.keyCode == SWT.ARROW_DOWN) {
-                            commit(MoveDirectionEnum.DOWN);
-                        }
-                    }
-                }
-
-            });
-
-            text.addFocusListener(new FocusAdapter() {
-
-                @Override
-                public void focusLost(FocusEvent e) {
-                    commit(MoveDirectionEnum.NONE, editMode == EditModeEnum.INLINE);
-                }
-            });
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor#getEditorControl()
-         */
-        @Override
-        public Control getEditorControl() {
-            return this.buttonText;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor#getEditorValue()
-         */
-        @Override
-        public Object getEditorValue() {
-            return this.buttonText.getValue();
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor#setEditorValue(java.lang.Object)
-         */
-        @Override
-        public void setEditorValue(Object value) {
-            this.buttonText.setValue(value != null && value.toString().length() > 0 ? value.toString() : "");
-
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * org.eclipse.nebula.widgets.nattable.edit.editor.AbstractCellEditor#activateCell(org.eclipse.swt.widgets.Composite
-         * , java.lang.Object)
-         */
-        @Override
-        protected Control activateCell(Composite parent, Object originalCanonicalValue) {
-            this.buttonText = (ContextValuesNatText) createEditorControl(parent);
-
-            setCanonicalValue(originalCanonicalValue);
-
-            return this.buttonText;
-        }
-
-        /**
-         * Getter for freeEdit.
-         * 
-         * @return the freeEdit
-         */
-        public boolean isFreeEdit() {
-            return this.freeEdit;
-        }
-
-        /**
-         * Sets the freeEdit.
-         * 
-         * @param freeEdit the freeEdit to set
-         */
-        public void setFreeEdit(boolean freeEdit) {
-            this.freeEdit = freeEdit;
-        }
-
     }
 
     public class ContextCheckDisplayConverter extends DefaultBooleanDisplayConverter {
