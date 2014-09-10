@@ -283,7 +283,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         migrationToolService.updateMigrationSystem(project.getEmfProject(), false);
         boolean isProjectCompatibility = migrationToolService.checkMigrationTasks(project.getEmfProject());
         if (!isProjectCompatibility) {
-            throw new LoginException(Messages.getString("ProxyRepositoryFactory.projectIsNotCompatible", project.getLabel())); //$NON-NLS-1$
+            throw new LoginException(Messages.getString(
+                    "ProxyRepositoryFactory.projectCanNotOpen", migrationToolService.getTaskId())); //$NON-NLS-1$
         }
     }
 

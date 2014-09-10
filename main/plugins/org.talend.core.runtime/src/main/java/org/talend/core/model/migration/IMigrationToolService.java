@@ -66,4 +66,6 @@ public interface IMigrationToolService extends IService {
      */
     public void updateMigrationSystem(org.talend.core.model.properties.Project project, boolean persistence);
 
+    public String getTaskId();
+
 }
