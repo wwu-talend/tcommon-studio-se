@@ -51,6 +51,14 @@ public enum EHadoopVersion4Drivers {
 
     APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true),
 
+    CLOUDERA_CDH5_1(
+                    EHadoopDistributions.CLOUDERA,
+                    "Cloudera CDH5.1",
+                    "Cloudera_CDH5_1",
+                    true,
+                    false,
+                    new EMRVersion[] { EMRVersion.YARN }),
+
     CLOUDERA_CDH5(
                   EHadoopDistributions.CLOUDERA,
                   "Cloudera CDH5",

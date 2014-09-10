@@ -57,6 +57,8 @@ public enum HiveConnVersionInfo {
 
     APACHE_0_20_203(1, "APACHE_0_20_203", "Apache 0.20.203 (Hive 0.7.1)", false, HiveConnVersionInfo.APACHE), //$NON-NLS-1$//$NON-NLS-2$
 
+    Cloudera_CDH5_1(1, "Cloudera_CDH5_1", "Cloudera CDH5.1", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
+
     Cloudera_CDH5(1, "Cloudera_CDH5", "Cloudera CDH5", true, false, true, true, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
 
     Cloudera_CDH4_YARN(1, "Cloudera_CDH4_YARN", "Cloudera CDH4 YARN", true, false, true, false, HiveConnVersionInfo.CLOUDERA), //$NON-NLS-1$//$NON-NLS-2$
@@ -101,6 +103,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.Cloudera_CDH4_YARN,
                   HiveConnVersionInfo.Cloudera_CDH5,
+                  HiveConnVersionInfo.Cloudera_CDH5_1,
                   HiveConnVersionInfo.MAPR2,
                   HiveConnVersionInfo.MAPR2_1_2,
                   HiveConnVersionInfo.MAPR2_1_3,
@@ -125,6 +128,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.Cloudera_CDH4,
                     HiveConnVersionInfo.Cloudera_CDH4_YARN,
                     HiveConnVersionInfo.Cloudera_CDH5,
+                    HiveConnVersionInfo.Cloudera_CDH5_1,
                     HiveConnVersionInfo.MAPR1,
                     HiveConnVersionInfo.MAPR2,
                     HiveConnVersionInfo.MAPR2_1_2,
