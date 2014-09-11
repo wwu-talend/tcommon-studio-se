@@ -245,7 +245,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         switchSettingsView(oldName, newName);
     }
 
-    protected void switchSettingsView(String oldName, String newName) {
+    public void switchSettingsView(String oldName, String newName) {
         // sub-class implement this method.
     }
 

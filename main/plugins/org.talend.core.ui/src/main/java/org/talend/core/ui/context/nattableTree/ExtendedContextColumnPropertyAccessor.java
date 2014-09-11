@@ -38,6 +38,7 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
@@ -547,7 +548,7 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                 }
             }
             if (modified) {
-                updateRelation();
+                updateRelation(originalName, newName);
             }
         }
 
@@ -559,9 +560,6 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {
@@ -570,16 +568,18 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                             if (contextParameter.getPrompt().equals(newName + "?")) {
                                 contextParameter.setPrompt(originalName + "?");
                             }
+                            modified = true;
                         }
                     }
                 }
             }
             if (modified) {
-                updateRelation();
+                // it is undo, so the order changed
+                updateRelation(newName, originalName);
             }
         }
 
-        private void updateRelation() {
+        private void updateRelation(String _oldName, String _newName) {
             // set updated flag.
             if (param != null) {
                 IContextManager manager = modelManager.getContextManager();
@@ -592,6 +592,11 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                         manager.fireContextsChangedEvent();
                     }
                 }
+            }
+            // update nodes in the job
+            if (modelManager instanceof ContextComposite) {
+                ((ContextComposite) modelManager).switchSettingsView(_oldName, _newName);
+                modelManager.refresh();
             }
         }
 
