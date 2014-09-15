@@ -51,15 +51,28 @@ public final class ParameterValueUtil {
         if (param == null || oldName == null || newName == null) {
             return;
         }
-        boolean flag = true;
-        if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
-            flag = false;
-        }
+        /*****************************************************
+         * - DEL - START - TDI-30369 - By cmeng - 20140915 - *
+         */
+        // boolean flag = true;
+        // if (param.getFieldType() == EParameterFieldType.MEMO_SQL) {
+        // flag = false;
+        // }
+        /**
+         * - DEL - END - TDI-30369 - By cmeng - 20140915 - *
+         ***************************************************/
         if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
             String value = (String) param.getValue();
             if (value.contains(oldName)) {
                 // param.setValue(value.replaceAll(oldName, newName));
-                String newValue = renameValues(value, oldName, newName, flag);
+                /*****************************************************
+                 * - MOD - START - TDI-30369 - By cmeng - 20140915 - *
+                 */
+                // String newValue = renameValues(value, oldName, newName, flag);
+                String newValue = splitQueryData(oldName, newName, value);
+                /**
+                 * - MOD - END - TDI-30369 - By cmeng - 20140915 - *
+                 ***************************************************/
                 if (!value.equals(newValue)) {
                     param.setValue(newValue);
                 }
@@ -76,7 +89,14 @@ public final class ParameterValueUtil {
                         if (value.contains(oldName)) {
                             // line.put(key, value.replaceAll(oldName,
                             // newName));
-                            String newValue = renameValues(value, oldName, newName, flag);
+                            /*****************************************************
+                             * - MOD - START - TDI-30369 - By cmeng - 20140915 - *
+                             */
+                            // String newValue = renameValues(value, oldName, newName, flag);
+                            String newValue = splitQueryData(oldName, newName, value);
+                            /**
+                             * - MOD - END - TDI-30369 - By cmeng - 20140915 - *
+                             ***************************************************/
                             if (!value.equals(newValue)) {
                                 line.put(key, newValue);
                             }

@@ -435,4 +435,13 @@ public class ParameterValueUtilTest {
         retValue = ParameterValueUtil.renameValues(testString, "tFileList_1", "tFileList_2", false);
         Assert.assertTrue("testRenameValues4SQLAndGlobleMap", expectRetValue.equals(retValue));
     }
+
+    @Test
+    public void testRenameJavaCode() {
+        String testString = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\tout = obj1;";
+        String expectRetValue = "\tSystem.out.println(\"=====\");\n\tout.a = b;\n\trow1 = obj1;";
+
+        String retValue = ParameterValueUtil.splitQueryData("out", "row1", testString);
+        Assert.assertTrue(expectRetValue.equals(retValue));
+    }
 }
