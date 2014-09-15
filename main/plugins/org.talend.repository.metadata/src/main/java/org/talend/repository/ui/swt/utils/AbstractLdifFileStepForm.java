@@ -19,6 +19,7 @@ import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.RepositoryManagerHelper;
+import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>
@@ -71,5 +72,10 @@ public abstract class AbstractLdifFileStepForm extends AbstractForm {
 
     public void setContextModeManager(IMetadataContextModeManager contextModeManager) {
         this.contextModeManager = contextModeManager;
+    }
+
+    protected void collectParameters(boolean visible) {
+        clearContextParams();
+        addContextParams(EParamName.FilePath, visible);
     }
 }

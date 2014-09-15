@@ -139,6 +139,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
         hostCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent event) {
                 if (!isContextMode()) {
                     checkFieldsValue();
@@ -150,6 +151,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
         portCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent event) {
                 if (!isContextMode()) {
                     checkFieldsValue();
@@ -160,6 +162,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
         encryptionMethodCombo.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 checkFieldsValue();
 
@@ -172,6 +175,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
 
             boolean isOK = false;
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 if (isContextMode() && getContextModeManager() != null) {
                     ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(getShell(),
@@ -181,6 +185,7 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
                 try {
                     IRunnableWithProgress op = new IRunnableWithProgress() {
 
+                        @Override
                         public void run(IProgressMonitor monitor) {
                             isOK = LDAPConnectionUtils.checkParam(getOriginalValueConnection(), true);
                         }
@@ -328,7 +333,6 @@ public class LDAPSchemaStep1Form extends AbstractLDAPSchemaStepForm {
         if (visible) {
             initialize();
             adaptFormToEditable();
-            collectContextParams(visible);
             checkFieldsValue();
         }
 

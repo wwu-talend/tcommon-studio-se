@@ -815,6 +815,9 @@ public class LDAPSchemaStep2Form extends AbstractLDAPSchemaStepForm {
         if (isContextMode()) {
             adaptFormToEditable();
         }
+        if (visible) {
+            collectContextParams(visible);
+        }
     }
 
     @Override

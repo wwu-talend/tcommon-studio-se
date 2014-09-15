@@ -133,6 +133,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
      * 
      * Initialize value, forceFocus first field.
      */
+    @Override
     protected void initialize() {
 
         int i = getConnection().getLimitEntry();
@@ -145,6 +146,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
     /**
      * DOC ocarbone Comment method "adaptFormToReadOnly".
      */
+    @Override
     protected void adaptFormToReadOnly() {
         readOnly = isReadOnly();
         // rowsToSkipLimitCheckboxCombo.setReadOnly(isReadOnly());
@@ -181,10 +183,12 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
                 TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
                 column.setBeanPropertyAccessors(new IBeanPropertyAccessors<String, String>() {
 
+                    @Override
                     public String get(String bean) {
                         return bean.toString();
                     }
 
+                    @Override
                     public void set(String bean, String value) {
                     }
 
@@ -255,8 +259,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
     protected void checkTheRightAttributes(List<String> attribute) {
 
         TableItem[] tableItems = tableEditorView.getTableViewerCreator().getTable().getItems();
-        for (int j = 0; j < tableItems.length; j++) {
-            TableItem tableItem = tableItems[j];
+        for (TableItem tableItem : tableItems) {
             for (int i = 0; i < attribute.size(); i++) {
                 String attributeName = attribute.get(i);
                 if (attributeName != null && !("").equals(attributeName)) { //$NON-NLS-1$
@@ -344,6 +347,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
         tabFolder.pack();
     }
 
+    @Override
     protected void addFields() {
 
         // compositeFile Main Fields
@@ -395,6 +399,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
 
         ProcessDescription processDescription = null;
 
+        @Override
         public boolean preProcessStart() {
             previewButton.setText(Messages.getString("FileStep2.stop")); //$NON-NLS-1$
 
@@ -405,8 +410,8 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             if (isContextMode() && getContextModeManager() != null) {
                 filePath = getContextModeManager().getOriginalValue(getConnection().getFilePath());
                 filePath = TalendQuoteUtils.removeQuotes(filePath);
-                originalValueConnection = (LdifFileConnection) OtherConnectionContextUtils.cloneOriginalValueLdifFileConnection(
-                        getConnection(), getContextModeManager().getSelectedContextType());
+                originalValueConnection = OtherConnectionContextUtils.cloneOriginalValueLdifFileConnection(getConnection(),
+                        getContextModeManager().getSelectedContextType());
             }
 
             // if no file, the process don't be executed
@@ -435,6 +440,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             return true;
         }
 
+        @Override
         public void nonUIProcessInThread() {
             // get the CsvArray width an adapt ProcessDescription
             try {
@@ -446,12 +452,14 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsCanceled() {
             if (!previewInformationLabel.isDisposed()) {
                 previewInformationLabel.setText(""); //$NON-NLS-1$
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsNotCanceled() {
             if (previewInformationLabel.isDisposed()) {
                 return;
@@ -460,6 +468,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().asyncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -480,6 +489,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadFinally() {
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
@@ -487,6 +497,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             }
         }
 
+        @Override
         public void postProcessCancle() {
             previewButton.setEnabled(false);
         }
@@ -502,6 +513,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
     /**
      * Main Fields addControls.
      */
+    @Override
     protected void addFieldsListeners() {
         // addFieldsListenersGroupsRowToSkipAndLimit();
     }
@@ -534,6 +546,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             // Event Key (numeric value only)
             labelledCheckboxCombo.addKeyListener(new KeyAdapter() {
 
+                @Override
                 public void keyPressed(KeyEvent e) {
                     if (Character.getNumericValue(e.character) >= 10) {
                         e.doit = false;
@@ -544,6 +557,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
 
         rowsToSkipLimitCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!rowsToSkipLimitCheckboxCombo.isEmpty()) {
                     if (!rowsToSkipLimitCheckboxCombo.isInteger() || rowsToSkipLimitCheckboxCombo.getText().equals("0")) { //$NON-NLS-1$
@@ -567,6 +581,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
      * 
      * @return
      */
+    @Override
     protected boolean checkFieldsValue() {
         previewInformationLabel.setText("   " + Messages.getString("FileStep2.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$
         updateStatus(IStatus.OK, null);
@@ -599,11 +614,13 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
      * 
      * @param cancelButton
      */
+    @Override
     protected void addUtilsButtonListeners() {
 
         // Event PreviewButton
         previewButton.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 refreshPreview();
             }
@@ -613,6 +630,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
             // Event CancelButton
             cancelButton.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(final SelectionEvent e) {
                     getShell().close();
                 }
@@ -623,6 +641,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
         final Table table = tableEditorView.getTableViewerCreator().getTable();
         table.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(final SelectionEvent e) {
                 if (e.detail == SWT.CHECK) {
                     TableItem tableItem = (TableItem) e.item;
@@ -643,6 +662,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
      * 
      * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (super.isVisible()) {
@@ -672,7 +692,9 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
                 adaptFormToReadOnly();
             }
             adaptFormToEditable();
+            collectParameters(visible);
         }
+
     }
 
     /*
@@ -680,6 +702,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
 

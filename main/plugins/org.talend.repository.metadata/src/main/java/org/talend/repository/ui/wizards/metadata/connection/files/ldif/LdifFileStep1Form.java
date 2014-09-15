@@ -43,7 +43,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.ui.swt.utils.AbstractLdifFileStepForm;
-import org.talend.repository.ui.utils.OtherConnectionContextUtils.EParamName;
 
 /**
  * @author cantoine
@@ -124,6 +123,7 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
      * DOC cantoine Comment method "adaptFormToReadOnly".
      * 
      */
+    @Override
     protected void adaptFormToReadOnly() {
         readOnly = isReadOnly();
         // serverCombo.setReadOnly(isReadOnly());
@@ -132,6 +132,7 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
 
     }
 
+    @Override
     protected void addFields() {
         // Group File Location
         Group group = Form.createGroup(this, 1, Messages.getString("FileStep2.groupDelimitedFileSettings"), 120); //$NON-NLS-1$
@@ -173,12 +174,14 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
         addUtilsButtonListeners();
     }
 
+    @Override
     protected void addUtilsButtonListeners() {
 
         if (!isInWizard()) {
             // Event cancelButton
             cancelButton.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(final SelectionEvent e) {
                     getShell().close();
                 }
@@ -190,10 +193,12 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
     /**
      * Main Fields addControls.
      */
+    @Override
     protected void addFieldsListeners() {
         // Event serverCombo
         serverCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().setServer(serverCombo.getText());
                 checkFieldsValue();
@@ -203,6 +208,7 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
         // fileField : Event modifyText
         fileField.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setFilePath(PathUtils.getPortablePath(fileField.getText()));
@@ -295,6 +301,7 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
      * 
      * @return
      */
+    @Override
     protected boolean checkFieldsValue() {
         // The fields
         // serverCombo.setEnabled(true);
@@ -328,6 +335,7 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
      * 
      * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
      */
+    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (isReadOnly() != readOnly) {
@@ -335,12 +343,7 @@ public class LdifFileStep1Form extends AbstractLdifFileStepForm {
         }
         if (visible) {
             initialize();
-            collectParameters(visible);
         }
-    }
-
-    private void collectParameters(boolean visible) {
-        addContextParams(EParamName.FilePath, visible);
     }
 
     @Override
