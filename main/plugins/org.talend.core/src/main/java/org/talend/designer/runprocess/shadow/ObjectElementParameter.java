@@ -25,9 +25,9 @@ import org.talend.core.model.properties.Item;
 
 /**
  * Simple Text implementation of IElementParameter. <br/>
- *
+ * 
  * $Id: TextElementParameter.java 387 2006-11-10 08:34:31 +0000 (ven., 10 nov. 2006) nrousseau $
- *
+ * 
  */
 public class ObjectElementParameter implements IElementParameter {
 
@@ -42,6 +42,8 @@ public class ObjectElementParameter implements IElementParameter {
     private RGB color;
 
     private RGB backgroundColor;
+
+    private boolean raw;
 
     /**
      * Constructs a new TextElementParameter.
@@ -656,7 +658,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Getter for contextMode.
-     *
+     * 
      * @return the contextMode
      */
     @Override
@@ -666,7 +668,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Sets the contextMode.
-     *
+     * 
      * @param contextMode the contextMode to set
      */
     @Override
@@ -696,7 +698,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Getter for color.
-     *
+     * 
      * @return the color
      */
     @Override
@@ -706,7 +708,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Sets the color.
-     *
+     * 
      * @param color the color to set
      */
     @Override
@@ -716,7 +718,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Getter for backgroundColor.
-     *
+     * 
      * @return the backgroundColor
      */
     @Override
@@ -726,7 +728,7 @@ public class ObjectElementParameter implements IElementParameter {
 
     /**
      * Sets the backgroundColor.
-     *
+     * 
      * @param backgroundColor the backgroundColor to set
      */
     @Override
@@ -980,6 +982,26 @@ public class ObjectElementParameter implements IElementParameter {
     @Override
     public boolean isValueSetToDefault() {
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isRaw()
+     */
+    @Override
+    public boolean isRaw() {
+        return raw;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setRaw(boolean)
+     */
+    @Override
+    public void setRaw(boolean raw) {
+        this.raw = raw;
     }
 
 }

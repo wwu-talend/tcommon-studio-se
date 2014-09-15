@@ -1,13 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EMap;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
@@ -287,11 +285,11 @@ public interface DocumentRoot extends EObject {
     /**
      * Returns the value of the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>ITEMS</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+     * <p>
+     * If the meaning of the '<em>ITEMS</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
      * @return the value of the '<em>ITEMS</em>' containment reference.
      * @see #setITEMS(ITEMSType)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_ITEMS()
@@ -299,17 +297,17 @@ public interface DocumentRoot extends EObject {
      *        extendedMetaData="kind='element' name='ITEMS' namespace='##targetNamespace'"
      * @generated
      */
-	ITEMSType getITEMS();
+    ITEMSType getITEMS();
 
     /**
      * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}' containment reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>ITEMS</em>' containment reference.
      * @see #getITEMS()
      * @generated
      */
-	void setITEMS(ITEMSType value);
+    void setITEMS(ITEMSType value);
 
     /**
      * Returns the value of the '<em><b>PARAMETER</b></em>' containment reference.

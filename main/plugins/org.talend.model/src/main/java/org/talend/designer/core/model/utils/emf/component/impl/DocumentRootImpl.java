@@ -1,23 +1,24 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EMap;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
+
 import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
@@ -31,10 +32,8 @@ import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
-import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 import org.talend.designer.core.model.utils.emf.component.SQLTEMPLATESType;
-import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
 
 /**
  * <!-- begin-user-doc -->
@@ -109,7 +108,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.DOCUMENT_ROOT;
     }
@@ -341,28 +339,28 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public ITEMSType getITEMS() {
+    public ITEMSType getITEMS() {
         return (ITEMSType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__ITEMS, true);
     }
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
+    public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
         return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__ITEMS, newITEMS, msgs);
     }
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void setITEMS(ITEMSType newITEMS) {
+    public void setITEMS(ITEMSType newITEMS) {
         ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__ITEMS, newITEMS);
     }
 
@@ -506,7 +504,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.DOCUMENT_ROOT__MIXED:
@@ -550,7 +547,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.DOCUMENT_ROOT__MIXED:
@@ -597,7 +593,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.DOCUMENT_ROOT__MIXED:
@@ -657,7 +652,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.DOCUMENT_ROOT__MIXED:
@@ -717,7 +711,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.DOCUMENT_ROOT__MIXED:
@@ -761,7 +754,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

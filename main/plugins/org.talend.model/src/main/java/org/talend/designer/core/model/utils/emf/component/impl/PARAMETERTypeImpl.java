@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -10,19 +6,23 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
-
 import org.talend.designer.core.model.utils.emf.component.TABLEType;
 
 /**
@@ -58,6 +58,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREQUIREDIF <em>REQUIREDIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isRAW <em>RAW</em>}</li>
  * </ul>
  * </p>
  *
@@ -196,33 +197,33 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     /**
      * The default value of the '{@link #isDYNAMICSETTINGS() <em>DYNAMICSETTINGS</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isDYNAMICSETTINGS()
      * @generated
      * @ordered
      */
-	protected static final boolean DYNAMICSETTINGS_EDEFAULT = false;
+    protected static final boolean DYNAMICSETTINGS_EDEFAULT = false;
 
-				/**
+    /**
      * The cached value of the '{@link #isDYNAMICSETTINGS() <em>DYNAMICSETTINGS</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isDYNAMICSETTINGS()
      * @generated
      * @ordered
      */
-	protected boolean dYNAMICSETTINGS = DYNAMICSETTINGS_EDEFAULT;
+    protected boolean dYNAMICSETTINGS = DYNAMICSETTINGS_EDEFAULT;
 
-				/**
+    /**
      * This is true if the DYNAMICSETTINGS attribute has been set.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	protected boolean dYNAMICSETTINGSESet;
+    protected boolean dYNAMICSETTINGSESet;
 
-				/**
+    /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -626,6 +627,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     protected String sHOWIF = SHOWIF_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isRAW() <em>RAW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRAW()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean RAW_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isRAW() <em>RAW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRAW()
+     * @generated
+     * @ordered
+     */
+    protected boolean rAW = RAW_EDEFAULT;
+
+    /**
+     * This is true if the RAW attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rAWESet;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -639,7 +669,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.PARAMETER_TYPE;
     }
@@ -865,19 +894,19 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public boolean isDYNAMICSETTINGS() {
+    public boolean isDYNAMICSETTINGS() {
         return dYNAMICSETTINGS;
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void setDYNAMICSETTINGS(boolean newDYNAMICSETTINGS) {
+    public void setDYNAMICSETTINGS(boolean newDYNAMICSETTINGS) {
         boolean oldDYNAMICSETTINGS = dYNAMICSETTINGS;
         dYNAMICSETTINGS = newDYNAMICSETTINGS;
         boolean oldDYNAMICSETTINGSESet = dYNAMICSETTINGSESet;
@@ -886,12 +915,12 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__DYNAMICSETTINGS, oldDYNAMICSETTINGS, dYNAMICSETTINGS, !oldDYNAMICSETTINGSESet));
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void unsetDYNAMICSETTINGS() {
+    public void unsetDYNAMICSETTINGS() {
         boolean oldDYNAMICSETTINGS = dYNAMICSETTINGS;
         boolean oldDYNAMICSETTINGSESet = dYNAMICSETTINGSESet;
         dYNAMICSETTINGS = DYNAMICSETTINGS_EDEFAULT;
@@ -900,16 +929,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__DYNAMICSETTINGS, oldDYNAMICSETTINGS, DYNAMICSETTINGS_EDEFAULT, oldDYNAMICSETTINGSESet));
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public boolean isSetDYNAMICSETTINGS() {
+    public boolean isSetDYNAMICSETTINGS() {
         return dYNAMICSETTINGSESet;
     }
 
-				/**
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1083,6 +1112,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      */
     public boolean isSetNBLINES() {
         return nBLINESESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isNOCONTEXTASSIST() {
+        return nOCONTEXTASSIST;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        nOCONTEXTASSIST = newNOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSISTESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOCONTEXTASSIST() {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+        nOCONTEXTASSISTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOCONTEXTASSIST() {
+        return nOCONTEXTASSISTESet;
     }
 
     /**
@@ -1400,8 +1475,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isNOCONTEXTASSIST() {
-        return nOCONTEXTASSIST;
+    public boolean isRAW() {
+        return rAW;
     }
 
     /**
@@ -1409,13 +1484,13 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
-        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
-        nOCONTEXTASSIST = newNOCONTEXTASSIST;
-        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
-        nOCONTEXTASSISTESet = true;
+    public void setRAW(boolean newRAW) {
+        boolean oldRAW = rAW;
+        rAW = newRAW;
+        boolean oldRAWESet = rAWESet;
+        rAWESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__RAW, oldRAW, rAW, !oldRAWESet));
     }
 
     /**
@@ -1423,13 +1498,13 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void unsetNOCONTEXTASSIST() {
-        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
-        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
-        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
-        nOCONTEXTASSISTESet = false;
+    public void unsetRAW() {
+        boolean oldRAW = rAW;
+        boolean oldRAWESet = rAWESet;
+        rAW = RAW_EDEFAULT;
+        rAWESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__RAW, oldRAW, RAW_EDEFAULT, oldRAWESet));
     }
 
     /**
@@ -1437,8 +1512,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isSetNOCONTEXTASSIST() {
-        return nOCONTEXTASSISTESet;
+    public boolean isSetRAW() {
+        return rAWESet;
     }
 
     /**
@@ -1446,7 +1521,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1466,7 +1540,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1521,6 +1594,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 return getSHOWIF();
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                return isRAW() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1530,8 +1605,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1614,6 +1687,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 setSHOWIF((String)newValue);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                setRAW(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1623,7 +1699,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1704,6 +1779,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 setSHOWIF(SHOWIF_EDEFAULT);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                unsetRAW();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1713,7 +1791,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
@@ -1768,6 +1845,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return isSetSHOW();
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
+            case ComponentPackage.PARAMETER_TYPE__RAW:
+                return isSetRAW();
         }
         return super.eIsSet(featureID);
     }
@@ -1777,7 +1856,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 
@@ -1826,6 +1904,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", sHOWIF: ");
         result.append(sHOWIF);
+        result.append(", rAW: ");
+        if (rAWESet) result.append(rAW); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

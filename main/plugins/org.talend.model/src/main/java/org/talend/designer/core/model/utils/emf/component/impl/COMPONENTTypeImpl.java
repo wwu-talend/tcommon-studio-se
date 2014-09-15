@@ -1,25 +1,17 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
@@ -29,10 +21,8 @@ import org.talend.designer.core.model.utils.emf.component.FAMILIESType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
-import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 import org.talend.designer.core.model.utils.emf.component.SQLTEMPLATESType;
-import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
 
 /**
  * <!-- begin-user-doc -->
@@ -171,7 +161,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.COMPONENT_TYPE;
     }
@@ -217,6 +206,49 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
         }
         else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__HEADER, newHEADER, newHEADER));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FAMILIESType getFAMILIES() {
+        return fAMILIES;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetFAMILIES(FAMILIESType newFAMILIES, NotificationChain msgs) {
+        FAMILIESType oldFAMILIES = fAMILIES;
+        fAMILIES = newFAMILIES;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__FAMILIES, oldFAMILIES, newFAMILIES);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFAMILIES(FAMILIESType newFAMILIES) {
+        if (newFAMILIES != fAMILIES) {
+            NotificationChain msgs = null;
+            if (fAMILIES != null)
+                msgs = ((InternalEObject)fAMILIES).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__FAMILIES, null, msgs);
+            if (newFAMILIES != null)
+                msgs = ((InternalEObject)newFAMILIES).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__FAMILIES, null, msgs);
+            msgs = basicSetFAMILIES(newFAMILIES, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__FAMILIES, newFAMILIES, newFAMILIES));
     }
 
     /**
@@ -568,50 +600,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public FAMILIESType getFAMILIES() {
-        return fAMILIES;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetFAMILIES(FAMILIESType newFAMILIES, NotificationChain msgs) {
-        FAMILIESType oldFAMILIES = fAMILIES;
-        fAMILIES = newFAMILIES;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__FAMILIES, oldFAMILIES, newFAMILIES);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setFAMILIES(FAMILIESType newFAMILIES) {
-        if (newFAMILIES != fAMILIES) {
-            NotificationChain msgs = null;
-            if (fAMILIES != null)
-                msgs = ((InternalEObject)fAMILIES).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__FAMILIES, null, msgs);
-            if (newFAMILIES != null)
-                msgs = ((InternalEObject)newFAMILIES).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__FAMILIES, null, msgs);
-            msgs = basicSetFAMILIES(newFAMILIES, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__FAMILIES, newFAMILIES, newFAMILIES));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
@@ -643,7 +631,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
@@ -675,7 +662,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
@@ -717,7 +703,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
@@ -759,7 +744,6 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:

@@ -272,6 +272,7 @@
     <xsd:attribute ecore:name="rEPOSITORYITEM" name="REPOSITORY_ITEM" type="xsd:string"/>
     <xsd:attribute ecore:name="sHOWIF" name="SHOW_IF" type="xsd:string"/>
     <xsd:attribute ecore:name="vALUE" name="VALUE" type="xsd:string"/>
+    <xsd:attribute ecore:name="rAW" name="RAW" type="xsd:boolean"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="JAVACOMMANDType" name="JAVACOMMAND_._type">
     <xsd:sequence>
@@ -344,6 +345,7 @@
     <xsd:attribute ecore:name="rEQUIREDIF" name="REQUIRED_IF" type="xsd:string"/>
     <xsd:attribute default="true" ecore:name="sHOW" name="SHOW" type="xsd:boolean"/>
     <xsd:attribute ecore:name="sHOWIF" name="SHOW_IF" type="xsd:string"/>
+    <xsd:attribute ecore:name="rAW" name="RAW" type="xsd:boolean"/>
   </xsd:complexType>
   <xsd:complexType ecore:name="PLUGINDEPENDENCIESType" name="PLUGINDEPENDENCIES_._type">
     <xsd:sequence>

@@ -1,40 +1,16 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.talend.designer.core.model.utils.emf.component.*;
 
-import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
-import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
-import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
-import org.talend.designer.core.model.utils.emf.component.CONNECTORType;
-import org.talend.designer.core.model.utils.emf.component.ComponentFactory;
-import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
-import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
-import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
-import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
-import org.talend.designer.core.model.utils.emf.component.HEADERType;
-import org.talend.designer.core.model.utils.emf.component.IMPORTSType;
-import org.talend.designer.core.model.utils.emf.component.IMPORTType;
-import org.talend.designer.core.model.utils.emf.component.ITEMSType;
-import org.talend.designer.core.model.utils.emf.component.ITEMType;
-import org.talend.designer.core.model.utils.emf.component.LINKTOType;
-import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
-import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
-import org.talend.designer.core.model.utils.emf.component.RETURNSType;
-import org.talend.designer.core.model.utils.emf.component.RETURNType;
-import org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType;
-import org.talend.designer.core.model.utils.emf.component.TEMPLATESType;
-import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import org.talend.designer.core.model.utils.emf.component.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,7 +27,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      */
     public static ComponentFactory init() {
         try {
-            ComponentFactory theComponentFactory = (ComponentFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/Component.xsd"); 
+            ComponentFactory theComponentFactory = (ComponentFactory)EPackage.Registry.INSTANCE.getEFactory(ComponentPackage.eNS_URI);
             if (theComponentFactory != null) {
                 return theComponentFactory;
             }
@@ -77,7 +53,6 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case ComponentPackage.ADVANCEDPARAMETERS_TYPE: return createADVANCEDPARAMETERSType();
@@ -452,7 +427,6 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      * @deprecated
      * @generated
      */
-    @Deprecated
     public static ComponentPackage getPackage() {
         return ComponentPackage.eINSTANCE;
     }

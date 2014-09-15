@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -14,6 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.ITEMType;
@@ -39,6 +36,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isRAW <em>RAW</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,12 +46,12 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     /**
      * The cached value of the '{@link #getITEMS() <em>ITEMS</em>}' containment reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getITEMS()
      * @generated
      * @ordered
      */
-	protected ITEMSType iTEMS;
+    protected ITEMSType iTEMS;
 
     /**
      * The default value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
@@ -107,22 +105,22 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getFIELD()
      * @generated
      * @ordered
      */
-	protected static final String FIELD_EDEFAULT = "TEXT"; //$NON-NLS-1$
+    protected static final String FIELD_EDEFAULT = "TEXT";
 
     /**
      * The cached value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getFIELD()
      * @generated
      * @ordered
      */
-	protected String fIELD = FIELD_EDEFAULT;
+    protected String fIELD = FIELD_EDEFAULT;
 
     /**
      * This is true if the FIELD attribute has been set.
@@ -352,6 +350,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     protected String vALUE = VALUE_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isRAW() <em>RAW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRAW()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean RAW_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isRAW() <em>RAW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRAW()
+     * @generated
+     * @ordered
+     */
+    protected boolean rAW = RAW_EDEFAULT;
+
+    /**
+     * This is true if the RAW attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rAWESet;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -365,26 +392,25 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.ITEM_TYPE;
     }
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public ITEMSType getITEMS() {
+    public ITEMSType getITEMS() {
         return iTEMS;
     }
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
+    public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
         ITEMSType oldITEMS = iTEMS;
         iTEMS = newITEMS;
         if (eNotificationRequired()) {
@@ -396,10 +422,10 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void setITEMS(ITEMSType newITEMS) {
+    public void setITEMS(ITEMSType newITEMS) {
         if (newITEMS != iTEMS) {
             NotificationChain msgs = null;
             if (iTEMS != null)
@@ -436,19 +462,65 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public String getFIELD() {
+    public boolean isDISPLAYNAMEASVALUE() {
+        return dISPLAYNAMEASVALUE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDISPLAYNAMEASVALUE(boolean newDISPLAYNAMEASVALUE) {
+        boolean oldDISPLAYNAMEASVALUE = dISPLAYNAMEASVALUE;
+        dISPLAYNAMEASVALUE = newDISPLAYNAMEASVALUE;
+        boolean oldDISPLAYNAMEASVALUEESet = dISPLAYNAMEASVALUEESet;
+        dISPLAYNAMEASVALUEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE, oldDISPLAYNAMEASVALUE, dISPLAYNAMEASVALUE, !oldDISPLAYNAMEASVALUEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetDISPLAYNAMEASVALUE() {
+        boolean oldDISPLAYNAMEASVALUE = dISPLAYNAMEASVALUE;
+        boolean oldDISPLAYNAMEASVALUEESet = dISPLAYNAMEASVALUEESet;
+        dISPLAYNAMEASVALUE = DISPLAYNAMEASVALUE_EDEFAULT;
+        dISPLAYNAMEASVALUEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE, oldDISPLAYNAMEASVALUE, DISPLAYNAMEASVALUE_EDEFAULT, oldDISPLAYNAMEASVALUEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetDISPLAYNAMEASVALUE() {
+        return dISPLAYNAMEASVALUEESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getFIELD() {
         return fIELD;
     }
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void setFIELD(String newFIELD) {
+    public void setFIELD(String newFIELD) {
         String oldFIELD = fIELD;
         fIELD = newFIELD;
         boolean oldFIELDESet = fIELDESet;
@@ -520,6 +592,52 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         nAME = newNAME;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NAME, oldNAME, nAME));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isNOCONTEXTASSIST() {
+        return nOCONTEXTASSIST;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        nOCONTEXTASSIST = newNOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSISTESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOCONTEXTASSIST() {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+        nOCONTEXTASSISTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOCONTEXTASSIST() {
+        return nOCONTEXTASSISTESet;
     }
 
     /**
@@ -699,8 +817,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isDISPLAYNAMEASVALUE() {
-        return dISPLAYNAMEASVALUE;
+    public boolean isRAW() {
+        return rAW;
     }
 
     /**
@@ -708,13 +826,13 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setDISPLAYNAMEASVALUE(boolean newDISPLAYNAMEASVALUE) {
-        boolean oldDISPLAYNAMEASVALUE = dISPLAYNAMEASVALUE;
-        dISPLAYNAMEASVALUE = newDISPLAYNAMEASVALUE;
-        boolean oldDISPLAYNAMEASVALUEESet = dISPLAYNAMEASVALUEESet;
-        dISPLAYNAMEASVALUEESet = true;
+    public void setRAW(boolean newRAW) {
+        boolean oldRAW = rAW;
+        rAW = newRAW;
+        boolean oldRAWESet = rAWESet;
+        rAWESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE, oldDISPLAYNAMEASVALUE, dISPLAYNAMEASVALUE, !oldDISPLAYNAMEASVALUEESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__RAW, oldRAW, rAW, !oldRAWESet));
     }
 
     /**
@@ -722,13 +840,13 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void unsetDISPLAYNAMEASVALUE() {
-        boolean oldDISPLAYNAMEASVALUE = dISPLAYNAMEASVALUE;
-        boolean oldDISPLAYNAMEASVALUEESet = dISPLAYNAMEASVALUEESet;
-        dISPLAYNAMEASVALUE = DISPLAYNAMEASVALUE_EDEFAULT;
-        dISPLAYNAMEASVALUEESet = false;
+    public void unsetRAW() {
+        boolean oldRAW = rAW;
+        boolean oldRAWESet = rAWESet;
+        rAW = RAW_EDEFAULT;
+        rAWESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE, oldDISPLAYNAMEASVALUE, DISPLAYNAMEASVALUE_EDEFAULT, oldDISPLAYNAMEASVALUEESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__RAW, oldRAW, RAW_EDEFAULT, oldRAWESet));
     }
 
     /**
@@ -736,8 +854,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isSetDISPLAYNAMEASVALUE() {
-        return dISPLAYNAMEASVALUEESet;
+    public boolean isSetRAW() {
+        return rAWESet;
     }
 
     /**
@@ -745,53 +863,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isNOCONTEXTASSIST() {
-        return nOCONTEXTASSIST;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
-        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
-        nOCONTEXTASSIST = newNOCONTEXTASSIST;
-        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
-        nOCONTEXTASSISTESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetNOCONTEXTASSIST() {
-        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
-        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
-        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
-        nOCONTEXTASSISTESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetNOCONTEXTASSIST() {
-        return nOCONTEXTASSISTESet;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
@@ -805,7 +876,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
@@ -836,6 +906,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getSHOWIF();
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return getVALUE();
+            case ComponentPackage.ITEM_TYPE__RAW:
+                return isRAW() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -845,7 +917,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
@@ -890,6 +961,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE((String)newValue);
                 return;
+            case ComponentPackage.ITEM_TYPE__RAW:
+                setRAW(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -899,7 +973,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
@@ -944,6 +1017,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE(VALUE_EDEFAULT);
                 return;
+            case ComponentPackage.ITEM_TYPE__RAW:
+                unsetRAW();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -953,7 +1029,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
@@ -984,6 +1059,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return VALUE_EDEFAULT == null ? vALUE != null : !VALUE_EDEFAULT.equals(vALUE);
+            case ComponentPackage.ITEM_TYPE__RAW:
+                return isSetRAW();
         }
         return super.eIsSet(featureID);
     }
@@ -993,7 +1070,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 
@@ -1024,6 +1100,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(sHOWIF);
         result.append(", vALUE: ");
         result.append(vALUE);
+        result.append(", rAW: ");
+        if (rAWESet) result.append(rAW); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

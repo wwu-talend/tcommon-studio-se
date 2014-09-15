@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -18,13 +14,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
-
 import org.talend.designer.core.model.utils.emf.component.INSTALLType;
 
 /**
@@ -304,7 +300,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.IMPORT_TYPE;
     }
@@ -331,6 +326,27 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             uRL = new EDataTypeEList(String.class, this, ComponentPackage.IMPORT_TYPE__URL);
         }
         return uRL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getBundleID() {
+        return bundleID;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBundleID(String newBundleID) {
+        String oldBundleID = bundleID;
+        bundleID = newBundleID;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__BUNDLE_ID, oldBundleID, bundleID));
     }
 
     /**
@@ -577,28 +593,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getBundleID() {
-        return bundleID;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setBundleID(String newBundleID) {
-        String oldBundleID = bundleID;
-        bundleID = newBundleID;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__BUNDLE_ID, oldBundleID, bundleID));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
@@ -612,7 +606,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
@@ -648,8 +641,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
@@ -699,7 +690,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
@@ -747,7 +737,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
@@ -783,7 +772,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

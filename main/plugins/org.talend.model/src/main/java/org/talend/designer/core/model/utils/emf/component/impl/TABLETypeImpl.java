@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -157,7 +153,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.TABLE_TYPE;
     }
@@ -172,52 +167,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
             cOLUMN = new EObjectContainmentEList(COLUMNType.class, this, ComponentPackage.TABLE_TYPE__COLUMN);
         }
         return cOLUMN;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isREADONLY() {
-        return rEADONLY;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setREADONLY(boolean newREADONLY) {
-        boolean oldREADONLY = rEADONLY;
-        rEADONLY = newREADONLY;
-        boolean oldREADONLYESet = rEADONLYESet;
-        rEADONLYESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetREADONLY() {
-        boolean oldREADONLY = rEADONLY;
-        boolean oldREADONLYESet = rEADONLYESet;
-        rEADONLY = READONLY_EDEFAULT;
-        rEADONLYESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetREADONLY() {
-        return rEADONLYESet;
     }
 
     /**
@@ -288,7 +237,52 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
+    public boolean isREADONLY() {
+        return rEADONLY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREADONLY(boolean newREADONLY) {
+        boolean oldREADONLY = rEADONLY;
+        rEADONLY = newREADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetREADONLY() {
+        boolean oldREADONLY = rEADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLY = READONLY_EDEFAULT;
+        rEADONLYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetREADONLY() {
+        return rEADONLYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -302,7 +296,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -324,8 +317,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -353,7 +344,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -380,7 +370,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -402,7 +391,6 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

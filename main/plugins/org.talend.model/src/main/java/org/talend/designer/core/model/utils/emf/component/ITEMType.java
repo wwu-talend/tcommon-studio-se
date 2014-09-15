@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
@@ -30,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getVALUE <em>VALUE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isRAW <em>RAW</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,11 +38,7 @@ public interface ITEMType extends EObject {
     /**
      * Returns the value of the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>ITEMS</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
      * 										Used for combo box in TABLE
@@ -59,17 +52,17 @@ public interface ITEMType extends EObject {
      *        extendedMetaData="kind='element' name='ITEMS' namespace='##targetNamespace'"
      * @generated
      */
-	ITEMSType getITEMS();
+    ITEMSType getITEMS();
 
     /**
      * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}' containment reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>ITEMS</em>' containment reference.
      * @see #getITEMS()
      * @generated
      */
-	void setITEMS(ITEMSType value);
+    void setITEMS(ITEMSType value);
 
     /**
      * Returns the value of the '<em><b>CONTEXT</b></em>' attribute.
@@ -99,14 +92,68 @@ public interface ITEMType extends EObject {
     void setCONTEXT(String value);
 
     /**
+     * Returns the value of the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>DISPLAYNAMEASVALUE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>DISPLAYNAMEASVALUE</em>' attribute.
+     * @see #isSetDISPLAYNAMEASVALUE()
+     * @see #unsetDISPLAYNAMEASVALUE()
+     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_DISPLAYNAMEASVALUE()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='DISPLAY_NAME_AS_VALUE' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isDISPLAYNAMEASVALUE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>DISPLAYNAMEASVALUE</em>' attribute.
+     * @see #isSetDISPLAYNAMEASVALUE()
+     * @see #unsetDISPLAYNAMEASVALUE()
+     * @see #isDISPLAYNAMEASVALUE()
+     * @generated
+     */
+    void setDISPLAYNAMEASVALUE(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetDISPLAYNAMEASVALUE()
+     * @see #isDISPLAYNAMEASVALUE()
+     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @generated
+     */
+    void unsetDISPLAYNAMEASVALUE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>DISPLAYNAMEASVALUE</em>' attribute is set.
+     * @see #unsetDISPLAYNAMEASVALUE()
+     * @see #isDISPLAYNAMEASVALUE()
+     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @generated
+     */
+    boolean isSetDISPLAYNAMEASVALUE();
+
+    /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.
      * The default value is <code>"TEXT"</code>.
      * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>FIELD</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+     * <p>
+     * If the meaning of the '<em>FIELD</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
      * @return the value of the '<em>FIELD</em>' attribute.
      * @see #isSetFIELD()
      * @see #unsetFIELD()
@@ -116,19 +163,19 @@ public interface ITEMType extends EObject {
      *        extendedMetaData="kind='attribute' name='FIELD' namespace='##targetNamespace'"
      * @generated
      */
-	String getFIELD();
+    String getFIELD();
 
     /**
      * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>FIELD</em>' attribute.
      * @see #isSetFIELD()
      * @see #unsetFIELD()
      * @see #getFIELD()
      * @generated
      */
-	void setFIELD(String value);
+    void setFIELD(String value);
 
     /**
      * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}' attribute.
@@ -206,6 +253,60 @@ public interface ITEMType extends EObject {
      * @generated
      */
     void setNAME(String value);
+
+    /**
+     * Returns the value of the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NOCONTEXTASSIST</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_NOCONTEXTASSIST()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isNOCONTEXTASSIST();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     */
+    void setNOCONTEXTASSIST(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    void unsetNOCONTEXTASSIST();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>NOCONTEXTASSIST</em>' attribute is set.
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    boolean isSetNOCONTEXTASSIST();
 
     /**
      * Returns the value of the '<em><b>NOTREADONLYIF</b></em>' attribute.
@@ -424,111 +525,57 @@ public interface ITEMType extends EObject {
     void setVALUE(String value);
 
     /**
-     * Returns the value of the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute.
+     * Returns the value of the '<em><b>RAW</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>DISPLAYNAMEASVALUE</em>' attribute isn't clear,
+     * If the meaning of the '<em>RAW</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>DISPLAYNAMEASVALUE</em>' attribute.
-     * @see #isSetDISPLAYNAMEASVALUE()
-     * @see #unsetDISPLAYNAMEASVALUE()
-     * @see #setDISPLAYNAMEASVALUE(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_DISPLAYNAMEASVALUE()
+     * @return the value of the '<em>RAW</em>' attribute.
+     * @see #isSetRAW()
+     * @see #unsetRAW()
+     * @see #setRAW(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_RAW()
      * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='DISPLAY_NAME_AS_VALUE' namespace='##targetNamespace'"
+     *        extendedMetaData="kind='attribute' name='RAW' namespace='##targetNamespace'"
      * @generated
      */
-    boolean isDISPLAYNAMEASVALUE();
+    boolean isRAW();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isRAW <em>RAW</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>DISPLAYNAMEASVALUE</em>' attribute.
-     * @see #isSetDISPLAYNAMEASVALUE()
-     * @see #unsetDISPLAYNAMEASVALUE()
-     * @see #isDISPLAYNAMEASVALUE()
+     * @param value the new value of the '<em>RAW</em>' attribute.
+     * @see #isSetRAW()
+     * @see #unsetRAW()
+     * @see #isRAW()
      * @generated
      */
-    void setDISPLAYNAMEASVALUE(boolean value);
+    void setRAW(boolean value);
 
     /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isRAW <em>RAW</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isSetDISPLAYNAMEASVALUE()
-     * @see #isDISPLAYNAMEASVALUE()
-     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @see #isSetRAW()
+     * @see #isRAW()
+     * @see #setRAW(boolean)
      * @generated
      */
-    void unsetDISPLAYNAMEASVALUE();
+    void unsetRAW();
 
     /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute is set.
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isRAW <em>RAW</em>}' attribute is set.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return whether the value of the '<em>DISPLAYNAMEASVALUE</em>' attribute is set.
-     * @see #unsetDISPLAYNAMEASVALUE()
-     * @see #isDISPLAYNAMEASVALUE()
-     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @return whether the value of the '<em>RAW</em>' attribute is set.
+     * @see #unsetRAW()
+     * @see #isRAW()
+     * @see #setRAW(boolean)
      * @generated
      */
-    boolean isSetDISPLAYNAMEASVALUE();
-
-    /**
-     * Returns the value of the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>NOCONTEXTASSIST</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
-     * @see #isSetNOCONTEXTASSIST()
-     * @see #unsetNOCONTEXTASSIST()
-     * @see #setNOCONTEXTASSIST(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_NOCONTEXTASSIST()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
-     * @generated
-     */
-    boolean isNOCONTEXTASSIST();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
-     * @see #isSetNOCONTEXTASSIST()
-     * @see #unsetNOCONTEXTASSIST()
-     * @see #isNOCONTEXTASSIST()
-     * @generated
-     */
-    void setNOCONTEXTASSIST(boolean value);
-
-    /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isSetNOCONTEXTASSIST()
-     * @see #isNOCONTEXTASSIST()
-     * @see #setNOCONTEXTASSIST(boolean)
-     * @generated
-     */
-    void unsetNOCONTEXTASSIST();
-
-    /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return whether the value of the '<em>NOCONTEXTASSIST</em>' attribute is set.
-     * @see #unsetNOCONTEXTASSIST()
-     * @see #isNOCONTEXTASSIST()
-     * @see #setNOCONTEXTASSIST(boolean)
-     * @generated
-     */
-    boolean isSetNOCONTEXTASSIST();
+    boolean isSetRAW();
 
 } // ITEMType

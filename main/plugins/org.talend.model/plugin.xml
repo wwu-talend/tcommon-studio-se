@@ -84,11 +84,18 @@
             type="item">
       </parser>
    </extension>  
-  <extension
-        point="org.eclipse.emf.ecore.uri_mapping">
-     <mapping
-           source="http://www.talend.org"
-           target="dummy.uri">
-     </mapping>
-  </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Component -->
+      <package
+            uri="platform:/resource/org.talend.model/model/Component.xsd"
+            class="org.talend.designer.core.model.utils.emf.component.ComponentPackage"
+            genModel="model/Component.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated Component -->
+      <parser
+            type="component"
+            class="org.talend.designer.core.model.utils.emf.component.util.ComponentResourceFactoryImpl"/>
+   </extension>
 </plugin>

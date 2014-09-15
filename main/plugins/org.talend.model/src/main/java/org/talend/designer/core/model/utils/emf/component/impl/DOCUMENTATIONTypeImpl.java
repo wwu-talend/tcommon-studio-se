@@ -1,15 +1,14 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
 
@@ -61,7 +60,6 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.DOCUMENTATION_TYPE;
     }
@@ -92,7 +90,6 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.DOCUMENTATION_TYPE__URL:
@@ -106,7 +103,6 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.DOCUMENTATION_TYPE__URL:
@@ -121,7 +117,6 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.DOCUMENTATION_TYPE__URL:
@@ -136,7 +131,6 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.DOCUMENTATION_TYPE__URL:
@@ -150,7 +144,6 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

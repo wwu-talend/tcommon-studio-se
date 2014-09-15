@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,10 +28,6 @@ public interface CODEGENERATIONType extends EObject {
      * Returns the value of the '<em><b>TEMPLATES</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType}.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>TEMPLATES</em>' containment reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * Used only for virtual components

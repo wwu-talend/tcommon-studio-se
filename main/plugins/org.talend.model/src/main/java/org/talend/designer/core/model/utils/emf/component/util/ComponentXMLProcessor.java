@@ -1,17 +1,15 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.util;
 
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
-import org.eclipse.emf.ecore.resource.Resource;
+
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 
 /**
@@ -21,6 +19,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * @generated
  */
 public class ComponentXMLProcessor extends XMLProcessor {
+
     /**
      * Public constructor to instantiate the helper.
      * <!-- begin-user-doc -->
@@ -38,8 +37,6 @@ public class ComponentXMLProcessor extends XMLProcessor {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
     protected Map getRegistrations() {
         if (registrations == null) {
             super.getRegistrations();

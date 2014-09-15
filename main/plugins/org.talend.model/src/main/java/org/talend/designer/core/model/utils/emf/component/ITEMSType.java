@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -35,10 +32,6 @@ public interface ITEMSType extends EObject {
      * Returns the value of the '<em><b>ITEM</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.ITEMType}.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ITEM</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 

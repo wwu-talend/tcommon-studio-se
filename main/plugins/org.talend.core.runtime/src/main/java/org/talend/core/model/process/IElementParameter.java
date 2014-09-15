@@ -19,9 +19,9 @@ import org.eclipse.swt.graphics.RGB;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
- *
+ * 
  * $Id: IElementParameter.java 39167 2010-03-26 06:55:10Z cli $
- *
+ * 
  */
 public interface IElementParameter {
 
@@ -220,4 +220,8 @@ public interface IElementParameter {
     public int getMaxlength();
 
     public boolean isValueSetToDefault();
+
+    public boolean isRaw();
+
+    public void setRaw(boolean raw);
 }

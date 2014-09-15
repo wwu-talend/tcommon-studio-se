@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,7 +28,7 @@ public interface ADVANCEDPARAMETERSType extends EObject {
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.PARAMETERType}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>PARAMETER</em>' containment reference isn't clear,
+     * If the meaning of the '<em>PARAMETER</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->

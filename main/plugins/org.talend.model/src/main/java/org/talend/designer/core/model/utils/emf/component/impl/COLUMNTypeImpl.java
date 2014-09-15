@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -391,7 +387,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.COLUMN_TYPE;
     }
@@ -761,48 +756,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getTYPE() {
-        return tYPE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setTYPE(String newTYPE) {
-        String oldTYPE = tYPE;
-        tYPE = newTYPE;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__TYPE, oldTYPE, tYPE));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getDBTYPE() {
-        return dBTYPE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setDBTYPE(String newDBTYPE) {
-        String oldDBTYPE = dBTYPE;
-        dBTYPE = newDBTYPE;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__DBTYPE, oldDBTYPE, dBTYPE));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String getRELATEDENTITY() {
         return rELATEDENTITY;
     }
@@ -845,7 +798,48 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
+    public String getTYPE() {
+        return tYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTYPE(String newTYPE) {
+        String oldTYPE = tYPE;
+        tYPE = newTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__TYPE, oldTYPE, tYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDBTYPE() {
+        return dBTYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDBTYPE(String newDBTYPE) {
+        String oldDBTYPE = dBTYPE;
+        dBTYPE = newDBTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__DBTYPE, oldDBTYPE, dBTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.COLUMN_TYPE__COMMENT:
@@ -885,7 +879,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.COLUMN_TYPE__COMMENT:
@@ -939,7 +932,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.COLUMN_TYPE__COMMENT:
@@ -993,7 +985,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.COLUMN_TYPE__COMMENT:
@@ -1033,7 +1024,6 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

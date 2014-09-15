@@ -1,20 +1,21 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORType;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
@@ -57,7 +58,6 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.CONNECTORS_TYPE;
     }
@@ -79,7 +79,6 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
@@ -93,7 +92,6 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
@@ -107,8 +105,6 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
@@ -124,7 +120,6 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:
@@ -139,7 +134,6 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:

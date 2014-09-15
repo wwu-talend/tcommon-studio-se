@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -59,7 +56,7 @@ public interface IMPORTSType extends EObject {
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.IMPORTType}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>IMPORT</em>' containment reference isn't clear,
+     * If the meaning of the '<em>IMPORT</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->

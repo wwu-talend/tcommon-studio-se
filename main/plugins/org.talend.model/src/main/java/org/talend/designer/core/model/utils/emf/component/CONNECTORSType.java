@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -30,10 +27,6 @@ public interface CONNECTORSType extends EObject {
      * Returns the value of the '<em><b>CONNECTOR</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.CONNECTORType}.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>CONNECTOR</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * BUILTIN can only be used when CTYPE = 'FLOW'

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
@@ -10,13 +6,18 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.ITEMType;
@@ -200,7 +201,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.ITEMS_TYPE;
     }
@@ -427,7 +427,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -441,7 +440,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -465,8 +463,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
-    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -497,7 +493,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -527,7 +522,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
@@ -551,7 +545,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

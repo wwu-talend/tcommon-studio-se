@@ -1,12 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -62,6 +56,33 @@ public interface COMPONENTType extends EObject {
      * @generated
      */
     void setHEADER(HEADERType value);
+
+    /**
+     * Returns the value of the '<em><b>FAMILIES</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>FAMILIES</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>FAMILIES</em>' containment reference.
+     * @see #setFAMILIES(FAMILIESType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_FAMILIES()
+     * @model containment="true" required="true"
+     *        extendedMetaData="kind='element' name='FAMILIES' namespace='##targetNamespace'"
+     * @generated
+     */
+    FAMILIESType getFAMILIES();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES <em>FAMILIES</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>FAMILIES</em>' containment reference.
+     * @see #getFAMILIES()
+     * @generated
+     */
+    void setFAMILIES(FAMILIESType value);
 
     /**
      * Returns the value of the '<em><b>DOCUMENTATION</b></em>' containment reference.
@@ -278,32 +299,5 @@ public interface COMPONENTType extends EObject {
      * @generated
      */
     void setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType value);
-
-    /**
-     * Returns the value of the '<em><b>FAMILIES</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>FAMILIES</em>' containment reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>FAMILIES</em>' containment reference.
-     * @see #setFAMILIES(FAMILIESType)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_FAMILIES()
-     * @model containment="true" required="true"
-     *        extendedMetaData="kind='element' name='FAMILIES' namespace='##targetNamespace'"
-     * @generated
-     */
-    FAMILIESType getFAMILIES();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES <em>FAMILIES</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>FAMILIES</em>' containment reference.
-     * @see #getFAMILIES()
-     * @generated
-     */
-    void setFAMILIES(FAMILIESType value);
 
 } // COMPONENTType

@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.commons.bridge,
  org.talend.commons.emf,
  org.talend.core.model,
@@ -51,6 +51,7 @@ Export-Package: org.talend.commons.bridge,
 Require-Bundle: org.apache.log4j,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.gmf.runtime.notation;visibility:=reexport,
  org.eclipse.xsd,
@@ -58,5 +59,6 @@ Require-Bundle: org.apache.log4j,
  org.talend.commons.runtime,
  org.talend.cwm.mip;visibility:=reexport,
  org.talend.utils
+Eclipse-LazyStart: true
 Bundle-Activator: org.talend.core.model.ModelPlugin
 Bundle-ActivationPolicy: lazy

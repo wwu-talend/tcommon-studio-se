@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -33,7 +30,7 @@ public interface TEMPLATEType extends EObject {
      * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.LINKTOType}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>LINKTO</em>' attribute isn't clear,
+     * If the meaning of the '<em>LINKTO</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->

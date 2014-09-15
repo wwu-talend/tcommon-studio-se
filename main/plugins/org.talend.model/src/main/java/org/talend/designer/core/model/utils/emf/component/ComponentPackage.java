@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
@@ -34,7 +30,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "component"; //$NON-NLS-1$
+    String eNAME = "component";
 
     /**
      * The package namespace URI.
@@ -42,7 +38,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "platform:/resource/org.talend.model/model/Component.xsd"; //$NON-NLS-1$
+    String eNS_URI = "platform:/resource/org.talend.model/model/Component.xsd";
 
     /**
      * The package namespace name.
@@ -50,7 +46,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "component"; //$NON-NLS-1$
+    String eNS_PREFIX = "component";
 
     /**
      * The singleton instance of the package.
@@ -775,11 +771,11 @@ public interface ComponentPackage extends EPackage {
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int DOCUMENT_ROOT__ITEMS = 10;
+    int DOCUMENT_ROOT__ITEMS = 10;
 
     /**
      * The feature id for the '<em><b>PARAMETER</b></em>' containment reference.
@@ -1503,11 +1499,11 @@ public interface ComponentPackage extends EPackage {
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int ITEM_TYPE__ITEMS = 0;
+    int ITEM_TYPE__ITEMS = 0;
 
     /**
      * The feature id for the '<em><b>CONTEXT</b></em>' attribute.
@@ -1530,11 +1526,11 @@ public interface ComponentPackage extends EPackage {
     /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int ITEM_TYPE__FIELD = 3;
+    int ITEM_TYPE__FIELD = 3;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -1627,13 +1623,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__VALUE = 13;
 
     /**
+     * The feature id for the '<em><b>RAW</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__RAW = 14;
+
+    /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 14;
+    int ITEM_TYPE_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl <em>JAVACOMMAND Type</em>}' class.
@@ -1840,13 +1845,13 @@ public interface ComponentPackage extends EPackage {
     /**
      * The feature id for the '<em><b>DYNAMICSETTINGS</b></em>' attribute.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int PARAMETER_TYPE__DYNAMICSETTINGS = 8;
+    int PARAMETER_TYPE__DYNAMICSETTINGS = 8;
 
-				/**
+    /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2000,13 +2005,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__SHOWIF = 25;
 
     /**
+     * The feature id for the '<em><b>RAW</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__RAW = 26;
+
+    /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 26;
+    int PARAMETER_TYPE_FEATURE_COUNT = 27;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -2646,28 +2660,6 @@ public interface ComponentPackage extends EPackage {
     EAttribute getCOLUMNType_READONLY();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>TYPE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE()
-     * @see #getCOLUMNType()
-     * @generated
-     */
-    EAttribute getCOLUMNType_TYPE();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE <em>DBTYPE</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>DBTYPE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE()
-     * @see #getCOLUMNType()
-     * @generated
-     */
-    EAttribute getCOLUMNType_DBTYPE();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getRELATEDENTITY <em>RELATEDENTITY</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2690,6 +2682,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getCOLUMNType_RELATIONSHIPTYPE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>TYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_TYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE <em>DBTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DBTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getDBTYPE()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_DBTYPE();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType <em>COMPONENT Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2709,6 +2723,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getCOMPONENTType_HEADER();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES <em>FAMILIES</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>FAMILIES</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES()
+     * @see #getCOMPONENTType()
+     * @generated
+     */
+    EReference getCOMPONENTType_FAMILIES();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getDOCUMENTATION <em>DOCUMENTATION</em>}'.
@@ -2797,17 +2822,6 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getCOMPONENTType_PLUGINDEPENDENCIES();
-
-    /**
-     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES <em>FAMILIES</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>FAMILIES</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES()
-     * @see #getCOMPONENTType()
-     * @generated
-     */
-    EReference getCOMPONENTType_FAMILIES();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORSType <em>CONNECTORS Type</em>}'.
@@ -3203,13 +3217,13 @@ public interface ComponentPackage extends EPackage {
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}'.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>ITEMS</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS()
      * @see #getDocumentRoot()
      * @generated
      */
-	EReference getDocumentRoot_ITEMS();
+    EReference getDocumentRoot_ITEMS();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETER <em>PARAMETER</em>}'.
@@ -3372,6 +3386,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_AUTHOR();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COMBINE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_COMBINE();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}'.
@@ -3671,17 +3696,6 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_SUPPORTS_DB_TYPE();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>COMBINE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_COMBINE();
-
-    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType <em>IMPORTS Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3755,6 +3769,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getIMPORTType_URL();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID <em>Bundle ID</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Bundle ID</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EAttribute getIMPORTType_BundleID();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}'.
@@ -3854,17 +3879,6 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getIMPORTType_MODULEGROUP();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID <em>Bundle ID</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Bundle ID</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getBundleID()
-     * @see #getIMPORTType()
-     * @generated
-     */
-    EAttribute getIMPORTType_BundleID();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.INSTALLType <em>INSTALL Type</em>}'.
@@ -3987,13 +4001,13 @@ public interface ComponentPackage extends EPackage {
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}'.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>ITEMS</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS()
      * @see #getITEMType()
      * @generated
      */
-	EReference getITEMType_ITEMS();
+    EReference getITEMType_ITEMS();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getCONTEXT <em>CONTEXT</em>}'.
@@ -4007,15 +4021,26 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_CONTEXT();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DISPLAYNAMEASVALUE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_DISPLAYNAMEASVALUE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}'.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>FIELD</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD()
      * @see #getITEMType()
      * @generated
      */
-	EAttribute getITEMType_FIELD();
+    EAttribute getITEMType_FIELD();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFILTER <em>FILTER</em>}'.
@@ -4038,6 +4063,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getITEMType_NAME();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOCONTEXTASSIST</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_NOCONTEXTASSIST();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
@@ -4117,15 +4153,15 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_VALUE();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isRAW <em>RAW</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>DISPLAYNAMEASVALUE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE()
+     * @return the meta object for the attribute '<em>RAW</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isRAW()
      * @see #getITEMType()
      * @generated
      */
-    EAttribute getITEMType_DISPLAYNAMEASVALUE();
+    EAttribute getITEMType_RAW();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType <em>JAVACOMMAND Type</em>}'.
@@ -4180,17 +4216,6 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getJAVACOMMANDType_JAR();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>NOCONTEXTASSIST</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST()
-     * @see #getITEMType()
-     * @generated
-     */
-    EAttribute getITEMType_NOCONTEXTASSIST();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.LINKTOType <em>LINKTO Type</em>}'.
@@ -4346,15 +4371,15 @@ public interface ComponentPackage extends EPackage {
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isDYNAMICSETTINGS <em>DYNAMICSETTINGS</em>}'.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>DYNAMICSETTINGS</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isDYNAMICSETTINGS()
      * @see #getPARAMETERType()
      * @generated
      */
-	EAttribute getPARAMETERType_DYNAMICSETTINGS();
+    EAttribute getPARAMETERType_DYNAMICSETTINGS();
 
-				/**
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4419,6 +4444,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getPARAMETERType_NBLINES();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOCONTEXTASSIST</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_NOCONTEXTASSIST();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
@@ -4531,15 +4567,15 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_SHOWIF();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW <em>RAW</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>NOCONTEXTASSIST</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST()
+     * @return the meta object for the attribute '<em>RAW</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isRAW()
      * @see #getPARAMETERType()
      * @generated
      */
-    EAttribute getPARAMETERType_NOCONTEXTASSIST();
+    EAttribute getPARAMETERType_RAW();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType <em>PLUGINDEPENDENCIES Type</em>}'.
@@ -4744,17 +4780,6 @@ public interface ComponentPackage extends EPackage {
     EReference getTABLEType_COLUMN();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY <em>READONLY</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>READONLY</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY()
-     * @see #getTABLEType()
-     * @generated
-     */
-    EAttribute getTABLEType_READONLY();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getIF <em>IF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4786,6 +4811,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getTABLEType_READONLYCOLUMNPOSITION();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY <em>READONLY</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READONLY</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY()
+     * @see #getTABLEType()
+     * @generated
+     */
+    EAttribute getTABLEType_READONLY();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType <em>TEMPLATEPARAM Type</em>}'.
@@ -4970,7 +5006,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    interface Literals  {
+    interface Literals {
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ADVANCEDPARAMETERSTypeImpl <em>ADVANCEDPARAMETERS Type</em>}' class.
          * <!-- begin-user-doc -->
@@ -5124,22 +5160,6 @@ public interface ComponentPackage extends EPackage {
         EAttribute COLUMN_TYPE__READONLY = eINSTANCE.getCOLUMNType_READONLY();
 
         /**
-         * The meta object literal for the '<em><b>TYPE</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute COLUMN_TYPE__TYPE = eINSTANCE.getCOLUMNType_TYPE();
-
-        /**
-         * The meta object literal for the '<em><b>DBTYPE</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute COLUMN_TYPE__DBTYPE = eINSTANCE.getCOLUMNType_DBTYPE();
-
-        /**
          * The meta object literal for the '<em><b>RELATEDENTITY</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5154,6 +5174,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__RELATIONSHIPTYPE = eINSTANCE.getCOLUMNType_RELATIONSHIPTYPE();
+
+        /**
+         * The meta object literal for the '<em><b>TYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__TYPE = eINSTANCE.getCOLUMNType_TYPE();
+
+        /**
+         * The meta object literal for the '<em><b>DBTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__DBTYPE = eINSTANCE.getCOLUMNType_DBTYPE();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -5172,6 +5208,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference COMPONENT_TYPE__HEADER = eINSTANCE.getCOMPONENTType_HEADER();
+
+        /**
+         * The meta object literal for the '<em><b>FAMILIES</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COMPONENT_TYPE__FAMILIES = eINSTANCE.getCOMPONENTType_FAMILIES();
 
         /**
          * The meta object literal for the '<em><b>DOCUMENTATION</b></em>' containment reference feature.
@@ -5236,14 +5280,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference COMPONENT_TYPE__PLUGINDEPENDENCIES = eINSTANCE.getCOMPONENTType_PLUGINDEPENDENCIES();
-
-        /**
-         * The meta object literal for the '<em><b>FAMILIES</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference COMPONENT_TYPE__FAMILIES = eINSTANCE.getCOMPONENTType_FAMILIES();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORSTypeImpl <em>CONNECTORS Type</em>}' class.
@@ -5546,10 +5582,10 @@ public interface ComponentPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>ITEMS</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
-		EReference DOCUMENT_ROOT__ITEMS = eINSTANCE.getDocumentRoot_ITEMS();
+        EReference DOCUMENT_ROOT__ITEMS = eINSTANCE.getDocumentRoot_ITEMS();
 
         /**
          * The meta object literal for the '<em><b>PARAMETER</b></em>' containment reference feature.
@@ -5676,6 +5712,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__AUTHOR = eINSTANCE.getHEADERType_AUTHOR();
+
+        /**
+         * The meta object literal for the '<em><b>COMBINE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__COMBINE = eINSTANCE.getHEADERType_COMBINE();
 
         /**
          * The meta object literal for the '<em><b>COMPATIBILITY</b></em>' attribute feature.
@@ -5894,14 +5938,6 @@ public interface ComponentPackage extends EPackage {
         EAttribute HEADER_TYPE__SUPPORTS_DB_TYPE = eINSTANCE.getHEADERType_SUPPORTS_DB_TYPE();
 
         /**
-         * The meta object literal for the '<em><b>COMBINE</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__COMBINE = eINSTANCE.getHEADERType_COMBINE();
-
-        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5960,6 +5996,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__URL = eINSTANCE.getIMPORTType_URL();
+
+        /**
+         * The meta object literal for the '<em><b>Bundle ID</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORT_TYPE__BUNDLE_ID = eINSTANCE.getIMPORTType_BundleID();
 
         /**
          * The meta object literal for the '<em><b>MESSAGE</b></em>' attribute feature.
@@ -6032,14 +6076,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__MODULEGROUP = eINSTANCE.getIMPORTType_MODULEGROUP();
-
-        /**
-         * The meta object literal for the '<em><b>Bundle ID</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute IMPORT_TYPE__BUNDLE_ID = eINSTANCE.getIMPORTType_BundleID();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
@@ -6138,10 +6174,10 @@ public interface ComponentPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>ITEMS</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
-		EReference ITEM_TYPE__ITEMS = eINSTANCE.getITEMType_ITEMS();
+        EReference ITEM_TYPE__ITEMS = eINSTANCE.getITEMType_ITEMS();
 
         /**
          * The meta object literal for the '<em><b>CONTEXT</b></em>' attribute feature.
@@ -6152,12 +6188,20 @@ public interface ComponentPackage extends EPackage {
         EAttribute ITEM_TYPE__CONTEXT = eINSTANCE.getITEMType_CONTEXT();
 
         /**
-         * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute feature.
          * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
-		EAttribute ITEM_TYPE__FIELD = eINSTANCE.getITEMType_FIELD();
+        EAttribute ITEM_TYPE__DISPLAYNAMEASVALUE = eINSTANCE.getITEMType_DISPLAYNAMEASVALUE();
+
+        /**
+         * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__FIELD = eINSTANCE.getITEMType_FIELD();
 
         /**
          * The meta object literal for the '<em><b>FILTER</b></em>' attribute feature.
@@ -6174,6 +6218,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_TYPE__NAME = eINSTANCE.getITEMType_NAME();
+
+        /**
+         * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__NOCONTEXTASSIST = eINSTANCE.getITEMType_NOCONTEXTASSIST();
 
         /**
          * The meta object literal for the '<em><b>NOTREADONLYIF</b></em>' attribute feature.
@@ -6232,12 +6284,12 @@ public interface ComponentPackage extends EPackage {
         EAttribute ITEM_TYPE__VALUE = eINSTANCE.getITEMType_VALUE();
 
         /**
-         * The meta object literal for the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>RAW</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute ITEM_TYPE__DISPLAYNAMEASVALUE = eINSTANCE.getITEMType_DISPLAYNAMEASVALUE();
+        EAttribute ITEM_TYPE__RAW = eINSTANCE.getITEMType_RAW();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl <em>JAVACOMMAND Type</em>}' class.
@@ -6280,14 +6332,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute JAVACOMMAND_TYPE__JAR = eINSTANCE.getJAVACOMMANDType_JAR();
-
-        /**
-         * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ITEM_TYPE__NOCONTEXTASSIST = eINSTANCE.getITEMType_NOCONTEXTASSIST();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
@@ -6410,12 +6454,12 @@ public interface ComponentPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>DYNAMICSETTINGS</b></em>' attribute feature.
          * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+         * <!-- end-user-doc -->
          * @generated
          */
-		EAttribute PARAMETER_TYPE__DYNAMICSETTINGS = eINSTANCE.getPARAMETERType_DYNAMICSETTINGS();
+        EAttribute PARAMETER_TYPE__DYNAMICSETTINGS = eINSTANCE.getPARAMETERType_DYNAMICSETTINGS();
 
-								/**
+        /**
          * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -6462,6 +6506,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__NBLINES = eINSTANCE.getPARAMETERType_NBLINES();
+
+        /**
+         * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__NOCONTEXTASSIST = eINSTANCE.getPARAMETERType_NOCONTEXTASSIST();
 
         /**
          * The meta object literal for the '<em><b>NOTREADONLYIF</b></em>' attribute feature.
@@ -6544,12 +6596,12 @@ public interface ComponentPackage extends EPackage {
         EAttribute PARAMETER_TYPE__SHOWIF = eINSTANCE.getPARAMETERType_SHOWIF();
 
         /**
-         * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>RAW</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute PARAMETER_TYPE__NOCONTEXTASSIST = eINSTANCE.getPARAMETERType_NOCONTEXTASSIST();
+        EAttribute PARAMETER_TYPE__RAW = eINSTANCE.getPARAMETERType_RAW();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -6718,14 +6770,6 @@ public interface ComponentPackage extends EPackage {
         EReference TABLE_TYPE__COLUMN = eINSTANCE.getTABLEType_COLUMN();
 
         /**
-         * The meta object literal for the '<em><b>READONLY</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute TABLE_TYPE__READONLY = eINSTANCE.getTABLEType_READONLY();
-
-        /**
          * The meta object literal for the '<em><b>IF</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -6748,6 +6792,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TABLE_TYPE__READONLYCOLUMNPOSITION = eINSTANCE.getTABLEType_READONLYCOLUMNPOSITION();
+
+        /**
+         * The meta object literal for the '<em><b>READONLY</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TABLE_TYPE__READONLY = eINSTANCE.getTABLEType_READONLY();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.

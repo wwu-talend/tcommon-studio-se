@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
@@ -60,10 +56,6 @@ public interface HEADERType extends EObject {
     /**
      * Returns the value of the '<em><b>SIGNATURE</b></em>' attribute.
      * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>SIGNATURE</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
      * 
@@ -142,6 +134,33 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setAUTHOR(String value);
+
+    /**
+     * Returns the value of the '<em><b>COMBINE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>COMBINE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>COMBINE</em>' attribute.
+     * @see #setCOMBINE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_COMBINE()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='COMBINE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getCOMBINE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>COMBINE</em>' attribute.
+     * @see #getCOMBINE()
+     * @generated
+     */
+    void setCOMBINE(String value);
 
     /**
      * Returns the value of the '<em><b>COMPATIBILITY</b></em>' attribute.
@@ -1232,32 +1251,5 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setSUPPORTS_DB_TYPE(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>COMBINE</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>COMBINE</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>COMBINE</em>' attribute.
-     * @see #setCOMBINE(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_COMBINE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='COMBINE' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getCOMBINE();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMBINE <em>COMBINE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>COMBINE</em>' attribute.
-     * @see #getCOMBINE()
-     * @generated
-     */
-    void setCOMBINE(String value);
 
 } // HEADERType

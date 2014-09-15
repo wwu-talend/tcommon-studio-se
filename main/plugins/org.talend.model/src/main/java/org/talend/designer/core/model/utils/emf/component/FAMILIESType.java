@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,7 +28,7 @@ public interface FAMILIESType extends EObject {
      * The list contents are of type {@link java.lang.String}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>FAMILY</em>' attribute isn't clear,
+     * If the meaning of the '<em>FAMILY</em>' attribute list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->

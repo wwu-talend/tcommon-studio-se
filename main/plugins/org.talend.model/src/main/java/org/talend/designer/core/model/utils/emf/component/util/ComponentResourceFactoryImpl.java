@@ -1,19 +1,22 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.util;
 
 import org.eclipse.emf.common.util.URI;
+
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+
 import org.eclipse.emf.ecore.resource.Resource;
+
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
+
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
+
 import org.eclipse.emf.ecore.xmi.XMLResource;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 
 /**
@@ -49,8 +52,6 @@ public class ComponentResourceFactoryImpl extends ResourceFactoryImpl {
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public Resource createResource(URI uri) {
         XMLResource result = new ComponentResourceImpl(uri);
         result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);

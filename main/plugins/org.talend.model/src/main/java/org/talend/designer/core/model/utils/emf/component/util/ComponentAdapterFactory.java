@@ -1,38 +1,15 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
-import org.talend.designer.core.model.utils.emf.component.*;
 
-import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
-import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
-import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
-import org.talend.designer.core.model.utils.emf.component.CONNECTORType;
-import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
-import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
-import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
-import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
-import org.talend.designer.core.model.utils.emf.component.HEADERType;
-import org.talend.designer.core.model.utils.emf.component.IMPORTSType;
-import org.talend.designer.core.model.utils.emf.component.IMPORTType;
-import org.talend.designer.core.model.utils.emf.component.ITEMSType;
-import org.talend.designer.core.model.utils.emf.component.ITEMType;
-import org.talend.designer.core.model.utils.emf.component.LINKTOType;
-import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
-import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
-import org.talend.designer.core.model.utils.emf.component.RETURNSType;
-import org.talend.designer.core.model.utils.emf.component.RETURNType;
-import org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType;
-import org.talend.designer.core.model.utils.emf.component.TEMPLATESType;
-import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.talend.designer.core.model.utils.emf.component.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -71,7 +48,6 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
-    @Override
     public boolean isFactoryForType(Object object) {
         if (object == modelPackage) {
             return true;
@@ -199,7 +175,6 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @return the adapter for the <code>target</code>.
      * @generated
      */
-    @Override
     public Adapter createAdapter(Notifier target) {
         return (Adapter)modelSwitch.doSwitch((EObject)target);
     }
