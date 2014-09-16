@@ -18,6 +18,19 @@
             <dbType type="DecimalType" defaultLength="20" defaultPrecision="10" />
             <dbType type="CounterColumnType" ignorePre="true" />
             <dbType type="ObjectType" ignorePre="true" />
+            
+            <!--CQL Type-->
+            <dbType type="ASCII" ignorePre="true" />
+            <dbType type="BIGINT" ignorePre="true" />
+            <dbType type="BLOB" ignorePre="true" />
+            <dbType type="BOOLEAN" ignorePre="true" />
+            <dbType type="UUID" ignorePre="true" />
+            <dbType type="TIMEUUID" ignorePre="true" />
+            <dbType type="VARINT" ignorePre="true" />
+            <dbType type="FLOAT" defaultLength="20" defaultPrecision="10" />
+            <dbType type="DOUBLE" defaultLength="20" defaultPrecision="10" />
+            <dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
+            <dbType type="COUNTER" ignorePre="true" />
         </dbTypes>
 
         <language name="java">
@@ -36,23 +49,29 @@
                 </talendType>
                 <talendType type="id_BigDecimal">
                     <dbType type="DecimalType" default="true" />
+                    <dbType type="DECIMAL" />
                 </talendType>
                 <talendType type="id_Double">
                     <dbType type="DoubleType" default="true" />
+                    <dbType type="DOUBLE" />
                 </talendType>
                 <talendType type="id_Float">
                     <dbType type="FloatType" default="true" />
                 </talendType>
                 <talendType type="id_Integer">
                     <dbType type="Int32Type" default="true" />
+                    <dbType type="VARINT" />
                 </talendType>
                 <talendType type="id_Long">
                     <dbType type="LongType" default="true" />
                     <dbType type="CounterColumnType" />
+                    <dbType type="COUNTER" />
+                    <dbType type="BIGINT" />
                 </talendType>
                 <talendType type="id_Object">
                     <dbType type="ObjectType" default="true" />
                     <dbType type="IntegerType" />
+                    <dbType type="BLOB" />
                 </talendType>
                 <talendType type="id_Short" />
                 <talendType type="id_String">
@@ -60,6 +79,9 @@
                     <dbType type="AsciiType" />
                     <dbType type="UUIDType" />
                     <dbType type="TimeUUIDType" />
+                    <dbType type="ASCII" />
+                    <dbType type="UUID" />
+                    <dbType type="TIMEUUID" />
                 </talendType>
             </talendToDbTypes>
             <dbToTalendTypes>
@@ -108,6 +130,41 @@
                 <dbType type="ObjectType">
                     <talendType type="id_Object" default="true" />
                 </dbType>
+                
+                <dbType type="ASCII">
+                    <talendType type="id_String" default="true" />
+                </dbType>
+                <dbType type="BIGINT">
+                    <talendType type="id_Long" default="true" />
+                </dbType>
+                <dbType type="BLOB">
+                    <talendType type="id_Object" default="true" />
+                </dbType>
+                <dbType type="BOOLEAN">
+                    <talendType type="id_Boolean" default="true" />
+                </dbType>
+                <dbType type="UUID">
+                    <talendType type="id_String" default="true" />
+                </dbType>
+                <dbType type="TIMEUUID">
+                    <talendType type="id_String" default="true" />
+                </dbType>
+                <dbType type="VARINT">
+                    <talendType type="id_Integer" default="true" />
+                </dbType>
+                <dbType type="FLOAT">
+                    <talendType type="id_Float" default="true" />
+                </dbType>
+                <dbType type="DOUBLE">
+                    <talendType type="id_Double" default="true" />
+                </dbType>
+                <dbType type="DECIMAL">
+                    <talendType type="id_BigDecimal" default="true" />
+                </dbType>
+                <dbType type="COUNTER">
+                    <talendType type="id_Boolean" default="true" />
+                </dbType>
+                
             </dbToTalendTypes>
         </language>
     </dbms>
