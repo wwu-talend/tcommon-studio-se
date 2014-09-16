@@ -54,7 +54,7 @@ public class ContextVariableValuePage extends WizardPage {
         gridData.widthHint = 100;
         reuseContextComp.setLayoutData(gridData);
         reuseContextComp.setReadOnly(false);
-        reuseContextComp.refreshTemplateTab();
+        reuseContextComp.refresh();
         setControl(reuseContextComp);
     }
 

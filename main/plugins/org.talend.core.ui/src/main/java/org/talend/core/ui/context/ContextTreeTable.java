@@ -60,12 +60,14 @@ import org.eclipse.nebula.widgets.nattable.painter.layer.NatGridLayerPainter;
 import org.eclipse.nebula.widgets.nattable.reorder.ColumnReorderLayer;
 import org.eclipse.nebula.widgets.nattable.selection.RowSelectionProvider;
 import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer;
+import org.eclipse.nebula.widgets.nattable.selection.config.DefaultSelectionStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.sort.ISortModel;
 import org.eclipse.nebula.widgets.nattable.sort.SortConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.sort.SortHeaderLayer;
 import org.eclipse.nebula.widgets.nattable.tree.SortableTreeComparator;
 import org.eclipse.nebula.widgets.nattable.tree.TreeLayer;
 import org.eclipse.nebula.widgets.nattable.tree.config.DefaultTreeLayerConfiguration;
+import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
 import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -213,6 +215,7 @@ public class ContextTreeTable {
                     false);
 
             SelectionLayer selectionLayer = new SelectionLayer(treeLayer);
+            addCustomSelectionBehaviour(selectionLayer);
 
             ViewportLayer viewportLayer = new ViewportLayer(selectionLayer);
 
@@ -449,8 +452,16 @@ public class ContextTreeTable {
         return hidePos;
     }
 
+    private void addCustomSelectionBehaviour(SelectionLayer layer) {
+        // need control the selection style when select the rows.
+        DefaultSelectionStyleConfiguration selectStyleConfig = new DefaultSelectionStyleConfiguration();
+        selectStyleConfig.selectionBgColor = GUIHelper.COLOR_DARK_GRAY;
+        selectStyleConfig.anchorBgColor = GUIHelper.COLOR_DARK_GRAY;
+        layer.addConfiguration(selectStyleConfig);
+    }
+
     private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
-            ColumnGroupModel groupModel, IContextManager manager) {
+            ColumnGroupModel groupModel, IContextManager contextManager) {
         ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
         // for the repository context's background.we control its backgroup colour is gray
         natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextTextPainter(false, false, false),
@@ -459,7 +470,7 @@ public class ContextTreeTable {
         natTable.addConfiguration(natTableConfiguration);
 
         // add configuration for the context columns to do the column edit,color,style,etc.
-        natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel, manager));
+        natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel, contextManager));
     }
 
     private void addCustomContextMenuBehavior(final IContextModelManager modelManager,

@@ -165,6 +165,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         setButtonLayoutData(bViewContent);
         bViewContent.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 TreeSelection selection = (TreeSelection) treeViewer.getSelection();
                 if (selection.isEmpty()) {
@@ -184,6 +185,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         setButtonLayoutData(bSelectAll);
         bSelectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll(true);
             }
@@ -195,6 +197,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         setButtonLayoutData(bDeselectAll);
         bDeselectAll.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent e) {
                 selectAll(false);
             }
@@ -208,6 +211,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             setButtonLayoutData(bExpand);
             bExpand.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     treeViewer.expandAll();
                 }
@@ -219,6 +223,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             setButtonLayoutData(bCollapse);
             bCollapse.addSelectionListener(new SelectionAdapter() {
 
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     treeViewer.collapseAll();
                 }
@@ -239,6 +244,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     private void addTreeListener() {
         treeViewer.addCheckStateListener(new ICheckStateListener() {
 
+            @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 Object obj = event.getElement();
                 if (obj instanceof ContextItem) {
@@ -253,6 +259,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         });
         treeViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
 
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 TreeSelection selection = (TreeSelection) event.getSelection();
                 if (selection.getFirstElement() instanceof ContextItem) {
@@ -492,9 +499,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             }
             progressDialog(selectedItems, contextGoupNameSet, getSelectedContextParameterType());
 
-            modelManager.refreshTemplateTab();
-            //
-            modelManager.refreshTableTab();
+            modelManager.refresh();
         }
 
         super.okPressed();
@@ -520,6 +525,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
      */
     class ContextTreeContentProvider implements ITreeContentProvider {
 
+        @Override
         public Object[] getChildren(Object parentElement) {
             if (parentElement instanceof ContextItem) {
                 ContextItem item = (ContextItem) parentElement;
@@ -531,11 +537,13 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public Object getParent(Object element) {
 
             return helper.getParentContextItem(element);
         }
 
+        @Override
         public boolean hasChildren(Object element) {
             if (element instanceof ContextItem) {
                 return true;
@@ -543,14 +551,17 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             return false;
         }
 
+        @Override
         public Object[] getElements(Object inputElement) {
             return ((List) inputElement).toArray();
         }
 
+        @Override
         public void dispose() {
 
         }
 
+        @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
         }
@@ -563,6 +574,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
      */
     class ContextTreeLabelProvider implements ILabelProvider {
 
+        @Override
         public Image getImage(Object element) {
             if (element instanceof ContextItem) {
                 ContextItem item = (ContextItem) element;
@@ -581,6 +593,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public String getText(Object element) {
             if (element instanceof ContextItem) {
                 ContextItem item = (ContextItem) element;
@@ -600,19 +613,23 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             return null;
         }
 
+        @Override
         public void addListener(ILabelProviderListener listener) {
 
         }
 
+        @Override
         public void dispose() {
 
         }
 
+        @Override
         public boolean isLabelProperty(Object element, String property) {
 
             return false;
         }
 
+        @Override
         public void removeListener(ILabelProviderListener listener) {
 
         }

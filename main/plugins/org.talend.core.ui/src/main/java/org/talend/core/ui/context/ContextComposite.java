@@ -81,7 +81,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     public void setPart(EditorPart part) {
         this.part = part;
-        refreshTableTab();
+        refresh();
     }
 
     public void setTabEnable(boolean enable) {
@@ -107,15 +107,10 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     @Override
     public void refresh() {
-        refreshTab();
+        refreshView();
     }
 
-    @Override
-    public void refreshTemplateTab() {
-        refreshTab();
-    }
-
-    private void refreshTab() {
+    private void refreshView() {
         if (getContextManager() == null) {
             this.setEnabled(false);
             tableNebulas.clear();
@@ -129,16 +124,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
         if (getContextManager() != null) {
             getContextManager().fireContextsChangedEvent();
         }
-    }
-
-    @Override
-    public void refreshTableTab() {
-        refreshTab();
-    }
-
-    @Override
-    public void refreshTreeTab() {
-        refreshTab();
     }
 
     /**

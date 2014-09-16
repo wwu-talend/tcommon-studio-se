@@ -385,15 +385,15 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (property.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
                 param.setPromptNeeded((Boolean) oldValue);
+                modified = true;
             } else if (property.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
                 param.setPrompt((String) oldValue);
+                modified = true;
             } else if (property.equals(ContextTableConstants.COLUMN_CONTEXT_VALUE)) {
                 param.setValue((String) oldValue);
+                modified = true;
             }
 
             if (modified) {
@@ -465,14 +465,12 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {
                         if (param.getName().equals(contextParameter.getName())) {
                             contextParameter.setType(oldValue);
+                            modified = true;
                         }
                     }
                 }
@@ -559,9 +557,6 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         @Override
         public void undo() {
             boolean modified = false;
-            if (!modified) {
-                return;
-            }
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {
@@ -570,6 +565,7 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                             if (contextParameter.getPrompt().equals(newName + "?")) {
                                 contextParameter.setPrompt(originalName + "?");
                             }
+                            modified = true;
                         }
                     }
                 }

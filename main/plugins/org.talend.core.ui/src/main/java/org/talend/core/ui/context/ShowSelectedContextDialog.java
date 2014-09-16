@@ -72,7 +72,7 @@ public class ShowSelectedContextDialog extends Dialog {
         gridData.horizontalAlignment = SWT.FILL;
         showContext.setLayoutData(gridData);
         showContext.setReadOnly(true);
-        showContext.refreshTemplateTab();
+        showContext.refresh();
         return composite;
 
     }
@@ -93,26 +93,32 @@ public class ShowSelectedContextDialog extends Dialog {
             return contextManager;
         }
 
+        @Override
         public void onContextAddParameter(IContextManager contextManager, IContextParameter parameter) {
 
         }
 
+        @Override
         public void onContextChangeDefault(IContextManager contextManager, IContext newDefault) {
 
         }
 
+        @Override
         public void onContextModify(IContextManager contextManager, IContextParameter parameter) {
 
         }
 
+        @Override
         public void onContextRemoveParameter(IContextManager contextManager, String paramName) {
 
         }
 
+        @Override
         public void onContextRenameParameter(IContextManager contextManager, String oldName, String newName) {
 
         }
 
+        @Override
         public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames) {
 
         }
@@ -123,6 +129,7 @@ public class ShowSelectedContextDialog extends Dialog {
          * @see org.talend.core.ui.context.IContextModelManager#onContextRemoveParameter(org.talend.core.model.process.
          * IContextManager, java.lang.String, java.lang.String)
          */
+        @Override
         public void onContextRemoveParameter(IContextManager contextManager, String paramName, String sourceId) {
             // TODO Auto-generated method stub
 
@@ -134,6 +141,7 @@ public class ShowSelectedContextDialog extends Dialog {
          * @see org.talend.core.ui.context.IContextModelManager#onContextRemoveParameter(org.talend.core.model.process.
          * IContextManager, java.util.Set, java.lang.String)
          */
+        @Override
         public void onContextRemoveParameter(IContextManager contextManager, Set<String> paramNames, String sourceId) {
             // TODO Auto-generated method stub
 
@@ -145,6 +153,7 @@ public class ShowSelectedContextDialog extends Dialog {
          * @see org.talend.core.ui.context.IContextModelManager#onContextRenameParameter(org.talend.core.model.process.
          * IContextManager, java.lang.String, java.lang.String, java.lang.String)
          */
+        @Override
         public void onContextRenameParameter(IContextManager contextManager, String sourceId, String oldName, String newName) {
             // TODO Auto-generated method stub
 

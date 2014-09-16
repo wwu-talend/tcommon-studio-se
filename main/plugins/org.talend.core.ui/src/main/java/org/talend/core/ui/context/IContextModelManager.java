@@ -35,15 +35,6 @@ public interface IContextModelManager {
      */
     public void refresh();
 
-    /*
-     * bug 6828 by cli
-     */
-    public void refreshTemplateTab();
-
-    public void refreshTableTab();
-
-    public void refreshTreeTab();
-
     public CommandStack getCommandStack();
 
     public void onContextChangeDefault(IContextManager contextManager, IContext newDefault);

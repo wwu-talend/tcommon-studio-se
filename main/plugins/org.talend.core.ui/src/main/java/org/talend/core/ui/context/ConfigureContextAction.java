@@ -72,8 +72,7 @@ public class ConfigureContextAction extends Action {
                         }
                     }
                     // refresh both
-                    manager.refreshTableTab();
-                    manager.refreshTreeTab();
+                    manager.refresh();
                 }
             };
 

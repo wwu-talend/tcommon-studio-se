@@ -162,7 +162,7 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
     private void registerColumnFirstTextEditor(IConfigRegistry configRegistry) {
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, new TextCellEditor(true, true),
-                DisplayMode.NORMAL, ContextTableConstants.COLUMN_NAME_PROPERTY);
+                DisplayMode.EDIT, ContextTableConstants.COLUMN_NAME_PROPERTY);
     }
 
     private void registerColumnTwoComboxEditor(IConfigRegistry configRegistry) {

@@ -258,8 +258,7 @@ public abstract class AbstractContextView extends ViewPart {
         contextComposite.setReadOnly(!isBuildIn);
 
         if (refreshView) {
-            contextComposite.refreshTableTab();
-            // contextComposite.refreshTemplateTab();
+            contextComposite.refresh();
         }
 
     }
@@ -279,9 +278,7 @@ public abstract class AbstractContextView extends ViewPart {
         contextComposite.setReadOnly(!isBuildIn);
 
         if (refreshView) {
-            contextComposite.refreshTemplateTab();
-            contextComposite.refreshTableTab();
-            contextComposite.refreshTreeTab();
+            contextComposite.refresh();
         }
 
     }

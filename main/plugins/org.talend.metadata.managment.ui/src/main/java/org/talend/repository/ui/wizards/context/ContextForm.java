@@ -72,7 +72,7 @@ public class ContextForm extends AbstractForm {
         gridData.widthHint = 700;
         jobContext.setLayoutData(gridData);
         jobContext.setReadOnly(readOnly);
-        jobContext.refreshTemplateTab();
+        jobContext.refresh();
     }
 
     /*

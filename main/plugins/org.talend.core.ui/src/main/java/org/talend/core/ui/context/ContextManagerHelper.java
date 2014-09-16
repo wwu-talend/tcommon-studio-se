@@ -456,9 +456,7 @@ public final class ContextManagerHelper {
             orderCommand.execute();
         }
         //
-        modelManager.refreshTemplateTab();
-
-        modelManager.refreshTableTab();
+        modelManager.refresh();
 
         revertTreeSelection(viewer, movedParam);
 
@@ -503,7 +501,7 @@ public final class ContextManagerHelper {
             orderCommand.execute();
         }
 
-        modelManager.refreshTableTab();
+        modelManager.refresh();
 
         return orderCommand.isExecution();
     }

@@ -477,7 +477,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
      * Added by Marvin Wang on Mar 7, 2013.
      */
     private void refreshContextView() {
-        modelManager.refreshTemplateTab();
+        modelManager.refresh();
     }
 
     /**
@@ -657,7 +657,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                                 removeParentModelNonGroupBySource(variableParentModel);
                             }
                         }
-                        modelManager.refreshTemplateTab();
+                        modelManager.refresh();
                         ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
                         checkButtonEnableState();
                     }
