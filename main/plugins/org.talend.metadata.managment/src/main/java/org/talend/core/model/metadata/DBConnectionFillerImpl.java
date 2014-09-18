@@ -355,6 +355,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
     public List<Catalog> fillCatalogs(DatabaseConnection dbConn, DatabaseMetaData dbJDBCMetadata,
             IMetadataConnection metaConnection, List<String> catalogFilter) {
         List<Catalog> catalogList = new ArrayList<Catalog>();
+        // before fill Catalogs ,need clear cache first
+        List<Catalog> catalogs = ConnectionHelper.getCatalogs(dbConn);
+        ConnectionHelper.removeCatalogs(catalogs, dbConn);
         if (dbJDBCMetadata == null) {
             return null;
         }
