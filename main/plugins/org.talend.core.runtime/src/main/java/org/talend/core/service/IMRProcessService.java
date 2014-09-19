@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
@@ -42,4 +43,5 @@ public interface IMRProcessService extends IService {
 
     public List<IRepositoryViewObject> getMapReduceProcesses(Project project);
 
+    public void generateMRInfosParameter(IProcess2 process);
 }
