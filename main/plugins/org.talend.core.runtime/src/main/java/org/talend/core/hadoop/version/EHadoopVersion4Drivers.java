@@ -71,6 +71,8 @@ public enum EHadoopVersion4Drivers {
 
     CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3", false, false),
 
+    MAPR401(EHadoopDistributions.MAPR, "MapR 4.0.1", "MAPR401", false, true, new EMRVersion[] { EMRVersion.YARN }),
+
     MAPR310(EHadoopDistributions.MAPR, "MapR 3.1.0", "MAPR310", false, true),
 
     MAPR301(EHadoopDistributions.MAPR, "MapR 3.0.1", "MAPR301", false, true),

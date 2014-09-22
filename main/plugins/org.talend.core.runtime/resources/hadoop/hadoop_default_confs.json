@@ -40,6 +40,7 @@
     "MAPR": {
         "NAMENODE_URI": "maprfs:///localhost:7222",
         "JOBTRACKER": "localhost:9001",
+        "RESOURCE_MANAGER": "localhost:8032",
         "HIVE": {
             "EMBEDDED": {
                 "PORT": 9083

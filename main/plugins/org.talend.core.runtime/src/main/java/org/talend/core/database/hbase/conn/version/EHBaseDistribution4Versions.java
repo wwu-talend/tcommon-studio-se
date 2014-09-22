@@ -45,6 +45,8 @@ public enum EHBaseDistribution4Versions {
 
     CLOUDERA_CDH3(EHBaseDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3"),
 
+    MAPR_4_0_1(EHBaseDistributions.MAPR, "MapR 4.0.1", "MAPR401"),
+
     MAPR_3_1_0(EHBaseDistributions.MAPR, "MapR 3.1.0", "MAPR310"),
 
     MAPR_3_0_1(EHBaseDistributions.MAPR, "MapR 3.0.1", "MAPR301"),
