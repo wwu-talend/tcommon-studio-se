@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.utils;
+package org.talend.utils.database;
 
 /**
  * DOC wuwei class global comment. Detailled comment
